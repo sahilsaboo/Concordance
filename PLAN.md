@@ -124,7 +124,9 @@ Hard constraints (budget ceiling, needle aversion, contraindications) **filter o
 
 - Priorities (weights): weight loss, GI tolerability, serious adverse event risk, cardiovascular benefit, convenience (dosing frequency), cost
 - Hard constraints: monthly budget, injection OK?, relevant medical history (contraindication screen, framed as "tell your doctor")
-- Weighting method: start with a 1–5 importance rating per priority (simple). Possible upgrade: pairwise comparisons.
+- Weighting method: 5-level importance per priority (0 = not important, excluded from scoring). Starts unanswered to avoid anchoring. Possible upgrade: pairwise comparisons.
+- Built (v1): priorities, injection preference, monthly budget. Answers stay in the browser.
+- Deferred until real label data exists: medical-history / contraindication screen and treatment goal (weight vs. type 2 diabetes, which changes which brands apply). Both should be driven by sourced facts in the matrix, not hard-coded.
 
 ## 8. Milestones
 
@@ -132,7 +134,7 @@ Hard constraints (budget ceiling, needle aversion, contraindications) **filter o
 |---|-----------|-----------|
 | 0 ✅ | Setup | Repo, uv + Python 3.12, Next.js scaffold, sample_matrix.json |
 | 1 | Rubric calibration | ~20 claims hand-rated; rubric v0.2 |
-| 2 | Web app on sample data | Questionnaire → ranked results with citations, scoring unit-tested |
+| 2 ✅ | Web app on sample data | Questionnaire → ranked results with citations, scoring unit-tested |
 | 3 | Pipeline | Fetch + extract + rate for all options; review CSV round-trip |
 | 4 | Real matrix | All claims reviewed; claim_matrix.json built; web reads it |
 | 5 | Deploy + user tests | Live URL; 1–2 people considering a GLP-1 complete the flow |
