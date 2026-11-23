@@ -1,0 +1,21 @@
+[project]
+name = "concordance-pipeline"
+version = "0.1.0"
+description = "Evidence pipeline: fetch sources, extract and rate claims, build claim_matrix.json"
+readme = "README.md"
+authors = [
+    { name = "sahilsaboo", email = "38050212+sahilsaboo@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.14.4",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.9,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]

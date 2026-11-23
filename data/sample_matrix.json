@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "schema_version": "0.1",
+    "rubric_version": "0.1",
+    "generated_at": "2026-11-23",
+    "is_sample": true,
+    "note": "SAMPLE DATA. All numbers, ratings, and sources are placeholders for building the UI. Not real evidence."
+  },
+  "dimensions": [
+    { "id": "weight_loss", "label": "Weight loss", "basis": "claims" },
+    { "id": "gi_tolerability", "label": "Stomach side effects (nausea, vomiting, diarrhea)", "basis": "claims" },
+    { "id": "serious_ae_risk", "label": "Serious side-effect risk", "basis": "claims" },
+    { "id": "cardiovascular", "label": "Heart health benefit", "basis": "claims" },
+    { "id": "convenience", "label": "Convenience (how often, pill vs. shot)", "basis": "facts" },
+    { "id": "cost", "label": "Cost", "basis": "facts" }
+  ],
+  "options": [
+    {
+      "id": "semaglutide_injection",
+      "blind_label": "Option A",
+      "molecule": "semaglutide",
+      "route": "injection",
+      "brands": ["Wegovy", "Ozempic"]
+    },
+    {
+      "id": "semaglutide_oral",
+      "blind_label": "Option B",
+      "molecule": "semaglutide",
+      "route": "oral",
+      "brands": ["Rybelsus"]
+    },
+    {
+      "id": "tirzepatide_injection",
+      "blind_label": "Option C",
+      "molecule": "tirzepatide",
+      "route": "injection",
+      "brands": ["Zepbound", "Mounjaro"]
+    },
+    {
+      "id": "liraglutide_injection",
+      "blind_label": "Option D",
+      "molecule": "liraglutide",
+      "route": "injection",
+      "brands": ["Saxenda", "Victoza"]
+    }
+  ],
+  "sources": [
+    { "id": "s_sample_1", "title": "[SAMPLE] Placebo-controlled RCT, manufacturer-funded", "url": "https://example.org/sample-1", "type": "rct", "year": 2024, "funding": "manufacturer" },
+    { "id": "s_sample_2", "title": "[SAMPLE] Independent head-to-head RCT", "url": "https://example.org/sample-2", "type": "rct", "year": 2025, "funding": "independent" },
+    { "id": "s_sample_3", "title": "[SAMPLE] Observational cohort study", "url": "https://example.org/sample-3", "type": "observational", "year": 2023, "funding": "independent" },
+    { "id": "s_sample_4", "title": "[SAMPLE] FDA prescribing information", "url": "https://example.org/sample-4", "type": "label", "year": 2025, "funding": "regulator" },
+    { "id": "s_sample_5", "title": "[SAMPLE] Cash-price survey", "url": "https://example.org/sample-5", "type": "price", "year": 2026, "funding": "independent" }
+  ],
+  "claims": [
+    {
+      "id": "c_sample_01", "option": "semaglutide_injection", "dimension": "weight_loss",
+      "statement": "[SAMPLE] Placeholder weight-loss result vs placebo.",
+      "effect": { "metric": "pct_weight_change_vs_placebo", "value": -10, "timepoint_weeks": 68, "normalized": 0.7 },
+      "source_id": "s_sample_1",
+      "ratings": { "bias": 0.6, "thoroughness": 0.9, "rationale": "Placeholder.", "rater": "human", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
+    },
+    {
+      "id": "c_sample_02", "option": "tirzepatide_injection", "dimension": "weight_loss",
+      "statement": "[SAMPLE] Placeholder head-to-head weight-loss result.",
+      "effect": { "metric": "pct_weight_change_vs_placebo", "value": -14, "timepoint_weeks": 72, "normalized": 0.9 },
+      "source_id": "s_sample_2",
+      "ratings": { "bias": 0.9, "thoroughness": 0.8, "rationale": "Placeholder.", "rater": "human", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
+    },
+    {
+      "id": "c_sample_03", "option": "semaglutide_injection", "dimension": "weight_loss",
+      "statement": "[SAMPLE] Placeholder head-to-head weight-loss result.",
+      "effect": { "metric": "pct_weight_change_vs_placebo", "value": -9, "timepoint_weeks": 72, "normalized": 0.65 },
+      "source_id": "s_sample_2",
+      "ratings": { "bias": 0.9, "thoroughness": 0.8, "rationale": "Placeholder.", "rater": "human", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
+    },
+    {
+      "id": "c_sample_04", "option": "liraglutide_injection", "dimension": "weight_loss",
+      "statement": "[SAMPLE] Placeholder weight-loss result vs placebo.",
+      "effect": { "metric": "pct_weight_change_vs_placebo", "value": -5, "timepoint_weeks": 56, "normalized": 0.3 },
+      "source_id": "s_sample_1",
+      "ratings": { "bias": 0.6, "thoroughness": 0.7, "rationale": "Placeholder.", "rater": "human", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
+    },
+    {
+      "id": "c_sample_05", "option": "semaglutide_oral", "dimension": "gi_tolerability",
+      "statement": "[SAMPLE] Placeholder nausea incidence.",
+      "effect": { "metric": "pct_patients_nausea", "value": 20, "timepoint_weeks": 52, "normalized": 0.6 },
+      "source_id": "s_sample_3",
+      "ratings": { "bias": 0.7, "thoroughness": 0.4, "rationale": "Placeholder: observational, so lower thoroughness.", "rater": "llm", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
+    },
+    {
+      "id": "c_sample_06", "option": "tirzepatide_injection", "dimension": "gi_tolerability",
+      "statement": "[SAMPLE] Placeholder nausea incidence.",
+      "effect": { "metric": "pct_patients_nausea", "value": 30, "timepoint_weeks": 72, "normalized": 0.4 },
+      "source_id": "s_sample_2",
+      "ratings": { "bias": 0.9, "thoroughness": 0.8, "rationale": "Placeholder.", "rater": "human", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
+    },
+    {
+      "id": "c_sample_07", "option": "semaglutide_injection", "dimension": "cardiovascular",
+      "statement": "[SAMPLE] Placeholder cardiovascular outcome result.",
+      "effect": { "metric": "relative_risk_reduction_mace", "value": 0.2, "timepoint_weeks": 160, "normalized": 0.8 },
+      "source_id": "s_sample_1",
+      "ratings": { "bias": 0.6, "thoroughness": 0.9, "rationale": "Placeholder.", "rater": "human", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
+    },
+    {
+      "id": "c_sample_08", "option": "liraglutide_injection", "dimension": "serious_ae_risk",
+      "statement": "[SAMPLE] Placeholder pending claim; must NOT reach the web app.",
+      "effect": { "metric": "pct_serious_ae", "value": 5, "timepoint_weeks": 56, "normalized": 0.5 },
+      "source_id": "s_sample_3",
+      "ratings": { "bias": 0.5, "thoroughness": 0.5, "rationale": "Placeholder.", "rater": "llm", "rubric_version": "0.1" },
+      "review": { "status": "pending", "reviewer": null, "notes": null }
+    }
+  ],
+  "facts": [
+    { "id": "f_sample_01", "option": "semaglutide_injection", "dimension": "convenience", "kind": "dosing", "value": "once weekly", "normalized": 0.8, "source_id": "s_sample_4", "as_of": "2025-01-01" },
+    { "id": "f_sample_02", "option": "semaglutide_oral", "dimension": "convenience", "kind": "dosing", "value": "once daily pill", "normalized": 0.7, "source_id": "s_sample_4", "as_of": "2025-01-01" },
+    { "id": "f_sample_03", "option": "tirzepatide_injection", "dimension": "convenience", "kind": "dosing", "value": "once weekly", "normalized": 0.8, "source_id": "s_sample_4", "as_of": "2025-01-01" },
+    { "id": "f_sample_04", "option": "liraglutide_injection", "dimension": "convenience", "kind": "dosing", "value": "once daily", "normalized": 0.4, "source_id": "s_sample_4", "as_of": "2025-01-01" },
+    { "id": "f_sample_05", "option": "semaglutide_injection", "dimension": "cost", "kind": "monthly_price_usd", "value": 500, "normalized": 0.5, "source_id": "s_sample_5", "as_of": "2026-11-01" },
+    { "id": "f_sample_06", "option": "semaglutide_oral", "dimension": "cost", "kind": "monthly_price_usd", "value": 450, "normalized": 0.55, "source_id": "s_sample_5", "as_of": "2026-11-01" },
+    { "id": "f_sample_07", "option": "tirzepatide_injection", "dimension": "cost", "kind": "monthly_price_usd", "value": 600, "normalized": 0.4, "source_id": "s_sample_5", "as_of": "2026-11-01" },
+    { "id": "f_sample_08", "option": "liraglutide_injection", "dimension": "cost", "kind": "monthly_price_usd", "value": 800, "normalized": 0.2, "source_id": "s_sample_5", "as_of": "2026-11-01" }
+  ]
+}
