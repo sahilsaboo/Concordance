@@ -1,22 +1,76 @@
 @import "tailwindcss";
 
+/*
+ * Earth-tone palette ("Autumnal, Natural and Warm").
+ * Named swatches first, then semantic tokens that components use.
+ * Change colors here only; components never reference raw hex values.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --blanket: #f2e0cf;
+  --autumn-fern: #854628;
+  --oak: #b48954;
+  --khaki-moss: #7c7458;
+  --mushroom: #d4c7b4;
+  --kimber: #2d2d23;
+  --cream: #fcf8f4; /* page background, approximated from the reference image */
+
+  --background: var(--cream);
+  --foreground: var(--kimber);
+  --muted: color-mix(in oklab, var(--kimber) 72%, var(--cream));
+  --surface: #fffdfa;
+  --line: var(--mushroom);
+  --track: var(--blanket);
+  --primary: var(--autumn-fern);
+  --primary-hover: color-mix(in oklab, var(--autumn-fern) 82%, black);
+  --on-primary: var(--cream);
+  --score: var(--khaki-moss);
+  --weight: var(--oak);
+  --accent-text: var(--autumn-fern);
+  --notice-bg: var(--blanket);
+  --notice-line: var(--oak);
+  --notice-text: color-mix(in oklab, var(--autumn-fern) 80%, black);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--kimber);
+    --foreground: var(--blanket);
+    --muted: color-mix(in oklab, var(--blanket) 75%, var(--kimber));
+    --surface: color-mix(in oklab, var(--kimber) 88%, var(--blanket));
+    --line: color-mix(in oklab, var(--kimber) 65%, var(--mushroom));
+    --track: color-mix(in oklab, var(--kimber) 80%, var(--mushroom));
+    /* Fern is too dark on kimber, so a slightly lightened oak leads in dark mode
+       (plain oak is 4.4:1 against kimber, just under the 4.5:1 AA minimum). */
+    --primary: color-mix(in oklab, var(--oak) 85%, var(--blanket));
+    --primary-hover: color-mix(in oklab, var(--oak) 70%, var(--blanket));
+    --on-primary: var(--kimber);
+    --score: color-mix(in oklab, var(--khaki-moss) 75%, var(--blanket));
+    --weight: var(--oak);
+    --accent-text: color-mix(in oklab, var(--oak) 55%, var(--blanket));
+    --notice-bg: color-mix(in oklab, var(--kimber) 82%, var(--oak));
+    --notice-line: var(--oak);
+    --notice-text: var(--blanket);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-track: var(--track);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-score: var(--score);
+  --color-weight: var(--weight);
+  --color-accent-text: var(--accent-text);
+  --color-notice-bg: var(--notice-bg);
+  --color-notice-line: var(--notice-line);
+  --color-notice-text: var(--notice-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {

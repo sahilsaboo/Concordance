@@ -59,7 +59,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
       {step === "priorities" && (
         <section className="mt-8">
           <h1 className="text-2xl font-semibold tracking-tight">What matters most to you?</h1>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-muted">
             Rate each one. You won&apos;t see any drug or brand names until your results.
           </p>
           <div className="mt-8 space-y-8">
@@ -75,7 +75,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
             ))}
           </div>
           {allPrioritiesAnswered && !anyPriorityImportant && (
-            <p className="mt-6 text-sm text-red-700 dark:text-red-400">
+            <p className="mt-6 text-sm text-accent-text">
               Mark at least one priority as important so we have something to rank on.
             </p>
           )}
@@ -92,7 +92,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
       {step === "limits" && (
         <section className="mt-8">
           <h1 className="text-2xl font-semibold tracking-tight">Your practical limits</h1>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-muted">
             Options that don&apos;t fit these are set aside, not ranked lower. We&apos;ll show you what was set aside and
             why.
           </p>
@@ -148,7 +148,7 @@ function Progress({ step }: { step: Step }) {
         <li
           key={l}
           aria-current={j === i ? "step" : undefined}
-          className={`flex-1 border-t-4 pt-2 ${j <= i ? "border-teal-700 text-zinc-900 dark:text-zinc-100" : "border-zinc-200 text-zinc-400 dark:border-zinc-800"}`}
+          className={`flex-1 border-t-4 pt-2 ${j <= i ? "border-primary text-foreground" : "border-line text-muted"}`}
         >
           {j + 1}. {l}
         </li>
@@ -171,7 +171,7 @@ function ChoiceGroup(props: {
         {props.options.map((o) => (
           <label
             key={o.key}
-            className="cursor-pointer rounded-full border border-zinc-300 px-4 py-2 text-sm transition-colors hover:border-teal-700 has-checked:border-teal-700 has-checked:bg-teal-700 has-checked:text-white has-focus-visible:ring-2 has-focus-visible:ring-teal-500 dark:border-zinc-700"
+            className="cursor-pointer rounded-full border border-line bg-surface px-4 py-2 text-sm transition-colors hover:border-primary has-checked:border-primary has-checked:bg-primary has-checked:text-on-primary has-focus-visible:ring-2 has-focus-visible:ring-primary has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background"
           >
             <input
               type="radio"
@@ -193,7 +193,7 @@ function Nav(props: { back?: () => void; next: { label: string; disabled: boolea
   return (
     <div className="mt-10 flex items-center justify-between">
       {props.back ? (
-        <button onClick={props.back} className="rounded-lg px-4 py-2 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+        <button onClick={props.back} className="rounded-lg px-4 py-2 text-muted hover:text-foreground">
           ← Back
         </button>
       ) : (
@@ -202,7 +202,7 @@ function Nav(props: { back?: () => void; next: { label: string; disabled: boolea
       <button
         onClick={props.next.onClick}
         disabled={props.next.disabled}
-        className="rounded-lg bg-teal-700 px-6 py-3 font-medium text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-zinc-300 dark:disabled:bg-zinc-700"
+        className="rounded-lg bg-primary px-6 py-3 font-medium text-on-primary hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-line disabled:text-muted"
       >
         {props.next.label}
       </button>
