@@ -123,7 +123,7 @@ Based on established frameworks so the ratings rest on accepted standards, not o
 For option *d*, dimension *k*:
 
 - Claim weight: `w_i = bias_i × thoroughness_i`
-- Dimension score: `S(d,k) = Σ w_i · e_i / Σ w_i`, where `e_i` is the effect normalized to 0–1 across options for that dimension
+- Dimension score: `S(d,k) = Σ w_i · e_i / Σ w_i`, where `e_i` is the effect normalized to 0–1 on a fixed scale per metric (weight loss: 0 to 20+ percentage points vs placebo), not min-max across options, so scores stay stable as evidence is added
   - **Weighted mean, not sum**, so more studies do not mean a higher score
 - Evidence confidence: `C(d,k) = f(Σ w_i)`, shown to the user **separately** and never mixed into the score
 - Missing evidence: neutral score (0.5) with an "insufficient evidence" flag. Dropping the dimension and renormalizing would reward drugs with less data.

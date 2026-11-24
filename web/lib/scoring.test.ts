@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { loadMatrix } from "./matrix";
+import { loadSampleMatrix } from "./matrix";
 import { NEUTRAL_SCORE, rank, type Answers } from "./scoring";
 import type { ClaimMatrix } from "./types";
 
-const base = loadMatrix();
+const base = loadSampleMatrix();
 
 const answers = (over: Partial<Answers> = {}): Answers => ({
   importance: { weight_loss: 4, gi_tolerability: 2, serious_ae_risk: 0, cardiovascular: 1, convenience: 3, cost: 2 },
@@ -54,7 +54,7 @@ describe("rank", () => {
 
   it("filters out injections when the user does not want them", () => {
     const r = rank(base, answers({ injectionsOk: false }));
-    expect(r.ranked.map((x) => x.option.route)).toEqual(["oral"]);
+    expect(r.ranked.map((x) => x.option.route)).toEqual(["oral", "oral"]);
     expect(r.excluded).toHaveLength(3);
     expect(r.excluded[0].reasons).toContain("Requires injections");
   });

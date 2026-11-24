@@ -143,7 +143,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
       <Progress step={step} />
       {matrix.meta.is_sample && (
         <div className="mt-6">
-          <SampleBanner />
+          <SampleBanner note={matrix.meta.note} />
         </div>
       )}
 

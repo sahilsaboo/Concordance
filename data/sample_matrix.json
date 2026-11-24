@@ -27,7 +27,7 @@
       "blind_label": "Option B",
       "molecule": "semaglutide",
       "route": "oral",
-      "brands": ["Rybelsus"]
+      "brands": ["Wegovy pill", "Rybelsus"]
     },
     {
       "id": "tirzepatide_injection",
@@ -42,6 +42,13 @@
       "molecule": "liraglutide",
       "route": "injection",
       "brands": ["Saxenda", "Victoza"]
+    },
+    {
+      "id": "orforglipron_oral",
+      "blind_label": "Option E",
+      "molecule": "orforglipron",
+      "route": "oral",
+      "brands": ["Foundayo"]
     }
   ],
   "sources": [
@@ -115,6 +122,22 @@
       "source_id": "s_sample_3",
       "ratings": { "bias": 0.5, "thoroughness": 0.5, "rationale": "Placeholder.", "rater": "llm", "rubric_version": "0.1" },
       "review": { "status": "pending", "reviewer": null, "notes": null }
+    },
+    {
+      "id": "c_sample_09", "option": "orforglipron_oral", "dimension": "weight_loss",
+      "statement": "[SAMPLE] Placeholder weight-loss result vs placebo.",
+      "effect": { "metric": "pct_weight_change_vs_placebo", "value": -8, "timepoint_weeks": 72, "normalized": 0.55 },
+      "source_id": "s_sample_1",
+      "ratings": { "bias": 0.6, "thoroughness": 0.9, "rationale": "Placeholder.", "rater": "human", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
+    },
+    {
+      "id": "c_sample_10", "option": "orforglipron_oral", "dimension": "gi_tolerability",
+      "statement": "[SAMPLE] Placeholder nausea incidence.",
+      "effect": { "metric": "pct_patients_nausea", "value": 28, "timepoint_weeks": 72, "normalized": 0.45 },
+      "source_id": "s_sample_1",
+      "ratings": { "bias": 0.6, "thoroughness": 0.9, "rationale": "Placeholder.", "rater": "human", "rubric_version": "0.1" },
+      "review": { "status": "approved", "reviewer": "sample", "notes": null }
     }
   ],
   "facts": [
@@ -125,6 +148,8 @@
     { "id": "f_sample_05", "option": "semaglutide_injection", "dimension": "cost", "kind": "monthly_price_usd", "value": 500, "normalized": 0.5, "source_id": "s_sample_5", "as_of": "2026-11-01" },
     { "id": "f_sample_06", "option": "semaglutide_oral", "dimension": "cost", "kind": "monthly_price_usd", "value": 450, "normalized": 0.55, "source_id": "s_sample_5", "as_of": "2026-11-01" },
     { "id": "f_sample_07", "option": "tirzepatide_injection", "dimension": "cost", "kind": "monthly_price_usd", "value": 600, "normalized": 0.4, "source_id": "s_sample_5", "as_of": "2026-11-01" },
-    { "id": "f_sample_08", "option": "liraglutide_injection", "dimension": "cost", "kind": "monthly_price_usd", "value": 800, "normalized": 0.2, "source_id": "s_sample_5", "as_of": "2026-11-01" }
+    { "id": "f_sample_08", "option": "liraglutide_injection", "dimension": "cost", "kind": "monthly_price_usd", "value": 800, "normalized": 0.2, "source_id": "s_sample_5", "as_of": "2026-11-01" },
+    { "id": "f_sample_09", "option": "orforglipron_oral", "dimension": "convenience", "kind": "dosing", "value": "once daily pill", "normalized": 0.7, "source_id": "s_sample_4", "as_of": "2026-04-01" },
+    { "id": "f_sample_10", "option": "orforglipron_oral", "dimension": "cost", "kind": "monthly_price_usd", "value": 500, "normalized": 0.5, "source_id": "s_sample_5", "as_of": "2026-11-01" }
   ]
 }

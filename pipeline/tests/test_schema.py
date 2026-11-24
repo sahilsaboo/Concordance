@@ -16,7 +16,7 @@ def load_sample() -> dict:
 def test_sample_matrix_validates():
     matrix = ClaimMatrix.model_validate(load_sample())
     assert matrix.meta.is_sample
-    assert len(matrix.options) == 4
+    assert len(matrix.options) == 5
 
 
 def test_rejects_claim_with_unknown_source():

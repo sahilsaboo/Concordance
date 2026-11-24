@@ -19,7 +19,7 @@ export default function Home() {
   const m = loadMatrix();
   return (
     <>
-      {m.meta.is_sample && <SampleBanner />}
+      {m.meta.is_sample && <SampleBanner note={m.meta.note} />}
 
       <div className="mt-10 grid items-center gap-10 lg:mt-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16">
         <div>

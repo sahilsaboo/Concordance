@@ -1,15 +1,26 @@
+import built from "../../data/claim_matrix.json";
 import sample from "../../data/sample_matrix.json";
 import type { Claim, ClaimMatrix } from "./types";
 
-// Swap to ../../data/claim_matrix.json once the pipeline produces real data (milestone 4).
-const raw = sample as ClaimMatrix;
+// claim_matrix.json is built by the pipeline (concordance_pipeline.build_matrix) from reviewed studies.
+// sample_matrix.json stays as a fixed, hand-written fixture for tests.
 
 const USABLE: ReadonlySet<Claim["review"]["status"]> = new Set(["approved", "edited"]);
 
 /**
- * The matrix the app is allowed to use: only human-reviewed claims.
- * Pending or rejected claims never reach users, which is the "human" half of hybrid rating.
+ * Only human-reviewed claims reach users. Pending or rejected claims are dropped here,
+ * which is the "human" half of hybrid rating.
  */
-export function loadMatrix(): ClaimMatrix {
+export function reviewedOnly(raw: ClaimMatrix): ClaimMatrix {
   return { ...raw, claims: raw.claims.filter((c) => USABLE.has(c.review.status)) };
+}
+
+/** The matrix the app shows. */
+export function loadMatrix(): ClaimMatrix {
+  return reviewedOnly(built as ClaimMatrix);
+}
+
+/** Hand-written fixture with known placeholder values, for tests of the scoring math. */
+export function loadSampleMatrix(): ClaimMatrix {
+  return reviewedOnly(sample as ClaimMatrix);
 }

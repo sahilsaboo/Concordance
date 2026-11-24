@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "note": "Claims extracted from reviewed studies in glp1_studies_draft.json. Every number is checked against the quoted PubMed abstract by `concordance_pipeline.build_matrix verify`. Weight loss v1 scope: placebo-controlled trials in adults with obesity and without type 2 diabetes, at the highest approved obesity dose.",
+    "extracted_at": "2026-11-24"
+  },
+  "claims": [
+    {
+      "id": "c_0001",
+      "option": "semaglutide_injection",
+      "dimension": "weight_loss",
+      "study_id": "st_002",
+      "pmid": "33567185",
+      "statement": "STEP 1: semaglutide 2.4 mg weekly led to 12.4 percentage points more body-weight loss than placebo at 68 weeks (adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -12.4,
+        "timepoint_weeks": 68
+      },
+      "derivation": {
+        "kind": "reported"
+      },
+      "quotes": [
+        "for an estimated treatment difference of -12.4 percentage points"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0002",
+      "option": "semaglutide_injection",
+      "dimension": "weight_loss",
+      "study_id": "st_013",
+      "pmid": "36216945",
+      "statement": "STEP 5: semaglutide 2.4 mg weekly led to 12.6 percentage points more body-weight loss than placebo at 104 weeks (adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -12.6,
+        "timepoint_weeks": 104
+      },
+      "derivation": {
+        "kind": "reported"
+      },
+      "quotes": [
+        "for an estimated treatment difference of -12.6 %-points"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0003",
+      "option": "semaglutide_oral",
+      "dimension": "weight_loss",
+      "study_id": "st_030",
+      "pmid": "40934115",
+      "statement": "OASIS 4: oral semaglutide 25 mg daily led to 11.4 percentage points more body-weight loss than placebo at 64 weeks (adults with overweight or obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -11.4,
+        "timepoint_weeks": 64
+      },
+      "derivation": {
+        "kind": "reported"
+      },
+      "quotes": [
+        "(estimated difference, -11.4 percentage points"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0004",
+      "option": "tirzepatide_injection",
+      "dimension": "weight_loss",
+      "study_id": "st_038",
+      "pmid": "35658024",
+      "statement": "SURMOUNT-1: tirzepatide 15 mg weekly led to about 17.8 percentage points more body-weight loss than placebo at 72 weeks (-20.9% vs -3.1%; adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -17.8,
+        "timepoint_weeks": 72
+      },
+      "derivation": {
+        "kind": "arm_difference",
+        "drug": -20.9,
+        "placebo": -3.1,
+        "note": "Difference of the reported arm means; the abstract gives no model-based treatment difference."
+      },
+      "quotes": [
+        "-20.9% (95% CI, -21.8 to -19.9) with 15-mg doses and -3.1% (95% CI, -4.3 to -1.9) with placebo"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0005",
+      "option": "liraglutide_injection",
+      "dimension": "weight_loss",
+      "study_id": "st_063",
+      "pmid": "26132939",
+      "statement": "SCALE Obesity and Prediabetes: liraglutide 3.0 mg daily led to about 5.3 percentage points more body-weight loss than placebo at 56 weeks (5.6 kg difference; adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -5.3,
+        "timepoint_weeks": 56
+      },
+      "derivation": {
+        "kind": "kg_over_baseline",
+        "diff_kg": -5.6,
+        "baseline_kg": 106.2,
+        "note": "Approximation: the abstract reports the difference in kg (last observation carried forward), converted using mean baseline weight."
+      },
+      "quotes": [
+        "(a difference of -5.6 kg;",
+        "the mean weight was 106.2±21.4 kg"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0006",
+      "option": "orforglipron_oral",
+      "dimension": "weight_loss",
+      "study_id": "st_061",
+      "pmid": "40960239",
+      "statement": "ATTAIN-1: orforglipron at the top trial dose (36 mg capsule) led to about 9.1 percentage points more body-weight loss than placebo at 72 weeks (-11.2% vs -2.1%; adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -9.1,
+        "timepoint_weeks": 72
+      },
+      "derivation": {
+        "kind": "arm_difference",
+        "drug": -11.2,
+        "placebo": -2.1,
+        "note": "Difference of the reported arm means (treatment-regimen estimand)."
+      },
+      "quotes": [
+        "-11.2% (95% CI, -12.0 to -10.4) with 36 mg of orforglipron, as compared with -2.1% (95% CI, -2.8 to -1.4) with placebo"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    }
+  ]
+}

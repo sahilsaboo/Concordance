@@ -1,0 +1,412 @@
+{
+  "meta": {
+    "schema_version": "0.1",
+    "rubric_version": "0.1",
+    "generated_at": "2026-11-24",
+    "is_sample": true,
+    "note": "Scores for weight loss come from reviewed studies. Cost and convenience still use placeholder numbers, and other priorities have no reviewed evidence yet. Don't use these results to make health decisions."
+  },
+  "dimensions": [
+    {
+      "id": "weight_loss",
+      "label": "Weight loss",
+      "basis": "claims"
+    },
+    {
+      "id": "gi_tolerability",
+      "label": "Stomach side effects (nausea, vomiting, diarrhea)",
+      "basis": "claims"
+    },
+    {
+      "id": "serious_ae_risk",
+      "label": "Serious side-effect risk",
+      "basis": "claims"
+    },
+    {
+      "id": "cardiovascular",
+      "label": "Heart health benefit",
+      "basis": "claims"
+    },
+    {
+      "id": "convenience",
+      "label": "Convenience (how often, pill vs. shot)",
+      "basis": "facts"
+    },
+    {
+      "id": "cost",
+      "label": "Cost",
+      "basis": "facts"
+    }
+  ],
+  "options": [
+    {
+      "id": "semaglutide_injection",
+      "blind_label": "Option A",
+      "molecule": "semaglutide",
+      "route": "injection",
+      "brands": [
+        "Wegovy",
+        "Ozempic"
+      ]
+    },
+    {
+      "id": "semaglutide_oral",
+      "blind_label": "Option B",
+      "molecule": "semaglutide",
+      "route": "oral",
+      "brands": [
+        "Wegovy pill",
+        "Rybelsus"
+      ]
+    },
+    {
+      "id": "tirzepatide_injection",
+      "blind_label": "Option C",
+      "molecule": "tirzepatide",
+      "route": "injection",
+      "brands": [
+        "Zepbound",
+        "Mounjaro"
+      ]
+    },
+    {
+      "id": "liraglutide_injection",
+      "blind_label": "Option D",
+      "molecule": "liraglutide",
+      "route": "injection",
+      "brands": [
+        "Saxenda",
+        "Victoza"
+      ]
+    },
+    {
+      "id": "orforglipron_oral",
+      "blind_label": "Option E",
+      "molecule": "orforglipron",
+      "route": "oral",
+      "brands": [
+        "Foundayo"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "st_002",
+      "title": "Once-Weekly Semaglutide in Adults with Overweight or Obesity.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33567185/",
+      "type": "rct",
+      "year": 2021,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_013",
+      "title": "Two-year effects of semaglutide in adults with overweight or obesity: the STEP 5 trial.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36216945/",
+      "type": "rct",
+      "year": 2022,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_030",
+      "title": "Oral Semaglutide at a Dose of 25 mg in Adults with Overweight or Obesity.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40934115/",
+      "type": "rct",
+      "year": 2025,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_038",
+      "title": "Tirzepatide Once Weekly for the Treatment of Obesity.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35658024/",
+      "type": "rct",
+      "year": 2022,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_063",
+      "title": "A Randomized, Controlled Trial of 3.0 mg of Liraglutide in Weight Management.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26132939/",
+      "type": "rct",
+      "year": 2015,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_061",
+      "title": "Orforglipron, an Oral Small-Molecule GLP-1 Receptor Agonist for Obesity Treatment.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40960239/",
+      "type": "rct",
+      "year": 2025,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "s_sample_4",
+      "title": "[SAMPLE] FDA prescribing information",
+      "url": "https://example.org/sample-4",
+      "type": "label",
+      "year": 2025,
+      "funding": "regulator"
+    },
+    {
+      "id": "s_sample_5",
+      "title": "[SAMPLE] Cash-price survey",
+      "url": "https://example.org/sample-5",
+      "type": "price",
+      "year": 2026,
+      "funding": "independent"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c_0001",
+      "option": "semaglutide_injection",
+      "dimension": "weight_loss",
+      "statement": "STEP 1: semaglutide 2.4 mg weekly led to 12.4 percentage points more body-weight loss than placebo at 68 weeks (adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -12.4,
+        "timepoint_weeks": 68,
+        "normalized": 0.62
+      },
+      "source_id": "st_002",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.9,
+        "rationale": "Bias: Funded by Novo Nordisk (abstract); preregistered NCT03548935, NEJM. Funder-role section not accessible (paywall/403); funding taken from abstract statement. Scored at industry-pivotal midpoint. Quality: Large double-blind placebo RCT, 68 weeks, treatment-policy estimand handles discontinuation; weight is objective. Placebo comparator only.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0002",
+      "option": "semaglutide_injection",
+      "dimension": "weight_loss",
+      "statement": "STEP 5: semaglutide 2.4 mg weekly led to 12.6 percentage points more body-weight loss than placebo at 104 weeks (adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -12.6,
+        "timepoint_weeks": 104,
+        "normalized": 0.63
+      },
+      "source_id": "st_013",
+      "ratings": {
+        "bias": 0.35,
+        "thoroughness": 0.75,
+        "rationale": "Bias: Full text (PMC9556320) states funder designed the trial, collected and analyzed data, and paid medical writing; employee co-authors. Preregistered NCT03693430. Quality: Double-blind 2-year RCT with good retention, but small (n=304) for safety estimates.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0003",
+      "option": "semaglutide_oral",
+      "dimension": "weight_loss",
+      "statement": "OASIS 4: oral semaglutide 25 mg daily led to 11.4 percentage points more body-weight loss than placebo at 64 weeks (adults with overweight or obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -11.4,
+        "timepoint_weeks": 64,
+        "normalized": 0.57
+      },
+      "source_id": "st_030",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.72,
+        "rationale": "Bias: Novo Nordisk-funded registered trial (NCT05564117), NEJM. Publisher page returned 403; funder-role and full COI sections not read. Sponsor stated in abstract. Quality: Double-blind 64-week RCT of the marketed dose; small (n=307) and attrition not reported in abstract.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0004",
+      "option": "tirzepatide_injection",
+      "dimension": "weight_loss",
+      "statement": "SURMOUNT-1: tirzepatide 15 mg weekly led to about 17.8 percentage points more body-weight loss than placebo at 72 weeks (-20.9% vs -3.1%; adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -17.8,
+        "timepoint_weeks": 72,
+        "normalized": 0.89
+      },
+      "source_id": "st_038",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.9,
+        "rationale": "Bias: Lilly-funded pivotal trial in NEJM, preregistered (NCT04184622). Full-text funding/role-of-funder section not reachable (paywalled/403); funder role inferred from abstract funding line and Lilly employee co-authors [inference]. Quality: Large (n=2539) 72-wk double-blind placebo RCT with treatment-regimen ITT estimand; attrition details not in abstract.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0005",
+      "option": "liraglutide_injection",
+      "dimension": "weight_loss",
+      "statement": "SCALE Obesity and Prediabetes: liraglutide 3.0 mg daily led to about 5.3 percentage points more body-weight loss than placebo at 56 weeks (5.6 kg difference; adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -5.3,
+        "timepoint_weeks": 56,
+        "normalized": 0.265
+      },
+      "source_id": "st_063",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.8,
+        "rationale": "Bias: Abstract states 'Funded by Novo Nordisk'; preregistered (NCT01272219), NEJM. Full-text trial-oversight / funder-role section not accessible (NEJM returned 403); funder taken from abstract funding line only. Quality: Large (n=3731) 56-wk double-blind placebo RCT; primary analysis used LOCF imputation, which is weaker handling of missing data in an obesity trial with meaningful dropout.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    },
+    {
+      "id": "c_0006",
+      "option": "orforglipron_oral",
+      "dimension": "weight_loss",
+      "statement": "ATTAIN-1: orforglipron at the top trial dose (36 mg capsule) led to about 9.1 percentage points more body-weight loss than placebo at 72 weeks (-11.2% vs -2.1%; adults with obesity, no diabetes).",
+      "effect": {
+        "metric": "pct_weight_change_vs_placebo",
+        "value": -9.1,
+        "timepoint_weeks": 72,
+        "normalized": 0.455
+      },
+      "source_id": "st_061",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.85,
+        "rationale": "Bias: Abstract: 'Funded by Eli Lilly'; preregistered (NCT05869903). Full-text trial-oversight / funder-role section not accessible (NEJM returned 403); funder taken from abstract funding line only. Quality: Large double-blind placebo RCT, 72 wk, treatment-regimen estimand; attrition not given in abstract.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24."
+      }
+    }
+  ],
+  "facts": [
+    {
+      "id": "f_sample_01",
+      "option": "semaglutide_injection",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once weekly",
+      "normalized": 0.8,
+      "source_id": "s_sample_4",
+      "as_of": "2025-01-01"
+    },
+    {
+      "id": "f_sample_02",
+      "option": "semaglutide_oral",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once daily pill",
+      "normalized": 0.7,
+      "source_id": "s_sample_4",
+      "as_of": "2025-01-01"
+    },
+    {
+      "id": "f_sample_03",
+      "option": "tirzepatide_injection",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once weekly",
+      "normalized": 0.8,
+      "source_id": "s_sample_4",
+      "as_of": "2025-01-01"
+    },
+    {
+      "id": "f_sample_04",
+      "option": "liraglutide_injection",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once daily",
+      "normalized": 0.4,
+      "source_id": "s_sample_4",
+      "as_of": "2025-01-01"
+    },
+    {
+      "id": "f_sample_05",
+      "option": "semaglutide_injection",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 500,
+      "normalized": 0.5,
+      "source_id": "s_sample_5",
+      "as_of": "2026-11-01"
+    },
+    {
+      "id": "f_sample_06",
+      "option": "semaglutide_oral",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 450,
+      "normalized": 0.55,
+      "source_id": "s_sample_5",
+      "as_of": "2026-11-01"
+    },
+    {
+      "id": "f_sample_07",
+      "option": "tirzepatide_injection",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 600,
+      "normalized": 0.4,
+      "source_id": "s_sample_5",
+      "as_of": "2026-11-01"
+    },
+    {
+      "id": "f_sample_08",
+      "option": "liraglutide_injection",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 800,
+      "normalized": 0.2,
+      "source_id": "s_sample_5",
+      "as_of": "2026-11-01"
+    },
+    {
+      "id": "f_sample_09",
+      "option": "orforglipron_oral",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once daily pill",
+      "normalized": 0.7,
+      "source_id": "s_sample_4",
+      "as_of": "2026-04-01"
+    },
+    {
+      "id": "f_sample_10",
+      "option": "orforglipron_oral",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 500,
+      "normalized": 0.5,
+      "source_id": "s_sample_5",
+      "as_of": "2026-11-01"
+    }
+  ]
+}

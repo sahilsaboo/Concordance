@@ -21,7 +21,7 @@ export default function MethodologyPage() {
   const m = loadMatrix();
   return (
     <>
-      {m.meta.is_sample && <SampleBanner />}
+      {m.meta.is_sample && <SampleBanner note={m.meta.note} />}
       <div className="mt-8 grid gap-10 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-16">
         <nav aria-label="On this page" className="hidden lg:sticky lg:top-8 lg:block lg:self-start">
           <p className="label-caps text-xs font-semibold">On this page</p>
@@ -79,6 +79,11 @@ export default function MethodologyPage() {
             <li>
               <strong>Evidence weight:</strong> each claim counts in proportion to its bias rating times its
               thoroughness rating. Stronger evidence counts more.
+            </li>
+            <li>
+              <strong>Effect scale:</strong> each claim&apos;s result is put on a fixed 0 to 100 scale. For weight loss, 0
+              means no more weight lost than with placebo and 100 means 20 or more percentage points more. The scale is
+              fixed, so an option&apos;s score doesn&apos;t change just because another option is added.
             </li>
             <li>
               <strong>Score for each priority (0 to 100):</strong> the weighted average of the claims for that option.
