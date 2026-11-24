@@ -6,10 +6,12 @@ Review happens in the Evidence Review artifact; its edits come back as a JSON li
 
     uv run python -m concordance_pipeline.studies build <dir with per-group JSON files>
     uv run python -m concordance_pipeline.studies sync <reviewed export .json, or a folder of <id>.json>
+    uv run python -m concordance_pipeline.studies audit   # list records that share a trial's participants
 """
 
 import csv
 import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -32,9 +34,44 @@ CSV_COLS = [
 ]
 
 
+def _norm_doi(doi: str | None) -> str:
+    return re.sub(r"^(https?://(dx\.)?doi\.org/|doi:\s*)", "", (doi or "").strip().lower())
+
+
+def _norm_title(title: str | None) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", (title or "").lower()).strip()
+
+
 def _key(s: dict) -> str:
-    """Dedup key: PMID, else DOI, else title."""
-    return str(s.get("pmid") or s.get("doi") or s.get("title", "")).lower().strip()
+    """Dedup key for one publication: PMID, else normalized DOI, else normalized title."""
+    if s.get("pmid"):
+        return "pmid:" + str(s["pmid"]).strip()
+    if s.get("doi"):
+        return "doi:" + _norm_doi(s["doi"])
+    return "title:" + _norm_title(s.get("title"))
+
+
+def _trial_stem(name: str | None) -> str:
+    """'SURMOUNT-1 (3-year prediabetes cohort)' -> 'surmount1'."""
+    return re.sub(r"[^a-z0-9]", "", (name or "").split("(")[0].lower())
+
+
+def audit(studies: list[dict]) -> list[tuple[str, str, str]]:
+    """Find records that are different papers from the same trial (shared participants).
+
+    Not duplicates to delete, but scoring must not count both for the same outcome.
+    Returns (id_a, id_b, reason) for same trial-name stem or same NCT registration.
+    """
+    out = []
+    ncts = {s["id"]: set(re.findall(r"NCT\d{8}", json.dumps(s))) for s in studies}
+    for i, a in enumerate(studies):
+        for b in studies[i + 1:]:
+            stem_a, stem_b = _trial_stem(a.get("trial_name")), _trial_stem(b.get("trial_name"))
+            if stem_a and stem_a == stem_b:
+                out.append((a["id"], b["id"], f"same trial: {a['trial_name'].split('(')[0].strip()}"))
+            elif shared := ncts[a["id"]] & ncts[b["id"]]:
+                out.append((a["id"], b["id"], f"same registration: {', '.join(sorted(shared))}"))
+    return out
 
 
 def build(src_dir: Path) -> list[str]:
@@ -56,6 +93,8 @@ def build(src_dir: Path) -> list[str]:
     studies.sort(key=lambda s: (GROUPS.index(s["group"]), -(s.get("quality_score") or 0)))
     for i, s in enumerate(studies, 1):
         s["id"] = f"st_{i:03d}"
+    for a, b, reason in audit(studies):
+        log.append(f"shared participants, kept both: {a} / {b} ({reason})")
     meta = {
         "generated_at": date.today().isoformat(),
         "rubric_version": "0.1",
@@ -111,7 +150,12 @@ def load_export(path: Path) -> list[dict]:
 
 
 if __name__ == "__main__":
-    cmd, arg = sys.argv[1], Path(sys.argv[2])
+    cmd = sys.argv[1]
+    if cmd == "audit":
+        pairs = audit(json.loads(DRAFT.read_text())["studies"])
+        print("\n".join(f"{a} / {b}: {r}" for a, b, r in pairs) or "no shared-trial records")
+        sys.exit(0)
+    arg = Path(sys.argv[2])
     lines = build(arg) if cmd == "build" else sync(load_export(arg))
     print("\n".join(lines) or "no changes")
     print(f"{len(json.loads(DRAFT.read_text())['studies'])} studies in {DRAFT.relative_to(DATA.parent)}")
