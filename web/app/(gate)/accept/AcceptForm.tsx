@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 const ERROR = "Tick the box to confirm you understand before continuing";
 
@@ -10,13 +10,20 @@ const ERROR = "Tick the box to confirm you understand before continuing";
  */
 export default function AcceptForm(props: { action: string; next: string; serverError: boolean }) {
   const [error, setError] = useState(props.serverError);
+  const formRef = useRef<HTMLFormElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLInputElement>(null);
+  // IDs are unique per form instance, so a label or error link can never point at another copy's checkbox.
+  const uid = useId();
+  const boxId = `${uid}-acknowledge`;
+  const errorId = `${uid}-acknowledge-error`;
+  const summaryTitleId = `${uid}-error-title`;
 
   // Start keyboard and screen-reader users at the dialog title (or the error, if there is one).
+  // Look only inside this form's own dialog, never the whole document.
   useEffect(() => {
     if (props.serverError) summaryRef.current?.focus();
-    else document.querySelector<HTMLElement>("[data-autofocus]")?.focus();
+    else formRef.current?.closest("[role=dialog]")?.querySelector<HTMLElement>("[data-autofocus]")?.focus();
   }, [props.serverError]);
 
   useEffect(() => {
@@ -25,6 +32,7 @@ export default function AcceptForm(props: { action: string; next: string; server
 
   return (
     <form
+      ref={formRef}
       method="post"
       action={props.action}
       noValidate
@@ -43,15 +51,15 @@ export default function AcceptForm(props: { action: string; next: string; server
         <div
           ref={summaryRef}
           tabIndex={-1}
-          aria-labelledby="ack-error-title"
+          aria-labelledby={summaryTitleId}
           className="mb-5 rounded-lg border-2 border-error p-4 focus:outline-none"
         >
-          <h2 id="ack-error-title" className="font-semibold text-error">
+          <h2 id={summaryTitleId} className="font-semibold text-error">
             There is a problem
           </h2>
           <p className="mt-1">
             <a
-              href="#acknowledge"
+              href={`#${boxId}`}
               onClick={(e) => {
                 e.preventDefault();
                 boxRef.current?.focus();
@@ -66,19 +74,19 @@ export default function AcceptForm(props: { action: string; next: string; server
 
       <div className={error ? "border-l-4 border-error pl-4" : ""}>
         {error && (
-          <p id="acknowledge-error" className="mb-2 font-medium text-error">
+          <p id={errorId} className="mb-2 font-medium text-error">
             <span className="sr-only">Error: </span>
             {ERROR}
           </p>
         )}
-        <label htmlFor="acknowledge" className="flex cursor-pointer items-start gap-3">
+        <label htmlFor={boxId} className="flex cursor-pointer items-start gap-3">
           <input
             ref={boxRef}
-            id="acknowledge"
+            id={boxId}
             name="acknowledge"
             type="checkbox"
             value="yes"
-            aria-describedby={error ? "acknowledge-error" : undefined}
+            aria-describedby={error ? errorId : undefined}
             onChange={(e) => e.target.checked && setError(false)}
             className="mt-0.5 size-6 shrink-0 cursor-pointer accent-[var(--primary)]"
           />

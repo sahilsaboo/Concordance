@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useId, useRef } from "react";
 import type { ClaimMatrix, Source } from "@/lib/types";
 import type { Confidence, DimensionResult, RankedOption, Ranking } from "@/lib/scoring";
 
@@ -36,12 +36,16 @@ export default function Results(props: {
   const { matrix, ranking } = props;
   const dimLabel = (id: string) => matrix.dimensions.find((d) => d.id === id)?.label ?? id;
   const weights = ranking.ranked[0]?.dimensions ?? [];
+  // IDs unique per instance; lookups stay inside this instance.
+  const uid = useId();
+  const id = (name: string) => `${uid}-${name}`;
+  const rootRef = useRef<HTMLElement>(null);
 
   // Printing (or "Save as PDF") should include the evidence, so open every collapsed section first.
   useEffect(() => {
     const opened: HTMLDetailsElement[] = [];
     const before = () =>
-      document.querySelectorAll("details:not([open])").forEach((d) => {
+      rootRef.current?.querySelectorAll("details:not([open])").forEach((d) => {
         (d as HTMLDetailsElement).open = true;
         opened.push(d as HTMLDetailsElement);
       });
@@ -55,10 +59,10 @@ export default function Results(props: {
   }, []);
 
   return (
-    <section className="mt-8" aria-labelledby="results-title">
+    <section ref={rootRef} className="mt-8" aria-labelledby={id("results-title")}>
       <p className="label-caps text-xs text-muted print:hidden">Step 3 of 3</p>
       <h1
-        id="results-title"
+        id={id("results-title")}
         data-step-heading
         tabIndex={-1}
         className="mt-2 font-display text-4xl font-light tracking-tight focus:outline-none sm:text-5xl"
@@ -85,8 +89,11 @@ export default function Results(props: {
           </div>
 
           {weights.length > 0 && (
-            <section aria-labelledby="weights-title" className="mt-6 rounded-xl border border-line bg-surface p-5">
-              <h2 id="weights-title" className="label-caps text-xs font-semibold">
+            <section
+              aria-labelledby={id("weights-title")}
+              className="mt-6 rounded-xl border border-line bg-surface p-5"
+            >
+              <h2 id={id("weights-title")} className="label-caps text-xs font-semibold">
                 How your priorities were weighted
               </h2>
               <p className="mt-2 text-sm text-muted">Based on how important you said each one is.</p>
@@ -127,8 +134,8 @@ export default function Results(props: {
           )}
 
           {ranking.excluded.length > 0 && (
-            <section aria-labelledby="excluded-title" className="mt-12">
-              <h2 id="excluded-title" className="font-display text-3xl font-light">
+            <section aria-labelledby={id("excluded-title")} className="mt-12">
+              <h2 id={id("excluded-title")} className="font-display text-3xl font-light">
                 Set aside by your limits
               </h2>
               <p className="mt-2 text-muted">These didn&apos;t fit the limits you set, so they weren&apos;t ranked.</p>
@@ -144,8 +151,8 @@ export default function Results(props: {
             </section>
           )}
 
-          <section aria-labelledby="next-title" className="mt-12 rounded-xl bg-notice-bg p-6 text-notice-text">
-            <h2 id="next-title" className="font-display text-3xl font-light">
+          <section aria-labelledby={id("next-title")} className="mt-12 rounded-xl bg-notice-bg p-6 text-notice-text">
+            <h2 id={id("next-title")} className="font-display text-3xl font-light">
               Before you decide
             </h2>
             <ul className="mt-4 list-disc space-y-2 pl-5 leading-relaxed">
@@ -206,7 +213,7 @@ function Summary({ ranking, dimLabel }: { ranking: Ranking; dimLabel: (id: strin
 
 function OptionCard(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel: (id: string) => string }) {
   const { result: r, matrix, dimLabel } = props;
-  const headingId = `option-${r.option.id}`;
+  const headingId = `${useId()}-option-${r.option.id}`;
   return (
     <li aria-labelledby={headingId} className="rounded-xl border border-line bg-surface p-5 break-inside-avoid sm:p-6">
       <div className="flex items-start justify-between gap-4">

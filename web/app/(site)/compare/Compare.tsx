@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import type { ClaimMatrix } from "@/lib/types";
 import { rank, type Importance } from "@/lib/scoring";
 import { SampleBanner } from "@/components/Notices";
@@ -63,6 +63,10 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
   );
   const [attempted, setAttempted] = useState<Step | null>(null);
   const focusHeading = useRef(false);
+  // IDs are unique per instance and DOM lookups stay inside this instance's root, so focus and error links
+  // can never land on another copy of the form.
+  const uid = useId();
+  const rootRef = useRef<HTMLDivElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
 
   // Keep the URL in step with where the user actually is, and handle browser back/forward.
@@ -98,7 +102,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
     if (!ready || !focusHeading.current) return;
     focusHeading.current = false;
     window.scrollTo({ top: 0 });
-    document.querySelector<HTMLElement>("[data-step-heading]")?.focus();
+    rootRef.current?.querySelector<HTMLElement>("[data-step-heading]")?.focus();
   }, [ready, step]);
 
   const go = (next: Step) => {
@@ -118,14 +122,19 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
     go(next);
   };
 
-  if (!ready) return <p className="text-muted">Loading…</p>;
+  if (!ready)
+    return (
+      <div ref={rootRef}>
+        <p className="text-muted">Loading…</p>
+      </div>
+    );
 
   const answers = toAnswers(draft, dims);
   const errorFor = (field: string) => errors.find((e) => e.field === field)?.message;
   const stepNumber = STEPS.indexOf(step) + 1;
 
   return (
-    <>
+    <div ref={rootRef}>
       {step !== "priorities" && (
         <button type="button" onClick={() => window.history.back()} className="btn-ghost -ml-3 mb-4 print:hidden">
           <span aria-hidden="true">←</span> Back
@@ -138,7 +147,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
         </div>
       )}
 
-      {errors.length > 0 && <ErrorSummary ref={summaryRef} errors={errors} />}
+      {errors.length > 0 && <ErrorSummary ref={summaryRef} errors={errors} idPrefix={uid} rootRef={rootRef} />}
 
       {step === "results" && answers ? (
         <Results
@@ -184,6 +193,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
                 <div className="grid gap-10">
                   {dims.map((d) => (
                     <ChoiceGroup
+                      idPrefix={uid}
                       key={d.id}
                       name={d.id}
                       legend={d.label}
@@ -205,6 +215,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
               <>
                 <div className="grid gap-10">
                   <ChoiceGroup
+                    idPrefix={uid}
                     name="injections"
                     legend="Are you comfortable giving yourself an injection?"
                     hint="Some options are small injections you give yourself under the skin. Others are pills."
@@ -217,6 +228,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
                     onSelect={(k) => setDraft((prev) => ({ ...prev, injections: k as "yes" | "no" }))}
                   />
                   <ChoiceGroup
+                    idPrefix={uid}
                     name="budget"
                     legend="What could you pay each month without insurance?"
                     hint="We compare this with cash prices. With insurance or savings programs, you may pay less."
@@ -237,7 +249,7 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
           </div>
         </form>
       )}
-    </>
+    </div>
   );
 }
 
@@ -262,9 +274,20 @@ function Progress({ step }: { step: Step }) {
   );
 }
 
-function ErrorSummary({ errors, ref }: { errors: FieldError[]; ref: React.Ref<HTMLDivElement> }) {
+function ErrorSummary({
+  errors,
+  ref,
+  idPrefix,
+  rootRef,
+}: {
+  errors: FieldError[];
+  ref: React.Ref<HTMLDivElement>;
+  idPrefix: string;
+  rootRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  const titleId = `${idPrefix}-error-summary-title`;
   const jump = (field: string) => {
-    const input = document.querySelector<HTMLInputElement>(`input[name="${field}"]`);
+    const input = rootRef.current?.querySelector<HTMLInputElement>(`input[name="${field}"]`);
     input?.closest("fieldset")?.scrollIntoView({ block: "start" });
     input?.focus({ preventScroll: true });
   };
@@ -272,17 +295,17 @@ function ErrorSummary({ errors, ref }: { errors: FieldError[]; ref: React.Ref<HT
     <div
       ref={ref}
       tabIndex={-1}
-      aria-labelledby="error-summary-title"
+      aria-labelledby={titleId}
       className="mt-6 rounded-lg border-2 border-error bg-surface p-5 focus:outline-none print:hidden"
     >
-      <h2 id="error-summary-title" className="text-lg font-semibold text-error">
+      <h2 id={titleId} className="text-lg font-semibold text-error">
         There is a problem
       </h2>
       <ul className="mt-3 space-y-2">
         {errors.map((e) => (
           <li key={e.field + e.message}>
             <a
-              href={`#field-${e.field}`}
+              href={`#${idPrefix}-field-${e.field}`}
               onClick={(ev) => {
                 ev.preventDefault();
                 jump(e.field);
@@ -299,6 +322,7 @@ function ErrorSummary({ errors, ref }: { errors: FieldError[]; ref: React.Ref<HT
 }
 
 function ChoiceGroup(props: {
+  idPrefix: string;
   name: string;
   legend: string;
   hint?: string;
@@ -307,11 +331,11 @@ function ChoiceGroup(props: {
   selected: string | undefined;
   onSelect: (key: string) => void;
 }) {
-  const hintId = `${props.name}-hint`;
-  const errorId = `${props.name}-error`;
+  const hintId = `${props.idPrefix}-${props.name}-hint`;
+  const errorId = `${props.idPrefix}-${props.name}-error`;
   return (
     <fieldset
-      id={`field-${props.name}`}
+      id={`${props.idPrefix}-field-${props.name}`}
       aria-describedby={[props.hint && hintId, props.error && errorId].filter(Boolean).join(" ") || undefined}
       className={`scroll-mt-6 ${props.error ? "border-l-4 border-error pl-4" : ""}`}
     >
