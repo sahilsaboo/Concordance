@@ -49,13 +49,24 @@ Concordance/
 
 Rank **molecule + route**, not brand. Brands are revealed under each option on the results page.
 
-Candidate list (to confirm, including current FDA approval status of newer oral agents):
-- semaglutide, injection
-- semaglutide, oral
-- tirzepatide, injection
-- liraglutide, injection
+Option list (US approval status as of 2026-11-24):
 
-Proposed exclusion: compounded products (regulatory and quality uncertainty).
+| Option | Brands | Approved for | Notes |
+|---|---|---|---|
+| semaglutide, injection | Wegovy, Ozempic | Obesity (Wegovy), T2D (Ozempic) | 7.2 mg dose and MASH indication: status not yet verified |
+| semaglutide, oral | Wegovy pill, Rybelsus | Obesity (Wegovy pill, approved 2025-12-22), T2D (Rybelsus) | Wegovy pill is 25 mg; launched Jan 2026 |
+| tirzepatide, injection | Zepbound, Mounjaro | Obesity (Zepbound), T2D (Mounjaro) | |
+| liraglutide, injection | Saxenda, Victoza, generics | Obesity (Saxenda), T2D (Victoza) | Generic Victoza (2024) and generic Saxenda (2025-08-28) from Teva |
+| **orforglipron, oral (new)** | Foundayo | Obesity (approved 2026-04-01) | Non-peptide pill. T2D filed Q2 2026, not approved yet |
+
+Not included:
+- **Dulaglutide (Trulicity):** T2D only, no obesity indication. Add if the treatment-goal question includes T2D.
+- **Exenatide:** Bydureon BCise discontinued Oct 2024. Generic twice-daily exenatide (Amneal) is still sold for T2D only.
+- **Lixisenatide:** Adlyxin withdrawn Jan 2023. Only sold inside Soliqua (with insulin glargine).
+- **Not yet approved:** CagriSema (filed Dec 2025, decision expected Q4 2026), retatrutide (BLA planned Q1 2027), survodutide (filing planned 2027). Recheck CagriSema before launch.
+- **Compounded products:** regulatory and quality uncertainty.
+
+Sources: research-agent checks of manufacturer press releases and FDA pages (Nov 2026). The Wegovy pill date is from Novo Nordisk's US release; the FDA label itself was not opened. Brand lists in `data/sample_matrix.json` predate this table.
 
 ## 4. Data model
 
@@ -143,7 +154,7 @@ Milestones 1 and 2 can run in parallel because the JSON contract separates them.
 
 ## 9. Open decisions
 
-- Final drug list (verify current approvals)
+- Drug list: approvals checked 2026-11-24 (section 3). Still open: confirm Wegovy pill and Foundayo from FDA labels, verify semaglutide 7.2 mg and MASH status, recheck CagriSema, and decide whether T2D-only drugs (dulaglutide) belong once the treatment-goal question exists
 - Sprint length / deadline
 - LLM API budget (estimate once claim volume is known)
 - Price sources and how often they refresh
