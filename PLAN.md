@@ -123,7 +123,8 @@ Based on established frameworks so the ratings rest on accepted standards, not o
 For option *d*, dimension *k*:
 
 - Claim weight: `w_i = bias_i × thoroughness_i`
-- Dimension score: `S(d,k) = Σ w_i · e_i / Σ w_i`, where `e_i` is the effect normalized to 0–1 on a fixed scale per metric (weight loss: 0 to 20+ percentage points vs placebo; stomach side effects: average excess nausea, diarrhea and vomiting vs placebo from FDA labels, 0 to 30+ points, inverted), not min-max across options, so scores stay stable as evidence is added
+- Dimension score: `S(d,k) = Σ w_i · e_i / Σ w_i`, where `e_i` is the effect normalized to 0–1 on a fixed scale per metric (weight loss: 0 to 20+ percentage points vs placebo; stomach side effects: average excess nausea, diarrhea and vomiting vs placebo from FDA labels, 0 to 30+ points, inverted; heart health: hazard ratio for major heart events vs placebo, 1.0 = 0.5 and 0.75 or lower = 1, placebo-controlled trials only; serious side effects: excess serious adverse events from ClinicalTrials.gov results (0 to 5+ points), gallbladder events (0 to 3+) and stopping for side effects (0 to 10+) from labels)
+- Severity: within a priority, a claim's weight is `w_i × severity_i` for the score (serious adverse events 3, gallbladder 2, stopping treatment 1), while confidence still uses `Σ w_i`, not min-max across options, so scores stay stable as evidence is added
   - **Weighted mean, not sum**, so more studies do not mean a higher score
 - Evidence confidence: `C(d,k) = f(Σ w_i)`, shown to the user **separately** and never mixed into the score
 - Missing evidence: neutral score (0.5) with an "insufficient evidence" flag. Dropping the dimension and renormalizing would reward drugs with less data.

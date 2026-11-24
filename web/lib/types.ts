@@ -41,6 +41,8 @@ export interface Claim {
   dimension: string;
   statement: string;
   effect: { metric: string; value: number; timepoint_weeks?: number | null; normalized: Score };
+  /** How much this outcome matters within its priority (default 1). Weights the average, not the confidence. */
+  severity?: number;
   source_id: string;
   ratings: {
     bias: Score;

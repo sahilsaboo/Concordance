@@ -71,6 +71,9 @@ class Claim(BaseModel):
     dimension: str
     statement: str
     effect: Effect
+    # How much the outcome matters within its priority (e.g. serious adverse events 3, stopping treatment 1).
+    # Multiplies the claim's weight in the priority's average, but not the evidence confidence.
+    severity: float = Field(default=1.0, gt=0)
     source_id: str
     ratings: Ratings
     review: Review

@@ -171,6 +171,94 @@
       "funding": "mixed"
     },
     {
+      "id": "ctgov_NCT03548935",
+      "title": "STEP 1: results on ClinicalTrials.gov (NCT03548935)",
+      "url": "https://clinicaltrials.gov/study/NCT03548935?tab=results",
+      "type": "rct",
+      "year": 2021,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "ctgov_NCT03693430",
+      "title": "STEP 5: results on ClinicalTrials.gov (NCT03693430)",
+      "url": "https://clinicaltrials.gov/study/NCT03693430?tab=results",
+      "type": "rct",
+      "year": 2022,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "ctgov_NCT05564117",
+      "title": "OASIS 4: results on ClinicalTrials.gov (NCT05564117)",
+      "url": "https://clinicaltrials.gov/study/NCT05564117?tab=results",
+      "type": "rct",
+      "year": 2025,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "ctgov_NCT04184622",
+      "title": "SURMOUNT-1: results on ClinicalTrials.gov (NCT04184622)",
+      "url": "https://clinicaltrials.gov/study/NCT04184622?tab=results",
+      "type": "rct",
+      "year": 2022,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "ctgov_NCT01272219",
+      "title": "SCALE Obesity and Prediabetes: results on ClinicalTrials.gov (NCT01272219)",
+      "url": "https://clinicaltrials.gov/study/NCT01272219?tab=results",
+      "type": "rct",
+      "year": 2015,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "ctgov_NCT05869903",
+      "title": "ATTAIN-1: results on ClinicalTrials.gov (NCT05869903)",
+      "url": "https://clinicaltrials.gov/study/NCT05869903?tab=results",
+      "type": "rct",
+      "year": 2025,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_001",
+      "title": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37952131/",
+      "type": "rct",
+      "year": 2023,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_006",
+      "title": "Semaglutide and Cardiovascular Outcomes in Patients with Type 2 Diabetes.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27633186/",
+      "type": "rct",
+      "year": 2016,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_022",
+      "title": "Oral Semaglutide and Cardiovascular Outcomes in High-Risk Type 2 Diabetes.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40162642/",
+      "type": "rct",
+      "year": 2025,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_029",
+      "title": "Oral Semaglutide and Cardiovascular Outcomes in Patients with Type 2 Diabetes.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31185157/",
+      "type": "rct",
+      "year": 2019,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_058",
+      "title": "Liraglutide and Cardiovascular Outcomes in Type 2 Diabetes.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4985288/",
+      "type": "rct",
+      "year": 2016,
+      "funding": "manufacturer"
+    },
+    {
       "id": "px_novocare_wegovy",
       "title": "NovoCare Pharmacy: Wegovy self-pay pricing",
       "url": "https://www.novocare.com/delivery/wegovy.html",
@@ -215,6 +303,7 @@
         "timepoint_weeks": 68,
         "normalized": 0.62
       },
+      "severity": 1,
       "source_id": "st_002",
       "ratings": {
         "bias": 0.4,
@@ -240,6 +329,7 @@
         "timepoint_weeks": 104,
         "normalized": 0.63
       },
+      "severity": 1,
       "source_id": "st_013",
       "ratings": {
         "bias": 0.35,
@@ -265,6 +355,7 @@
         "timepoint_weeks": 64,
         "normalized": 0.57
       },
+      "severity": 1,
       "source_id": "st_030",
       "ratings": {
         "bias": 0.4,
@@ -290,6 +381,7 @@
         "timepoint_weeks": 72,
         "normalized": 0.89
       },
+      "severity": 1,
       "source_id": "st_038",
       "ratings": {
         "bias": 0.4,
@@ -315,6 +407,7 @@
         "timepoint_weeks": 56,
         "normalized": 0.265
       },
+      "severity": 1,
       "source_id": "st_063",
       "ratings": {
         "bias": 0.4,
@@ -340,6 +433,7 @@
         "timepoint_weeks": 72,
         "normalized": 0.455
       },
+      "severity": 1,
       "source_id": "st_061",
       "ratings": {
         "bias": 0.4,
@@ -365,6 +459,7 @@
         "timepoint_weeks": null,
         "normalized": 0.3333
       },
+      "severity": 1,
       "source_id": "lbl_wegovy",
       "ratings": {
         "bias": 0.5,
@@ -390,6 +485,7 @@
         "timepoint_weeks": null,
         "normalized": 0.3333
       },
+      "severity": 1,
       "source_id": "lbl_wegovy",
       "ratings": {
         "bias": 0.5,
@@ -415,6 +511,7 @@
         "timepoint_weeks": null,
         "normalized": 0.49
       },
+      "severity": 1,
       "source_id": "lbl_zepbound",
       "ratings": {
         "bias": 0.5,
@@ -440,6 +537,7 @@
         "timepoint_weeks": null,
         "normalized": 0.4633
       },
+      "severity": 1,
       "source_id": "lbl_saxenda",
       "ratings": {
         "bias": 0.5,
@@ -465,6 +563,7 @@
         "timepoint_weeks": null,
         "normalized": 0.3433
       },
+      "severity": 1,
       "source_id": "lbl_foundayo",
       "ratings": {
         "bias": 0.5,
@@ -477,6 +576,552 @@
         "status": "approved",
         "reviewer": null,
         "notes": "Approved in Claude session 2026-11-24, including the proposed label ratings."
+      }
+    },
+    {
+      "id": "c_0201",
+      "option": "semaglutide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "STEP 1 (ClinicalTrials.gov results): serious adverse events in 128 of 1306 people on semaglutide 2.4 mg (9.8%) vs 42 of 655 on placebo (6.4%), 3.4 percentage points more (weeks 0 to 75).",
+      "effect": {
+        "metric": "sae_excess_pp_vs_placebo",
+        "value": 3.4,
+        "timepoint_weeks": null,
+        "normalized": 0.32
+      },
+      "severity": 3,
+      "source_id": "ctgov_NCT03548935",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.9,
+        "rationale": "Bias: Funded by Novo Nordisk (abstract); preregistered NCT03548935, NEJM. Funder-role section not accessible (paywall/403); funding taken from abstract statement. Scored at industry-pivotal midpoint. Quality: Large double-blind placebo RCT, 68 weeks, treatment-policy estimand handles discontinuation; weight is objective. Placebo comparator only.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0202",
+      "option": "semaglutide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "STEP 5 (ClinicalTrials.gov results): serious adverse events in 12 of 152 people on semaglutide 2.4 mg (7.9%) vs 18 of 152 on placebo (11.8%), 3.9 percentage points fewer (weeks 0 to 111).",
+      "effect": {
+        "metric": "sae_excess_pp_vs_placebo",
+        "value": -3.9,
+        "timepoint_weeks": null,
+        "normalized": 1.0
+      },
+      "severity": 3,
+      "source_id": "ctgov_NCT03693430",
+      "ratings": {
+        "bias": 0.35,
+        "thoroughness": 0.75,
+        "rationale": "Bias: Full text (PMC9556320) states funder designed the trial, collected and analyzed data, and paid medical writing; employee co-authors. Preregistered NCT03693430. Quality: Double-blind 2-year RCT with good retention, but small (n=304) for safety estimates.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0203",
+      "option": "semaglutide_oral",
+      "dimension": "serious_ae_risk",
+      "statement": "OASIS 4 (ClinicalTrials.gov results): serious adverse events in 8 of 204 people on oral semaglutide 25 mg (3.9%) vs 9 of 102 on placebo (8.8%), 4.9 percentage points fewer (weeks 0 to 71).",
+      "effect": {
+        "metric": "sae_excess_pp_vs_placebo",
+        "value": -4.9,
+        "timepoint_weeks": null,
+        "normalized": 1.0
+      },
+      "severity": 3,
+      "source_id": "ctgov_NCT05564117",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.72,
+        "rationale": "Bias: Novo Nordisk-funded registered trial (NCT05564117), NEJM. Publisher page returned 403; funder-role and full COI sections not read. Sponsor stated in abstract. Quality: Double-blind 64-week RCT of the marketed dose; small (n=307) and attrition not reported in abstract.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0204",
+      "option": "tirzepatide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "SURMOUNT-1 (ClinicalTrials.gov results): serious adverse events in 50 of 630 people on tirzepatide 15 mg (7.9%) vs 53 of 643 on placebo (8.2%), 0.3 percentage points fewer (up to week 193, including the 3-year extension).",
+      "effect": {
+        "metric": "sae_excess_pp_vs_placebo",
+        "value": -0.3,
+        "timepoint_weeks": null,
+        "normalized": 1.0
+      },
+      "severity": 3,
+      "source_id": "ctgov_NCT04184622",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.9,
+        "rationale": "Bias: Lilly-funded pivotal trial in NEJM, preregistered (NCT04184622). Full-text funding/role-of-funder section not reachable (paywalled/403); funder role inferred from abstract funding line and Lilly employee co-authors [inference]. Quality: Large (n=2539) 72-wk double-blind placebo RCT with treatment-regimen ITT estimand; attrition details not in abstract.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0205",
+      "option": "liraglutide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "SCALE Obesity and Prediabetes (ClinicalTrials.gov results): serious adverse events in 289 of 2481 people on liraglutide 3.0 mg (11.6%) vs 115 of 1242 on placebo (9.3%), 2.4 percentage points more (up to 70 weeks, or 3 years for people with prediabetes).",
+      "effect": {
+        "metric": "sae_excess_pp_vs_placebo",
+        "value": 2.4,
+        "timepoint_weeks": null,
+        "normalized": 0.52
+      },
+      "severity": 3,
+      "source_id": "ctgov_NCT01272219",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.8,
+        "rationale": "Bias: Abstract states 'Funded by Novo Nordisk'; preregistered (NCT01272219), NEJM. Full-text trial-oversight / funder-role section not accessible (NEJM returned 403); funder taken from abstract funding line only. Quality: Large (n=3731) 56-wk double-blind placebo RCT; primary analysis used LOCF imputation, which is weaker handling of missing data in an obesity trial with meaningful dropout.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0206",
+      "option": "orforglipron_oral",
+      "dimension": "serious_ae_risk",
+      "statement": "ATTAIN-1 (ClinicalTrials.gov results): serious adverse events in 28 of 728 people on orforglipron 36 mg capsule (3.8%) vs 46 of 948 on placebo (4.9%), 1.0 percentage points fewer (up to week 74).",
+      "effect": {
+        "metric": "sae_excess_pp_vs_placebo",
+        "value": -1.0,
+        "timepoint_weeks": null,
+        "normalized": 1.0
+      },
+      "severity": 3,
+      "source_id": "ctgov_NCT05869903",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.85,
+        "rationale": "Bias: Abstract: 'Funded by Eli Lilly'; preregistered (NCT05869903). Full-text trial-oversight / funder-role section not accessible (NEJM returned 403); funder taken from abstract funding line only. Quality: Large double-blind placebo RCT, 72 wk, treatment-regimen estimand; attrition not given in abstract.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0301",
+      "option": "semaglutide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: gallstones in 1.6% on Wegovy injection vs 0.7% on placebo, and gallbladder inflammation in 0.6% vs 0.2%. Together 1.3 percentage points more than placebo.",
+      "effect": {
+        "metric": "gallbladder_excess_pp_vs_placebo",
+        "value": 1.3,
+        "timepoint_weeks": null,
+        "normalized": 0.5667
+      },
+      "severity": 2,
+      "source_id": "lbl_wegovy",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled adult weight-reduction trials.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0302",
+      "option": "semaglutide_oral",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: gallstones in 2.5% on Wegovy tablets vs 1% on placebo, 1.5 percentage points more. The label gives no tablet rate for gallbladder inflammation.",
+      "effect": {
+        "metric": "gallbladder_excess_pp_vs_placebo",
+        "value": 1.5,
+        "timepoint_weeks": null,
+        "normalized": 0.5
+      },
+      "severity": 2,
+      "source_id": "lbl_wegovy",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.6,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Single tablet trial; gallstones only, no separate inflammation rate.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0303",
+      "option": "tirzepatide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: gallstones in 1.1% on Zepbound vs 1% on placebo, and gallbladder inflammation in 0.7% vs 0.2%. Together 0.6 percentage points more than placebo (all doses pooled).",
+      "effect": {
+        "metric": "gallbladder_excess_pp_vs_placebo",
+        "value": 0.6,
+        "timepoint_weeks": null,
+        "normalized": 0.8
+      },
+      "severity": 2,
+      "source_id": "lbl_zepbound",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled weight trials (Studies 1 and 2), all doses.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0304",
+      "option": "liraglutide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: gallstones in 2.2% on Saxenda vs 0.8% on placebo, and gallbladder inflammation in 0.8% vs 0.4%. Together 1.8 percentage points more than placebo.",
+      "effect": {
+        "metric": "gallbladder_excess_pp_vs_placebo",
+        "value": 1.8,
+        "timepoint_weeks": null,
+        "normalized": 0.4
+      },
+      "severity": 2,
+      "source_id": "lbl_saxenda",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled adult weight trials.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0305",
+      "option": "orforglipron_oral",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: gallstones in 1% on Foundayo vs 0.7% on placebo, and acute gallbladder inflammation in 0.4% vs 0.3%. Together 0.4 percentage points more than placebo (all doses pooled).",
+      "effect": {
+        "metric": "gallbladder_excess_pp_vs_placebo",
+        "value": 0.4,
+        "timepoint_weeks": null,
+        "normalized": 0.8667
+      },
+      "severity": 2,
+      "source_id": "lbl_foundayo",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled weight trials 1 and 2, all doses.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0401",
+      "option": "semaglutide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: 6.8% on Wegovy 2.4 mg injection vs 3.2% on placebo stopped treatment because of side effects, 3.6 percentage points more.",
+      "effect": {
+        "metric": "discontinuation_ae_excess_pp_vs_placebo",
+        "value": 3.6,
+        "timepoint_weeks": null,
+        "normalized": 0.64
+      },
+      "severity": 1,
+      "source_id": "lbl_wegovy",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled adult weight-reduction trials.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0402",
+      "option": "semaglutide_oral",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: 6.9% on Wegovy 25 mg tablets vs 5.9% on placebo stopped treatment because of side effects, 1.0 percentage point more.",
+      "effect": {
+        "metric": "discontinuation_ae_excess_pp_vs_placebo",
+        "value": 1.0,
+        "timepoint_weeks": null,
+        "normalized": 0.9
+      },
+      "severity": 1,
+      "source_id": "lbl_wegovy",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.65,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Single tablet trial (about 300 people).",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0403",
+      "option": "tirzepatide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: 6.7% on Zepbound 15 mg vs 3.4% on placebo stopped treatment because of side effects, 3.3 percentage points more.",
+      "effect": {
+        "metric": "discontinuation_ae_excess_pp_vs_placebo",
+        "value": 3.3,
+        "timepoint_weeks": null,
+        "normalized": 0.67
+      },
+      "severity": 1,
+      "source_id": "lbl_zepbound",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled weight trials (Studies 1 and 2).",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0404",
+      "option": "liraglutide_injection",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: 9.8% on Saxenda vs 4.3% on placebo stopped treatment because of side effects, 5.5 percentage points more.",
+      "effect": {
+        "metric": "discontinuation_ae_excess_pp_vs_placebo",
+        "value": 5.5,
+        "timepoint_weeks": null,
+        "normalized": 0.45
+      },
+      "severity": 1,
+      "source_id": "lbl_saxenda",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled adult weight trials.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0405",
+      "option": "orforglipron_oral",
+      "dimension": "serious_ae_risk",
+      "statement": "FDA label: 10% on Foundayo 17.2 mg vs 3% on placebo stopped treatment because of side effects, 7 percentage points more.",
+      "effect": {
+        "metric": "discontinuation_ae_excess_pp_vs_placebo",
+        "value": 7,
+        "timepoint_weeks": null,
+        "normalized": 0.3
+      },
+      "severity": 1,
+      "source_id": "lbl_foundayo",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled weight trials 1 and 2.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0501",
+      "option": "semaglutide_injection",
+      "dimension": "cardiovascular",
+      "statement": "SELECT: in adults with heart disease and overweight or obesity but no diabetes, semaglutide 2.4 mg cut major heart events (heart attack, stroke, heart death) by 20% vs placebo (hazard ratio 0.80) over a mean follow-up of 39.8 months.",
+      "effect": {
+        "metric": "mace_hr_vs_placebo",
+        "value": 0.8,
+        "timepoint_weeks": null,
+        "normalized": 0.9
+      },
+      "severity": 1,
+      "source_id": "st_001",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.95,
+        "rationale": "Bias: Novo Nordisk funded (abstract); preregistered NCT03574597, NEJM. Academic steering-committee and independent-analysis details not verified (NEJM 403). Would move to ~0.5 if confirmed. Quality: Very large event-driven double-blind CVOT with hard clinical endpoint and >3 y follow-up. Duration_weeks = 39.8 mo mean follow-up converted (~173 wk).",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0502",
+      "option": "semaglutide_injection",
+      "dimension": "cardiovascular",
+      "statement": "SUSTAIN-6: in people with type 2 diabetes at high heart risk, injectable semaglutide (0.5 or 1 mg) cut major heart events by 26% vs placebo (hazard ratio 0.74).",
+      "effect": {
+        "metric": "mace_hr_vs_placebo",
+        "value": 0.74,
+        "timepoint_weeks": null,
+        "normalized": 1.0
+      },
+      "severity": 1,
+      "source_id": "st_006",
+      "ratings": {
+        "bias": 0.4,
+        "thoroughness": 0.82,
+        "rationale": "Bias: Novo Nordisk funded (abstract); preregistered NCT01720446, NEJM. Funder-role section not accessible (paywall/403); funding taken from abstract statement. Quality: Double-blind CVOT with hard endpoints, but designed for noninferiority; superiority was not prespecified and event count modest (254 MACE). Retinopathy signal is a key safety finding.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0503",
+      "option": "semaglutide_oral",
+      "dimension": "cardiovascular",
+      "statement": "SOUL: in people with type 2 diabetes and heart or kidney disease, oral semaglutide 14 mg cut major heart events by 14% vs placebo (hazard ratio 0.86).",
+      "effect": {
+        "metric": "mace_hr_vs_placebo",
+        "value": 0.86,
+        "timepoint_weeks": null,
+        "normalized": 0.78
+      },
+      "severity": 1,
+      "source_id": "st_022",
+      "ratings": {
+        "bias": 0.45,
+        "thoroughness": 0.92,
+        "rationale": "Bias: Novo-funded, preregistered (NCT03914326), academic steering committee, NEJM. Sponsor role inferred from companion SOUL paper since NEJM page was blocked. Quality: Very large double-blind superiority CVOT with ~4 years follow-up and a hard clinical endpoint; modest absolute effect (1.8 pp).",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0504",
+      "option": "semaglutide_oral",
+      "dimension": "cardiovascular",
+      "statement": "PIONEER 6: in people with type 2 diabetes at high heart risk, oral semaglutide had 21% fewer major heart events than placebo (hazard ratio 0.79), a result that could be due to chance (95% CI 0.57 to 1.11).",
+      "effect": {
+        "metric": "mace_hr_vs_placebo",
+        "value": 0.79,
+        "timepoint_weeks": null,
+        "normalized": 0.92
+      },
+      "severity": 1,
+      "source_id": "st_029",
+      "ratings": {
+        "bias": 0.45,
+        "thoroughness": 0.75,
+        "rationale": "Bias: Novo Nordisk-funded, registered, NEJM-published CVOT. Publisher page returned 403; funder-role and full COI sections not read. Sponsor stated in abstract. Quality: Large double-blind event-driven trial but designed only for safety noninferiority; median 15.9 months, few events, so mortality findings are secondary and imprecise.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
+      }
+    },
+    {
+      "id": "c_0505",
+      "option": "liraglutide_injection",
+      "dimension": "cardiovascular",
+      "statement": "LEADER: in people with type 2 diabetes at high heart risk, liraglutide cut major heart events by 13% vs placebo (hazard ratio 0.87) over a median 3.8 years.",
+      "effect": {
+        "metric": "mace_hr_vs_placebo",
+        "value": 0.87,
+        "timepoint_weeks": null,
+        "normalized": 0.76
+      },
+      "severity": 1,
+      "source_id": "st_058",
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.9,
+        "rationale": "Bias: Oversight section read in PMC: academic-majority steering committee, independent DSMB, analysis by external CRO plus sponsor, first draft by academic authors; but sponsor employees co-author and sponsor-funded writing. Preregistered (NCT01179048). Quality: Large double-blind event-driven CVOT, median 3.8 y follow-up, hard clinical endpoint.",
+        "rater": "llm",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including severity weights and scales."
       }
     }
   ],

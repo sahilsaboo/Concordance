@@ -155,3 +155,56 @@ def test_approved_facts_replace_placeholders_only_where_covered():
     pending["facts"][0]["review"]["status"] = "pending"
     m2, _ = bm.build({"claims": []}, [], sample, pending)
     assert not any(f["id"] == "f_1" for f in m2["facts"])
+
+
+def test_number_match_accepts_trailing_zeros_only():
+    assert bm._num_in(0.8, "(hazard ratio, 0.80; 95% CI") and bm._num_in(1, "1.0 mg")
+    assert not bm._num_in(0.8, "0.81") and not bm._num_in(0.8, "10.80")
+
+
+REG = {"resultsSection": {"adverseEventsModule": {"eventGroups": [
+    {"id": "EG000", "seriousNumAffected": 230, "seriousNumAtRisk": 1524}, {"id": "EG001", "seriousNumAffected": 96, "seriousNumAtRisk": 755},
+    {"id": "EG002", "seriousNumAffected": 59, "seriousNumAtRisk": 957}, {"id": "EG003", "seriousNumAffected": 19, "seriousNumAtRisk": 487}]}}}
+
+
+def reg_claim(**d):
+    der = {"kind": "ctgov_counts", "nct": "NCT1", "drug_groups": ["EG000", "EG002"], "placebo_groups": ["EG001", "EG003"],
+           "drug": [289, 2481], "placebo": [115, 1242], **d}
+    return {"id": "c_r", "effect": {"metric": "sae_excess_pp_vs_placebo", "value": 2.4}, "derivation": der}
+
+
+def test_registry_counts_sum_arms_and_catch_mismatches():
+    run = lambda c: bm.verify([c], {}, fetch_reg=lambda nct: REG)
+    assert run(reg_claim()) == []
+    assert any("!= registry" in e for e in run(reg_claim(drug=[290, 2481])))
+    assert any("missing" in e for e in run(reg_claim(placebo_groups=["EG009"])))
+    bad_math = reg_claim()
+    bad_math["effect"]["value"] = 3.0
+    assert any("does not match counts" in e for e in bm.check_derivation(bad_math))
+
+
+def test_label_pairs_need_numbers_in_quotes_and_correct_sum():
+    c = {"id": "c_p", "effect": {"metric": "gallbladder_excess_pp_vs_placebo", "value": 1.3},
+         "derivation": {"kind": "label_pairs", "pairs": [[1.6, 0.7], [0.6, 0.2]]},
+         "quotes": ["reported by 1.6% vs 0.7% of placebo", "Cholecystitis 0.6% and 0.2%"]}
+    assert bm.check_derivation(c) == []
+    assert any("not found" in e for e in bm.check_derivation({**c, "quotes": ["1.6% vs 0.7%"]}))
+    assert any("does not match" in e for e in bm.check_derivation({**c, "effect": {**c["effect"], "value": 1.5}}))
+
+
+def test_new_scales_and_severity():
+    s = bm.SCALES
+    assert (s["mace_hr_vs_placebo"](1.0), s["mace_hr_vs_placebo"](0.8), s["mace_hr_vs_placebo"](0.7), s["mace_hr_vs_placebo"](1.3)) == (0.5, pytest.approx(0.9), 1, 0)
+    assert (s["sae_excess_pp_vs_placebo"](-4), s["sae_excess_pp_vs_placebo"](2.5)) == (1, 0.5)
+    assert bm.SEVERITY["sae_excess_pp_vs_placebo"] > bm.SEVERITY["gallbladder_excess_pp_vs_placebo"] > bm.SEVERITY["discontinuation_ae_excess_pp_vs_placebo"]
+
+
+def test_built_claims_carry_severity_and_registry_source():
+    sample = json.loads((DATA / "sample_matrix.json").read_text())
+    c = {**reg_claim(), "option": "liraglutide_injection", "dimension": "serious_ae_risk", "study_id": "st_1", "statement": "s",
+         "registry_source": {"id": "ctgov_NCT1", "title": "Registry", "url": "https://clinicaltrials.gov/study/NCT1?tab=results"},
+         "review": {"status": "approved"}}
+    m, _ = bm.build({"claims": [c]}, [STUDY], sample)
+    out = m["claims"][0]
+    assert out["severity"] == 3 and out["source_id"] == "ctgov_NCT1"
+    assert out["ratings"]["bias"] == STUDY["source_bias_score"]

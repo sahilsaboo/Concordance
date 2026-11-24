@@ -98,8 +98,17 @@ export default function MethodologyPage() {
               means no more weight lost than with placebo and 100 means 20 or more percentage points more. For stomach
               side effects, we average how much more often nausea, diarrhea, and vomiting happened than with placebo,
               using the FDA label at the highest approved dose: 100 means no more often, 0 means 30 or more percentage
-              points more often. The scales are fixed, so an option&apos;s score doesn&apos;t change just because another
-              option is added.
+              points more often. For heart health, we use trials that compared the drug with placebo and counted heart
+              attacks, strokes, and heart deaths: no difference scores 50 and a 25% or larger reduction scores 100.
+              Options without such a trial stay at 50, the same as no proven benefit. The scales are fixed, so an
+              option&apos;s score doesn&apos;t change just because another option is added.
+            </li>
+            <li>
+              <strong>Serious side effects:</strong> three kinds of harm, each compared with placebo and weighted by how
+              severe it is. Serious adverse events, such as hospital stays, from the trials&apos; published results count
+              3 times. Gallbladder problems, which often need surgery, from the FDA label count 2 times. Stopping
+              treatment because of side effects, from the FDA label, counts once. For each, no more than placebo scores
+              100. The severity weights shape the score but not the evidence confidence.
             </li>
             <li>
               <strong>Score for each priority (0 to 100):</strong> the weighted average of the claims for that option.

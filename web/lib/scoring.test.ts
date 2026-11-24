@@ -78,6 +78,21 @@ describe("rank", () => {
     expect(weekly[0].rank).toBe(weekly[1].rank);
   });
 
+  it("severity tilts the average but not the confidence", () => {
+    const sae = base.claims.find((c) => c.id === "c_sample_01")!;
+    const mk = (id: string, normalized: number, severity: number) => ({
+      ...sae, id, dimension: "serious_ae_risk", effect: { ...sae.effect, normalized }, severity,
+    });
+    const flat: ClaimMatrix = { ...base, claims: [mk("a", 0.2, 1), mk("b", 1.0, 1)] };
+    const tilted: ClaimMatrix = { ...base, claims: [mk("a", 0.2, 3), mk("b", 1.0, 1)] };
+    const ans = answers({ importance: { serious_ae_risk: 4 } });
+    const f = dim(rank(flat, ans), "semaglutide_injection", "serious_ae_risk");
+    const t = dim(rank(tilted, ans), "semaglutide_injection", "serious_ae_risk");
+    expect(f.score).toBeCloseTo(0.6);
+    expect(t.score).toBeCloseTo((3 * 0.2 + 1.0) / 4);
+    expect(t.confidence).toBe(f.confidence);
+  });
+
   it("labels fact-based priorities as verified, not as study evidence", () => {
     expect(dim(rank(base, answers()), "semaglutide_injection", "cost").confidence).toBe("verified");
   });

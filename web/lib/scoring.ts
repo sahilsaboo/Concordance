@@ -83,10 +83,12 @@ function scoreDimension(m: ClaimMatrix, optionId: string, dimensionId: string) {
     const claims = m.claims.filter((c) => c.option === optionId && c.dimension === dimensionId);
     const totalWeight = claims.reduce((s, c) => s + claimWeight(c), 0);
     // Weighted MEAN, not sum: more studies do not raise the score, only the confidence.
+    // Severity tilts the average toward worse outcomes (e.g. hospitalization over stopping treatment);
+    // confidence still comes from evidence weight alone.
+    const sev = (c: Claim) => claimWeight(c) * (c.severity ?? 1);
+    const sevTotal = claims.reduce((s, c) => s + sev(c), 0);
     const score =
-      totalWeight > 0
-        ? claims.reduce((s, c) => s + claimWeight(c) * c.effect.normalized, 0) / totalWeight
-        : NEUTRAL_SCORE;
+      sevTotal > 0 ? claims.reduce((s, c) => s + sev(c) * c.effect.normalized, 0) / sevTotal : NEUTRAL_SCORE;
     return {
       score,
       confidence: confidenceFromWeight(totalWeight),

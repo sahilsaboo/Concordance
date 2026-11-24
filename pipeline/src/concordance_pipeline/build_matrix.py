@@ -30,10 +30,21 @@ USABLE = {"approved", "edited"}
 # Fixed scales (not min-max across options), so a score means the same thing as evidence is added.
 # weight_loss: 0 percentage points more than placebo -> 0, 20 or more -> 1.
 # gi_tolerability: average excess of nausea, diarrhea, vomiting vs placebo; 0 points -> 1, 30 or more -> 0.
+_clamp = lambda x: max(0.0, min(1.0, x))
 SCALES = {
-    "pct_weight_change_vs_placebo": lambda v: max(0.0, min(1.0, -v / 20.0)),
-    "gi_excess_pp_vs_placebo": lambda v: max(0.0, min(1.0, 1 - v / 30.0)),
+    "pct_weight_change_vs_placebo": lambda v: _clamp(-v / 20.0),
+    "gi_excess_pp_vs_placebo": lambda v: _clamp(1 - v / 30.0),
+    # cardiovascular: hazard ratio for major heart events vs placebo. 1.0 (no effect) -> 0.5, 0.75 or lower -> 1.
+    "mace_hr_vs_placebo": lambda hr: _clamp(0.5 + (1 - hr) * 2),
+    # serious_ae_risk components: extra percentage points vs placebo; no excess (or fewer than placebo) -> 1.
+    "sae_excess_pp_vs_placebo": lambda v: _clamp(1 - v / 5.0),
+    "gallbladder_excess_pp_vs_placebo": lambda v: _clamp(1 - v / 3.0),
+    "discontinuation_ae_excess_pp_vs_placebo": lambda v: _clamp(1 - v / 10.0),
 }
+# Severity multiplies a claim's weight in its priority's average (not its confidence).
+# Serious adverse events (e.g. hospitalization) > gallbladder disease (often surgery) > stopping treatment.
+SEVERITY = {"sae_excess_pp_vs_placebo": 3, "gallbladder_excess_pp_vs_placebo": 2, "discontinuation_ae_excess_pp_vs_placebo": 1}
+CTGOV_CACHE = CACHE.parent / "ctgov"
 LABEL_CACHE = CACHE.parent / "labels"
 
 DIM_NAMES = {"weight_loss": "weight loss", "gi_tolerability": "stomach side effects",
@@ -53,8 +64,10 @@ def _squash(text: str) -> str:
 
 
 def _num_in(n: float, text: str) -> bool:
-    """True if the number appears in the text as written (e.g. -12.4, 106.2)."""
-    return re.search(rf"(?<![\d.]){re.escape(f'{abs(n):g}')}(?![\d])", text) is not None
+    """True if the number appears in the text as written (e.g. -12.4, 106.2; 0.8 also matches "0.80")."""
+    digits = f"{abs(n):g}"
+    tail = r"0*" if "." in digits else r"(?:\.0+)?"
+    return re.search(rf"(?<![\d.]){re.escape(digits)}{tail}(?![\d])", text) is not None
 
 
 def check_derivation(c: dict) -> list[str]:
@@ -65,7 +78,16 @@ def check_derivation(c: dict) -> list[str]:
         # Average excess incidence (drug minus placebo) across the rows; cells are checked against the label in verify().
         expected = round(sum(drug - pbo for pbo, drug in d["rows"].values()) / len(d["rows"]), 1)
         return [] if abs(expected - v) < 1e-9 else [f"{c['id']}: value {v} does not match label rows ({expected})"]
-    if d["kind"] == "reported":
+    if d["kind"] == "ctgov_counts":
+        # Registry counts are checked against ClinicalTrials.gov in verify(); here the arithmetic.
+        (da, dr), (pa, pr) = d["drug"], d["placebo"]
+        expected = round(100 * (da / dr - pa / pr), 1)
+        return [] if abs(expected - v) < 1e-9 else [f"{c['id']}: value {v} does not match counts ({expected})"]
+    if d["kind"] == "label_pairs":
+        # Sum of (drug % - placebo %) across the quoted pairs, every number taken from the label quotes.
+        inputs = [x for pair in d["pairs"] for x in pair]
+        expected = round(sum(drug - pbo for drug, pbo in d["pairs"]), 1)
+    elif d["kind"] == "reported":
         inputs, expected = [v], v
     elif d["kind"] == "arm_difference":
         inputs, expected = [d["drug"], d["placebo"]], round(d["drug"] - d["placebo"], 1)
@@ -139,15 +161,48 @@ def check_label_rows(c: dict, xml: str) -> list[str]:
     return [f"{c['id']}: no label table with columns {d['placebo_col']!r} and {d['drug_col']!r}"]
 
 
-def verify(claims: list[dict], sources: dict[str, dict] | None = None, fetch=fetch_abstract, fetch_lbl=fetch_label) -> list[str]:
+def fetch_ctgov(nct: str) -> dict:
+    CTGOV_CACHE.mkdir(parents=True, exist_ok=True)
+    path = CTGOV_CACHE / f"{nct}.json"
+    if not path.exists():
+        url = f"https://clinicaltrials.gov/api/v2/studies/{nct}?fields=NCTId,BriefTitle,HasResults,AdverseEventsModule"
+        with urllib.request.urlopen(url, timeout=30) as r:
+            path.write_bytes(r.read())
+    return json.loads(path.read_text())
+
+
+def check_ctgov_counts(c: dict, record: dict) -> list[str]:
+    """Summed serious-event counts for the named arms must equal the registry's results."""
+    d = c["derivation"]
+    groups = {g["id"]: g for g in record.get("resultsSection", {}).get("adverseEventsModule", {}).get("eventGroups", [])}
+    errs = []
+    for arm in ("drug", "placebo"):
+        ids = d[f"{arm}_groups"]
+        if any(i not in groups for i in ids):
+            errs.append(f"{c['id']}: {arm} group missing in {d['nct']}")
+            continue
+        got = [sum(groups[i]["seriousNumAffected"] for i in ids), sum(groups[i]["seriousNumAtRisk"] for i in ids)]
+        if got != list(d[arm]):
+            errs.append(f"{c['id']}: {arm} counts {d[arm]} != registry {got}")
+    return errs
+
+
+def verify(claims: list[dict], sources: dict[str, dict] | None = None, fetch=fetch_abstract, fetch_lbl=fetch_label,
+           fetch_reg=fetch_ctgov) -> list[str]:
     """Study claims: every quote appears verbatim (whitespace-insensitive) in the PubMed abstract.
-    Label claims: every table cell matches the DailyMed label, and any quote appears in the label text."""
+    Label claims: table cells match the DailyMed label, and any quote appears in the label text.
+    Registry claims: serious-event counts match ClinicalTrials.gov results."""
     errs = []
     for c in claims:
         errs += check_derivation(c)
-        if c["derivation"]["kind"] == "label_rows":
+        kind = c["derivation"]["kind"]
+        if kind == "ctgov_counts":
+            errs += check_ctgov_counts(c, fetch_reg(c["derivation"]["nct"]))
+            continue
+        if kind in ("label_rows", "label_pairs"):
             xml = fetch_lbl(sources[c["source_id"]]["setid"])
-            errs += check_label_rows(c, xml)
+            if kind == "label_rows":
+                errs += check_label_rows(c, xml)
             body = _squash("".join(ET.fromstring(xml).itertext()))
             errs += [f"{c['id']}: quote not in label: {q!r}" for q in c.get("quotes", []) if _squash(q) not in body]
             continue
@@ -264,6 +319,8 @@ def build(claims_doc: dict, studies: list[dict], sample: dict, facts_doc: dict |
                 log.append(f"{c['id']}: skipped, study {c['study_id']} is not approved")
                 continue
             source = source_from_study(s)
+            if "registry_source" in c:  # numbers come from the trial's registry results, ratings from the study
+                source = {**source, **c["registry_source"]}
             ratings = {"bias": s["source_bias_score"], "thoroughness": s["quality_score"],
                        "rationale": f"Bias: {s['source_bias_rationale']} Quality: {s['quality_rationale']}",
                        "rater": s.get("rater", "llm"), "rubric_version": "0.1"}
@@ -276,6 +333,7 @@ def build(claims_doc: dict, studies: list[dict], sample: dict, facts_doc: dict |
         claims.append({
             "id": c["id"], "option": c["option"], "dimension": c["dimension"], "statement": c["statement"],
             "effect": {**c["effect"], "normalized": round(SCALES[c["effect"]["metric"]](c["effect"]["value"]), 4)},
+            "severity": SEVERITY.get(c["effect"]["metric"], 1),
             "source_id": source["id"], "ratings": ratings, "review": c["review"],
         })
     # Approved real facts first; sample placeholders only for an option and priority with no approved fact.
