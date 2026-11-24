@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <article className="prose-page">
+    <article className="prose-page max-w-3xl">
       <p className="label-caps text-xs text-muted">Privacy</p>
       <h1 className="mt-2 font-display text-5xl font-light tracking-tight">Your answers stay with you</h1>
       <p className="text-lg text-muted">
@@ -23,6 +23,7 @@ export default function PrivacyPage() {
           One cookie remembers that you accepted the &quot;educational use only&quot; notice, for 30 days. It contains
           only the date you accepted and the notice version, and isn&apos;t used for tracking.
         </li>
+        <li>If you choose light or dark mode, that choice is saved in this browser so it stays the same next time.</li>
         <li>No accounts, no advertising, no tracking cookies, and no analytics.</li>
         <li>
           Like any website, our hosting provider may keep standard server logs, such as IP addresses and pages

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ACCEPT_API_PATH, safeNextPath } from "@/lib/consent";
 import AcceptForm from "./AcceptForm";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Before you continue",
@@ -21,6 +22,8 @@ export default function AcceptPage(props: PageProps<"/accept">) {
         aria-describedby="ack-body"
         className="relative w-full max-w-lg rounded-2xl border border-line bg-surface p-6 shadow-[0_24px_80px_-20px_rgb(45_45_35/0.45)] sm:p-8"
       >
+        {/* Inside the dialog: aria-modal hides everything outside it from screen readers. */}
+        <ThemeToggle className="absolute top-3 right-3" />
         <p className="label-caps text-xs text-muted">Concordance</p>
         <h1 id="ack-title" tabIndex={-1} data-autofocus className="mt-2 font-display text-4xl font-light tracking-tight focus:outline-none">
           Before you continue

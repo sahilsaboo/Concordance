@@ -1,17 +1,21 @@
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 export default function SiteHeader() {
   return (
     <header className="border-b border-line print:hidden">
-      <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-4 px-4 py-4">
+      <div className="page-container flex items-center justify-between gap-4 py-4">
         <Link href="/" className="font-display text-2xl font-medium tracking-tight">
           Concordance
         </Link>
-        <nav aria-label="Main">
-          <Link href="/methodology" className="nav-link">
-            How it works
-          </Link>
-        </nav>
+        <div className="flex items-center gap-3">
+          <nav aria-label="Main">
+            <Link href="/methodology" className="nav-link">
+              How it works
+            </Link>
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

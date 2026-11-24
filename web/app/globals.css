@@ -33,8 +33,18 @@
   --focus: var(--autumn-fern);
 }
 
+/*
+ * Theme: follows the device setting by default. The header toggle sets data-theme on <html>
+ * ("light" or "dark") to override it; the choice is kept in localStorage (see app/layout.tsx).
+ * The dark tokens appear twice (system dark, and forced dark): keep both blocks identical.
+ */
+:root {
+  color-scheme: light;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --background: var(--kimber);
     --foreground: var(--blanket);
     --muted: color-mix(in oklab, var(--blanket) 75%, var(--kimber));
@@ -55,6 +65,29 @@
     --error: #f0a48f;
     --focus: var(--blanket);
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: var(--kimber);
+  --foreground: var(--blanket);
+  --muted: color-mix(in oklab, var(--blanket) 75%, var(--kimber));
+  --surface: color-mix(in oklab, var(--kimber) 88%, var(--blanket));
+  --line: color-mix(in oklab, var(--kimber) 65%, var(--mushroom));
+  --track: color-mix(in oklab, var(--kimber) 80%, var(--mushroom));
+  /* Fern is too dark on kimber, so a slightly lightened oak leads in dark mode
+     (plain oak is 4.4:1 against kimber, just under the 4.5:1 AA minimum). */
+  --primary: color-mix(in oklab, var(--oak) 85%, var(--blanket));
+  --primary-hover: color-mix(in oklab, var(--oak) 70%, var(--blanket));
+  --on-primary: var(--kimber);
+  --score: color-mix(in oklab, var(--khaki-moss) 75%, var(--blanket));
+  --weight: var(--oak);
+  --accent-text: color-mix(in oklab, var(--oak) 55%, var(--blanket));
+  --notice-bg: color-mix(in oklab, var(--kimber) 82%, var(--oak));
+  --notice-line: var(--oak);
+  --notice-text: var(--blanket);
+  --error: #f0a48f;
+  --focus: var(--blanket);
 }
 
 @theme inline {
@@ -181,10 +214,26 @@ html {
 }
 
 @media print {
-  :root {
+  /* Always print light, whatever theme is on screen (selectors match the theme rules' specificity). */
+  :root,
+  :root:not([data-theme="light"]),
+  :root[data-theme] {
+    color-scheme: light;
     --background: #ffffff;
     --surface: #ffffff;
     --foreground: #000000;
+    --muted: color-mix(in oklab, var(--kimber) 72%, white);
+    --line: var(--mushroom);
+    --track: var(--blanket);
+    --primary: var(--autumn-fern);
+    --on-primary: #ffffff;
+    --score: var(--khaki-moss);
+    --weight: var(--oak);
+    --accent-text: var(--autumn-fern);
+    --notice-bg: var(--blanket);
+    --notice-line: var(--oak);
+    --notice-text: color-mix(in oklab, var(--autumn-fern) 80%, black);
+    --error: #9b2c1c;
   }
   a[href^="http"]::after {
     content: " (" attr(href) ")";
@@ -234,4 +283,42 @@ html {
 }
 .btn-ghost:hover {
   color: var(--foreground);
+}
+
+/* Theme toggle: show a moon in light mode (switch to dark) and a sun in dark mode (switch to light). */
+.theme-icon-sun {
+  display: none;
+}
+:root[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-sun {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .theme-icon-moon {
+    display: none;
+  }
+}
+
+/* Page width: uses wide screens (1152px max) while text blocks cap their own line length (max-w-prose). */
+@utility page-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Jumping to a section from the "On this page" menu leaves breathing room above the heading. */
+.prose-page h2[id] {
+  scroll-margin-top: 2rem;
 }

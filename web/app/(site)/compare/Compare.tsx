@@ -50,7 +50,11 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
   const dims = matrix.dimensions;
   // false while the server renders and during hydration, true afterwards. Saved answers only exist in the
   // browser, so the form renders after hydration to keep server and client HTML identical.
-  const ready = useSyncExternalStore(noopSubscribe, () => true, () => false);
+  const ready = useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
   // Priorities start unanswered on purpose: a pre-filled default would anchor the user's choices.
   // A draft saved in this tab (reload) is restored; otherwise it's empty.
   const [draft, setDraft] = useState<Draft>(() => (isBrowser ? loadDraft() : EMPTY_DRAFT));
@@ -150,75 +154,86 @@ export default function Compare({ matrix }: { matrix: ClaimMatrix }) {
       ) : (
         <form
           noValidate
-          className="mt-8"
+          className="mt-8 grid gap-10 lg:mt-10 lg:grid-cols-[minmax(16rem,22rem)_minmax(0,1fr)] lg:gap-16"
           onSubmit={(e) => {
             e.preventDefault();
             submit(step, step === "priorities" ? "limits" : "results");
           }}
         >
-          <p className="label-caps text-xs text-muted">Step {stepNumber} of 3</p>
-          <h1 data-step-heading tabIndex={-1} className="mt-2 font-display text-4xl font-light tracking-tight focus:outline-none sm:text-5xl">
-            {STEP_TITLES[step]}
-          </h1>
+          {/* Left: what this step is. Stays in view on wide screens while the questions scroll. */}
+          <div className="lg:sticky lg:top-8 lg:self-start">
+            <p className="label-caps text-xs text-muted">Step {stepNumber} of 3</p>
+            <h1
+              data-step-heading
+              tabIndex={-1}
+              className="mt-2 font-display text-4xl font-light tracking-tight focus:outline-none sm:text-5xl"
+            >
+              {STEP_TITLES[step]}
+            </h1>
+            <p className="mt-3 max-w-prose text-lg leading-relaxed text-muted">
+              {step === "priorities"
+                ? "Rate each one. You won't see any drug or brand names until your results."
+                : "Options that don't fit these are set aside, not ranked lower. Your results will show what was set aside and why."}
+            </p>
+          </div>
 
-          {step === "priorities" ? (
-            <>
-              <p className="mt-3 text-lg leading-relaxed text-muted">
-                Rate each one. You won&apos;t see any drug or brand names until your results.
-              </p>
-              <div className="mt-10 space-y-10">
-                {dims.map((d) => (
+          {/* Right: the questions. */}
+          <div>
+            {step === "priorities" ? (
+              <>
+                <div className="grid gap-10">
+                  {dims.map((d) => (
+                    <ChoiceGroup
+                      key={d.id}
+                      name={d.id}
+                      legend={d.label}
+                      hint={PRIORITY_HINTS[d.id]}
+                      error={errorFor(d.id)}
+                      options={IMPORTANCE_LEVELS.map((l) => ({ key: String(l.value), label: l.label }))}
+                      selected={draft.importance[d.id] === undefined ? undefined : String(draft.importance[d.id])}
+                      onSelect={(k) =>
+                        setDraft((prev) => ({
+                          ...prev,
+                          importance: { ...prev.importance, [d.id]: Number(k) as Importance },
+                        }))
+                      }
+                    />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="grid gap-10">
                   <ChoiceGroup
-                    key={d.id}
-                    name={d.id}
-                    legend={d.label}
-                    hint={PRIORITY_HINTS[d.id]}
-                    error={errorFor(d.id)}
-                    options={IMPORTANCE_LEVELS.map((l) => ({ key: String(l.value), label: l.label }))}
-                    selected={draft.importance[d.id] === undefined ? undefined : String(draft.importance[d.id])}
-                    onSelect={(k) =>
-                      setDraft((prev) => ({ ...prev, importance: { ...prev.importance, [d.id]: Number(k) as Importance } }))
-                    }
+                    name="injections"
+                    legend="Are you comfortable giving yourself an injection?"
+                    hint="Some options are small injections you give yourself under the skin. Others are pills."
+                    error={errorFor("injections")}
+                    options={[
+                      { key: "yes", label: "Yes, injections are fine" },
+                      { key: "no", label: "No, pills only" },
+                    ]}
+                    selected={draft.injections ?? undefined}
+                    onSelect={(k) => setDraft((prev) => ({ ...prev, injections: k as "yes" | "no" }))}
                   />
-                ))}
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="mt-3 text-lg leading-relaxed text-muted">
-                Options that don&apos;t fit these are set aside, not ranked lower. Your results will show what was set
-                aside and why.
-              </p>
-              <div className="mt-10 space-y-10">
-                <ChoiceGroup
-                  name="injections"
-                  legend="Are you comfortable giving yourself an injection?"
-                  hint="Some options are small injections you give yourself under the skin. Others are pills."
-                  error={errorFor("injections")}
-                  options={[
-                    { key: "yes", label: "Yes, injections are fine" },
-                    { key: "no", label: "No, pills only" },
-                  ]}
-                  selected={draft.injections ?? undefined}
-                  onSelect={(k) => setDraft((prev) => ({ ...prev, injections: k as "yes" | "no" }))}
-                />
-                <ChoiceGroup
-                  name="budget"
-                  legend="What could you pay each month without insurance?"
-                  hint="We compare this with cash prices. With insurance or savings programs, you may pay less."
-                  error={errorFor("budget")}
-                  options={BUDGETS.map((b) => ({ key: b.key, label: b.label }))}
-                  selected={draft.budget ?? undefined}
-                  onSelect={(k) => setDraft((prev) => ({ ...prev, budget: k as Draft["budget"] }))}
-                />
-              </div>
-            </>
-          )}
+                  <ChoiceGroup
+                    name="budget"
+                    legend="What could you pay each month without insurance?"
+                    hint="We compare this with cash prices. With insurance or savings programs, you may pay less."
+                    error={errorFor("budget")}
+                    options={BUDGETS.map((b) => ({ key: b.key, label: b.label }))}
+                    selected={draft.budget ?? undefined}
+                    onSelect={(k) => setDraft((prev) => ({ ...prev, budget: k as Draft["budget"] }))}
+                  />
+                </div>
+              </>
+            )}
 
-          <div className="mt-12">
-            <button type="submit" className="btn-primary w-full sm:w-auto">
-              {step === "priorities" ? "Continue" : "See my results"}
-            </button>
+            <div className="mt-12 border-t border-line pt-8">
+              <button type="submit" className="btn-primary w-full sm:w-auto">
+                {step === "priorities" ? "Continue" : "See my results"}
+              </button>
+            </div>
           </div>
         </form>
       )}

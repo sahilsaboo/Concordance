@@ -66,89 +66,101 @@ export default function Results(props: {
         Your results
       </h1>
 
-      <Summary ranking={ranking} dimLabel={dimLabel} />
+      <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-12 xl:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]">
+        {/* Left: your answer at a glance. */}
+        <aside
+          aria-label="Summary"
+          // Pinned only when the window is tall enough to show all of it; otherwise it scrolls normally.
+          className="lg:self-start lg:[@media(min-height:60rem)]:sticky lg:[@media(min-height:60rem)]:top-8"
+        >
+          <Summary ranking={ranking} dimLabel={dimLabel} />
 
-      <div className="mt-6 flex flex-wrap gap-3 print:hidden">
-        <button type="button" onClick={() => window.print()} className="btn-secondary">
-          Print or save as PDF
-        </button>
-        <button type="button" onClick={props.onEdit} className="btn-secondary">
-          Change my answers
-        </button>
-      </div>
+          <div className="mt-6 flex flex-wrap gap-3 lg:flex-col print:hidden">
+            <button type="button" onClick={() => window.print()} className="btn-secondary lg:w-full">
+              Print or save as PDF
+            </button>
+            <button type="button" onClick={props.onEdit} className="btn-secondary lg:w-full">
+              Change my answers
+            </button>
+          </div>
 
-      {weights.length > 0 && (
-        <section aria-labelledby="weights-title" className="mt-10 rounded-xl border border-line bg-surface p-5">
-          <h2 id="weights-title" className="label-caps text-xs font-semibold">
-            How your priorities were weighted
-          </h2>
-          <p className="mt-2 text-sm text-muted">Based on how important you said each one is.</p>
-          <ul className="mt-4 space-y-3">
-            {[...weights]
-              .sort((a, b) => b.weightShare - a.weightShare)
-              .map((d) => (
-                <li key={d.dimensionId} className="grid grid-cols-[1fr_3.5rem] items-center gap-3">
-                  <div>
-                    <div>{dimLabel(d.dimensionId)}</div>
-                    <Bar value={d.weightShare} className="bg-weight" />
-                  </div>
-                  <span className="text-right tabular-nums">{pct(d.weightShare)}</span>
-                </li>
-              ))}
-          </ul>
-        </section>
-      )}
+          {weights.length > 0 && (
+            <section aria-labelledby="weights-title" className="mt-6 rounded-xl border border-line bg-surface p-5">
+              <h2 id="weights-title" className="label-caps text-xs font-semibold">
+                How your priorities were weighted
+              </h2>
+              <p className="mt-2 text-sm text-muted">Based on how important you said each one is.</p>
+              <ul className="mt-4 space-y-3">
+                {[...weights]
+                  .sort((a, b) => b.weightShare - a.weightShare)
+                  .map((d) => (
+                    <li key={d.dimensionId} className="grid grid-cols-[1fr_3.5rem] items-center gap-3">
+                      <div>
+                        <div>{dimLabel(d.dimensionId)}</div>
+                        <Bar value={d.weightShare} className="bg-weight" />
+                      </div>
+                      <span className="text-right tabular-nums">{pct(d.weightShare)}</span>
+                    </li>
+                  ))}
+              </ul>
+            </section>
+          )}
+        </aside>
 
-      {ranking.ranked.length > 0 && (
-        <>
-          <h2 className="mt-12 font-display text-3xl font-light">Ranked options</h2>
-          <p className="mt-2 text-muted">
-            The match score (0 to 100) shows how well each option fits your priorities.{" "}
-            <Link href="/methodology#scoring" className="underline underline-offset-4 hover:text-accent-text">
-              How scores work
-            </Link>
-          </p>
-          <ol className="mt-6 space-y-6">
-            {ranking.ranked.map((r) => (
-              <OptionCard key={r.option.id} result={r} matrix={matrix} dimLabel={dimLabel} />
-            ))}
-          </ol>
-        </>
-      )}
+        {/* Right: the ranked options and their evidence. */}
+        <div>
+          {ranking.ranked.length > 0 && (
+            <>
+              <h2 className="font-display text-3xl font-light">Ranked options</h2>
+              <p className="mt-2 text-muted">
+                The match score (0 to 100) shows how well each option fits your priorities.{" "}
+                <Link href="/methodology#scoring" className="underline underline-offset-4 hover:text-accent-text">
+                  How scores work
+                </Link>
+              </p>
+              <ol className="mt-6 space-y-6">
+                {ranking.ranked.map((r) => (
+                  <OptionCard key={r.option.id} result={r} matrix={matrix} dimLabel={dimLabel} />
+                ))}
+              </ol>
+            </>
+          )}
 
-      {ranking.excluded.length > 0 && (
-        <section aria-labelledby="excluded-title" className="mt-12">
-          <h2 id="excluded-title" className="font-display text-3xl font-light">
-            Set aside by your limits
-          </h2>
-          <p className="mt-2 text-muted">These didn&apos;t fit the limits you set, so they weren&apos;t ranked.</p>
-          <ul className="mt-4 space-y-3">
-            {ranking.excluded.map((e) => (
-              <li key={e.option.id} className="rounded-lg border border-line p-4">
-                <span className="font-semibold">{optionName(e.option)}</span>
-                <span className="text-muted"> · sold as {e.option.brands.join(", ")}</span>
-                <div className="mt-1 text-muted">{e.reasons.join("; ")}</div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+          {ranking.excluded.length > 0 && (
+            <section aria-labelledby="excluded-title" className="mt-12">
+              <h2 id="excluded-title" className="font-display text-3xl font-light">
+                Set aside by your limits
+              </h2>
+              <p className="mt-2 text-muted">These didn&apos;t fit the limits you set, so they weren&apos;t ranked.</p>
+              <ul className="mt-4 space-y-3">
+                {ranking.excluded.map((e) => (
+                  <li key={e.option.id} className="rounded-lg border border-line p-4">
+                    <span className="font-semibold">{optionName(e.option)}</span>
+                    <span className="text-muted"> · sold as {e.option.brands.join(", ")}</span>
+                    <div className="mt-1 text-muted">{e.reasons.join("; ")}</div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
-      <section aria-labelledby="next-title" className="mt-12 rounded-xl bg-notice-bg p-6 text-notice-text">
-        <h2 id="next-title" className="font-display text-3xl font-light">
-          Before you decide
-        </h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 leading-relaxed">
-          <li>Share these results with your clinician. They can check what&apos;s safe for your health history.</li>
-          <li>Ask your insurer or pharmacy what you would actually pay. It may differ from the prices here.</li>
-          <li>Open the evidence under each option to see the sources and who funded them.</li>
-        </ul>
-      </section>
+          <section aria-labelledby="next-title" className="mt-12 rounded-xl bg-notice-bg p-6 text-notice-text">
+            <h2 id="next-title" className="font-display text-3xl font-light">
+              Before you decide
+            </h2>
+            <ul className="mt-4 list-disc space-y-2 pl-5 leading-relaxed">
+              <li>Share these results with your clinician. They can check what&apos;s safe for your health history.</li>
+              <li>Ask your insurer or pharmacy what you would actually pay. It may differ from the prices here.</li>
+              <li>Open the evidence under each option to see the sources and who funded them.</li>
+            </ul>
+          </section>
 
-      <div className="mt-8 print:hidden">
-        <button type="button" onClick={props.onRestart} className="btn-ghost -ml-3">
-          Start over and clear my answers
-        </button>
+          <div className="mt-8 print:hidden">
+            <button type="button" onClick={props.onRestart} className="btn-ghost -ml-3">
+              Start over and clear my answers
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -157,7 +169,7 @@ export default function Results(props: {
 function Summary({ ranking, dimLabel }: { ranking: Ranking; dimLabel: (id: string) => string }) {
   if (ranking.ranked.length === 0) {
     return (
-      <div className="mt-6 rounded-xl border border-line bg-surface p-6">
+      <div className="rounded-xl border border-line bg-surface p-6">
         <p className="text-lg">No options fit the limits you set.</p>
         <p className="mt-2 text-muted">Try a higher budget or allowing injections to see more options.</p>
       </div>
@@ -173,7 +185,7 @@ function Summary({ ranking, dimLabel }: { ranking: Ranking; dimLabel: (id: strin
   const missing = best.dimensions.filter((d) => d.insufficientEvidence).length;
 
   return (
-    <div className="mt-6 rounded-xl border border-primary bg-surface p-6">
+    <div className="rounded-xl border border-primary bg-surface p-6">
       <p className="label-caps text-xs text-muted">{top.length > 1 ? "Tied best matches" : "Best match for you"}</p>
       <p className="mt-2 font-display text-3xl">{joinWords(top.map((r) => optionName(r.option)))}</p>
       <p className="mt-1 text-muted">Sold as {top.flatMap((r) => r.option.brands).join(", ")}</p>
@@ -266,7 +278,12 @@ function Evidence(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel: 
     ...d.factIds.map((id) => {
       const f = matrix.facts.find((x) => x.id === id)!;
       const kind = f.kind.replaceAll("_", " ");
-      return { id, dim: d.dimensionId, text: `${kind.charAt(0).toUpperCase()}${kind.slice(1)}: ${f.value} (as of ${f.as_of})`, src: source(f.source_id) };
+      return {
+        id,
+        dim: d.dimensionId,
+        text: `${kind.charAt(0).toUpperCase()}${kind.slice(1)}: ${f.value} (as of ${f.as_of})`,
+        src: source(f.source_id),
+      };
     }),
   ]);
   if (!rows.length) return null;
@@ -309,7 +326,10 @@ function Evidence(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel: 
 function Bar({ value, className }: { value: number; className: string }) {
   return (
     <div className="mt-2 h-2 w-full rounded-full bg-track print:border print:border-black" aria-hidden="true">
-      <div className={`h-full rounded-full ${className}`} style={{ width: `${Math.max(0, Math.min(1, value)) * 100}%` }} />
+      <div
+        className={`h-full rounded-full ${className}`}
+        style={{ width: `${Math.max(0, Math.min(1, value)) * 100}%` }}
+      />
     </div>
   );
 }
