@@ -73,6 +73,19 @@ export default function MethodologyPage() {
             Prices and dosing come from drug labels and price sources. They are checked and dated, but not bias-rated,
             because they are facts rather than study results.
           </p>
+          <ul>
+            <li>
+              <strong>Dosing:</strong> how often you take it and any rules about food, from the FDA label. Once weekly
+              scores 100 and once daily scores 60. A daily injection or a rule about fasting before or after a dose each
+              take off 20. Injections versus pills don&apos;t otherwise change the score, because you can rule out
+              injections in your limits.
+            </li>
+            <li>
+              <strong>Cost:</strong> the manufacturer&apos;s self-pay price per month at the dose used for the evidence,
+              checked on the date shown. $0 scores 100 and $1,500 or more scores 0. Where there is no self-pay program, we
+              use the list price, which is close to what people pay without insurance.
+            </li>
+          </ul>
 
           <h2 id="scoring">3. How scores are calculated</h2>
           <ul>

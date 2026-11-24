@@ -1,0 +1,264 @@
+{
+  "meta": {
+    "note": "Price and dosing facts. Dosing quotes come from FDA labels (DailyMed); prices are the manufacturer's self-pay price at the maintenance dose used for the evidence, checked on the date in as_of. `concordance_pipeline.build_matrix verify` re-checks every quote. Only approved facts replace the sample placeholders.",
+    "convenience_rule": "Once weekly = 100, once daily = 60; minus 20 for a daily injection; minus 20 for a fasting or timing rule. Injection vs pill otherwise doesn't change the score, because the limits step already lets people rule out injections.",
+    "cost_rule": "Linear: $0 per month = 100, $1,500 or more = 0."
+  },
+  "sources": [
+    {
+      "id": "lbl_wegovy",
+      "kind": "label",
+      "setid": "ee06186f-2aa3-4990-a760-757579d8f77b"
+    },
+    {
+      "id": "lbl_zepbound",
+      "kind": "label",
+      "setid": "487cd7e7-434c-4925-99fa-aa80b1cc776b"
+    },
+    {
+      "id": "lbl_saxenda",
+      "kind": "label",
+      "setid": "3946d389-0926-4f77-a708-0acb8153b143"
+    },
+    {
+      "id": "lbl_foundayo",
+      "kind": "label",
+      "setid": "8ac446c5-feba-474f-a103-23facb9b5c62"
+    },
+    {
+      "id": "px_novocare_wegovy",
+      "kind": "page",
+      "title": "NovoCare Pharmacy: Wegovy self-pay pricing",
+      "url": "https://www.novocare.com/delivery/wegovy.html",
+      "type": "price",
+      "year": 2026,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "px_lillydirect_zepbound",
+      "kind": "page",
+      "title": "LillyDirect: Zepbound self-pay pricing",
+      "url": "https://lilly.com/lillydirect/medicines/zepbound",
+      "type": "price",
+      "year": 2026,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "px_lillydirect_foundayo",
+      "kind": "page",
+      "title": "LillyDirect: Foundayo self-pay pricing",
+      "url": "https://lilly.com/lillydirect/medicines/foundayo",
+      "type": "price",
+      "year": 2026,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "px_novopricing_saxenda",
+      "kind": "page",
+      "title": "Novo Nordisk pricing: Saxenda list price (WAC)",
+      "url": "https://www.novopricing.com/saxenda.html",
+      "type": "price",
+      "year": 2026,
+      "funding": "manufacturer"
+    }
+  ],
+  "facts": [
+    {
+      "id": "f_0001",
+      "option": "semaglutide_injection",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once weekly injection, any time of day, with or without meals",
+      "schedule": {
+        "per_week": 1,
+        "daily_injection": false,
+        "food_rule": false
+      },
+      "source_id": "lbl_wegovy",
+      "as_of": "2026-06-30",
+      "quotes": [
+        "Administer WEGOVY injection once weekly as an adjunct to diet and increased physical activity, on the same day each week, at any time of day, with or without meals."
+      ],
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0002",
+      "option": "semaglutide_oral",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once daily pill on an empty stomach with up to 4 oz water; wait 30 minutes before eating, drinking or other medicines",
+      "schedule": {
+        "per_week": 7,
+        "daily_injection": false,
+        "food_rule": true
+      },
+      "source_id": "lbl_wegovy",
+      "as_of": "2026-06-30",
+      "quotes": [
+        "Take WEGOVY tablets orally once-daily on an empty stomach in the morning with water (up to 4 ounces).",
+        "After taking WEGOVY tablet wait at least 30 minutes before eating food, drinking beverages or taking other oral medications."
+      ],
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0003",
+      "option": "tirzepatide_injection",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once weekly injection",
+      "schedule": {
+        "per_week": 1,
+        "daily_injection": false,
+        "food_rule": false
+      },
+      "source_id": "lbl_zepbound",
+      "as_of": "2026-11-23",
+      "quotes": [
+        "5 mg, 10 mg, or 15 mg injected subcutaneously once weekly."
+      ],
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0004",
+      "option": "liraglutide_injection",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once daily injection, any time of day, without regard to meals",
+      "schedule": {
+        "per_week": 7,
+        "daily_injection": true,
+        "food_rule": false
+      },
+      "source_id": "lbl_saxenda",
+      "as_of": "2026-06-15",
+      "quotes": [
+        "Inject SAXENDA subcutaneously once daily at any time of day, without regard to the timing of meals."
+      ],
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0005",
+      "option": "orforglipron_oral",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once daily pill, with or without food",
+      "schedule": {
+        "per_week": 7,
+        "daily_injection": false,
+        "food_rule": false
+      },
+      "source_id": "lbl_foundayo",
+      "as_of": "2026-08-13",
+      "quotes": [
+        "Take FOUNDAYO orally once daily, with or without food."
+      ],
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0101",
+      "option": "semaglutide_injection",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 349,
+      "dose": "2.4 mg weekly",
+      "source_id": "px_novocare_wegovy",
+      "as_of": "2026-11-24",
+      "quotes": [
+        "then $349 per month for Wegovy ® 0.25 mg, 0.5 mg, 1 mg, 1.7 mg, or 2.4 mg"
+      ],
+      "price_note": "Self-pay price after the new-patient offer ($199 for the first two 0.25 mg or 0.5 mg fills). One month is 1 box of 4 pens.",
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0102",
+      "option": "semaglutide_oral",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 299,
+      "dose": "25 mg daily",
+      "source_id": "px_novocare_wegovy",
+      "as_of": "2026-11-24",
+      "quotes": [
+        "$299 per month for 9 mg and 25 mg"
+      ],
+      "price_note": "Self-pay price. One month is one 30-tablet bottle.",
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0103",
+      "option": "tirzepatide_injection",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 449,
+      "dose": "15 mg weekly",
+      "source_id": "px_lillydirect_zepbound",
+      "as_of": "2026-11-24",
+      "quotes": [
+        "15 mg/0.5 mL Self-pay price: Starting at $449/month",
+        "$699 for 15mg"
+      ],
+      "price_note": "Self-pay price with refills within 45 days (Zepbound Journey Program); $699 if a refill is late.",
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0104",
+      "option": "liraglutide_injection",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 1349.02,
+      "dose": "3 mg daily",
+      "source_id": "px_novopricing_saxenda",
+      "as_of": "2026-11-24",
+      "quotes": [
+        "3 mg 5-Pen Package (5x3mL) WAC Price $1,349.02"
+      ],
+      "price_note": "Brand Saxenda list price; 5 pens is 30 days at 3 mg. Novo has no Saxenda self-pay program. Generic liraglutide may cost less, but its price and availability could not be verified.",
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    },
+    {
+      "id": "f_0105",
+      "option": "orforglipron_oral",
+      "dimension": "cost",
+      "kind": "monthly_price_usd",
+      "value": 299,
+      "dose": "17.2 mg daily",
+      "source_id": "px_lillydirect_foundayo",
+      "as_of": "2026-11-24",
+      "quotes": [
+        "17.2 mg dose 24px Self-pay price: Starting at $299/month ^ when you refill within 45 days"
+      ],
+      "price_note": "Self-pay price with refills within 45 days (Foundayo Self-Pay Journey Program); $349 if a refill is late.",
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    }
+  ]
+}

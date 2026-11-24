@@ -70,7 +70,8 @@ function exclusionReasons(m: ClaimMatrix, o: Option, a: Answers): string[] {
   if (!a.injectionsOk && o.route === "injection") reasons.push("Requires injections");
   if (a.maxMonthlyBudgetUsd !== null) {
     const price = monthlyPrice(m.facts, o.id);
-    if (price !== null && price > a.maxMonthlyBudgetUsd) reasons.push(`Over your budget ($${price}/month)`);
+    if (price !== null && price > a.maxMonthlyBudgetUsd)
+      reasons.push(`Over your budget ($${price.toLocaleString("en-US", { maximumFractionDigits: 2 })}/month)`);
   }
   return reasons;
 }

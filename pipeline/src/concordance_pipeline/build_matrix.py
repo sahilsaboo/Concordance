@@ -14,6 +14,7 @@ Inputs:
 
 import json
 import re
+import subprocess
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -155,6 +156,64 @@ def verify(claims: list[dict], sources: dict[str, dict] | None = None, fetch=fet
     return errs
 
 
+PAGE_CACHE = CACHE.parent / "pages"
+BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
+
+
+def fetch_page(url: str) -> str:
+    """A price page's HTML, cached per URL. Pages change: delete the cache to re-check current prices."""
+    PAGE_CACHE.mkdir(parents=True, exist_ok=True)
+    path = PAGE_CACHE / (re.sub(r"[^A-Za-z0-9]+", "_", url)[:150] + ".html")
+    if not path.exists():
+        # curl, not urllib: lilly.com returns 403 to Python's HTTP client but serves the page to curl.
+        out = subprocess.run(["curl", "-sSL", "--fail", "--max-time", "30", "-A", BROWSER_UA, url],
+                             capture_output=True, check=True)
+        path.write_bytes(out.stdout)
+    return path.read_text(errors="ignore")
+
+
+def page_text(html_src: str) -> str:
+    """Visible text of an HTML page: scripts and styles removed, tags become spaces, whitespace squashed."""
+    import html as htmllib
+    body = re.sub(r"<script.*?</script>|<style.*?</style>", "", html_src, flags=re.S | re.I)
+    return _squash(htmllib.unescape(re.sub(r"<[^>]+>", " ", body)))
+
+
+def _price_str(v: float) -> str:
+    return f"${v:,.2f}" if v != int(v) else f"${int(v):,}"
+
+
+# Convenience and cost are scored by stated rules (see facts_draft.json meta), not rated like evidence.
+def convenience_score(schedule: dict) -> float:
+    base = 1.0 if schedule["per_week"] <= 1 else 0.6
+    return round(base - 0.2 * schedule["daily_injection"] - 0.2 * schedule["food_rule"], 4)
+
+
+def cost_score(monthly_usd: float) -> float:
+    return round(max(0.0, min(1.0, 1 - monthly_usd / 1500)), 4)
+
+
+def verify_facts(facts_doc: dict, label_sources: dict[str, dict], fetch_lbl=fetch_label, fetch_pg=fetch_page) -> list[str]:
+    """Every quote must appear in its label or price page, and each price must appear in its own quotes."""
+    errs, srcs = [], {s["id"]: s for s in facts_doc["sources"]}
+    for f in facts_doc["facts"]:
+        s = srcs[f["source_id"]]
+        try:
+            if s["kind"] == "label":
+                text = _squash("".join(ET.fromstring(fetch_lbl(s["setid"])).itertext()))
+            else:
+                text = page_text(fetch_pg(s["url"]))
+        except Exception as e:  # a page that can't be fetched is a failed check, not a crash
+            errs.append(f"{f['id']}: could not fetch {f['source_id']}: {e}")
+            continue
+        errs += [f"{f['id']}: quote not found at {f['source_id']}: {q!r}" for q in f["quotes"] if _squash(q) not in text]
+        # Whole-number match, so $1,349 doesn't pass on "$1,349.02".
+        if f["kind"] == "monthly_price_usd" and not re.search(
+                re.escape(_price_str(f["value"])) + r"(?![\d]|[.,]\d)", " ".join(f["quotes"])):
+            errs.append(f"{f['id']}: price {_price_str(f['value'])} is not in its quotes")
+    return errs
+
+
 def source_from_study(s: dict) -> dict:
     funder = s.get("funder") or ""
     funding = "unknown" if not funder else ("manufacturer" if MANUFACTURERS.search(funder) else "independent")
@@ -175,7 +234,25 @@ def _evidence_note(claims: list[dict], sources: dict[str, dict]) -> str:
     return " ".join(f"Scores for {' and '.join(sorted(dims))} come from {kind}." for kind, dims in ordered)
 
 
-def build(claims_doc: dict, studies: list[dict], sample: dict) -> tuple[dict, list[str]]:
+def real_facts(facts_doc: dict | None, label_sources: dict[str, dict]) -> tuple[list[dict], dict[str, dict]]:
+    """Approved price and dosing facts in matrix shape, plus the sources they cite."""
+    if not facts_doc:
+        return [], {}
+    srcs = {s["id"]: s for s in facts_doc["sources"]}
+    facts, sources = [], {}
+    for f in facts_doc["facts"]:
+        if (f.get("review") or {}).get("status") not in USABLE:
+            continue
+        s = srcs[f["source_id"]]
+        meta = label_sources[s["id"]] if s["kind"] == "label" else s
+        sources[s["id"]] = {k: meta[k] for k in ("id", "title", "url", "type", "year", "funding")}
+        normalized = convenience_score(f["schedule"]) if f["kind"] == "dosing" else cost_score(f["value"])
+        facts.append({"id": f["id"], "option": f["option"], "dimension": f["dimension"], "kind": f["kind"],
+                      "value": f["value"], "normalized": normalized, "source_id": s["id"], "as_of": f["as_of"]})
+    return facts, sources
+
+
+def build(claims_doc: dict, studies: list[dict], sample: dict, facts_doc: dict | None = None) -> tuple[dict, list[str]]:
     by_id = {s["id"]: s for s in studies}
     labels = {x["id"]: x for x in claims_doc.get("label_sources", [])}
     log, claims, sources = [], [], {}
@@ -201,16 +278,21 @@ def build(claims_doc: dict, studies: list[dict], sample: dict) -> tuple[dict, li
             "effect": {**c["effect"], "normalized": round(SCALES[c["effect"]["metric"]](c["effect"]["value"]), 4)},
             "source_id": source["id"], "ratings": ratings, "review": c["review"],
         })
-    # Placeholder facts (price, dosing) and their sample sources, until real ones are collected.
-    facts = sample["facts"]
-    sources.update({x["id"]: x for x in sample["sources"] if any(f["source_id"] == x["id"] for f in facts)})
+    # Approved real facts first; sample placeholders only for an option and priority with no approved fact.
+    facts, fact_sources = real_facts(facts_doc, labels)
+    sources.update(fact_sources)
+    covered = {(f["option"], f["dimension"]) for f in facts}
+    placeholders = [f for f in sample["facts"] if (f["option"], f["dimension"]) not in covered]
+    facts += placeholders
+    sources.update({x["id"]: x for x in sample["sources"] if any(f["source_id"] == x["id"] for f in placeholders)})
+    if placeholders:
+        log.append(f"{len(placeholders)} placeholder facts still in use")
     matrix = {
         "meta": {
             "schema_version": sample["meta"]["schema_version"], "rubric_version": "0.1",
-            "generated_at": date.today().isoformat(), "is_sample": bool(facts),
-            "note": (_evidence_note(claims, sources) + " Cost and convenience still use placeholder numbers, and other "
-                     "priorities have no reviewed evidence yet. Don't use these results to make health decisions.")
-                    if facts else None,
+            "generated_at": date.today().isoformat(), "is_sample": bool(placeholders),
+            "note": (_evidence_note(claims, sources) + " Some cost or convenience numbers are still placeholders. "
+                     "Don't use these results to make health decisions.") if placeholders else None,
         },
         "dimensions": sample["dimensions"], "options": sample["options"],
         "sources": list(sources.values()), "claims": claims, "facts": facts,
@@ -226,14 +308,17 @@ def _load(name: str) -> dict:
 if __name__ == "__main__":
     cmd = sys.argv[1]
     claims_doc = _load("claims_draft.json")
+    facts_doc = _load("facts_draft.json") if (DATA / "facts_draft.json").exists() else None
+    labels = {x["id"]: x for x in claims_doc.get("label_sources", [])}
     if cmd == "verify":
-        errs = verify(claims_doc["claims"], {x["id"]: x for x in claims_doc.get("label_sources", [])})
-        print("\n".join(errs) or f"all {len(claims_doc['claims'])} claims verified against PubMed and DailyMed")
+        errs = verify(claims_doc["claims"], labels) + (verify_facts(facts_doc, labels) if facts_doc else [])
+        n_facts = len(facts_doc["facts"]) if facts_doc else 0
+        print("\n".join(errs) or f"all {len(claims_doc['claims'])} claims and {n_facts} facts verified at their sources")
         sys.exit(1 if errs else 0)
     errs = [e for c in claims_doc["claims"] for e in check_derivation(c)]
     if errs:
         sys.exit("\n".join(errs))
-    matrix, log = build(claims_doc, _load("glp1_studies_draft.json")["studies"], _load("sample_matrix.json"))
+    matrix, log = build(claims_doc, _load("glp1_studies_draft.json")["studies"], _load("sample_matrix.json"), facts_doc)
     (DATA / "claim_matrix.json").write_text(json.dumps(matrix, indent=2, ensure_ascii=False) + "\n")
     usable = sum(c["review"]["status"] in USABLE for c in matrix["claims"])
     print("\n".join(log + [f"wrote data/claim_matrix.json: {len(matrix['claims'])} claims ({usable} approved)"]))

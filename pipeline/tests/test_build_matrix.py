@@ -119,3 +119,39 @@ def test_label_claims_use_their_own_ratings_and_label_source():
     c = m["claims"][0]
     assert c["ratings"]["thoroughness"] == 0.75 and c["source_id"] == "lbl_x"
     assert c["effect"]["normalized"] == pytest.approx(1 - 15.3 / 30)
+
+
+def test_convenience_and_cost_rules():
+    s = lambda w, inj=False, food=False: bm.convenience_score({"per_week": w, "daily_injection": inj, "food_rule": food})
+    assert (s(1), s(7), s(7, inj=True), s(7, food=True)) == (1.0, 0.6, 0.4, 0.4)
+    assert (bm.cost_score(0), bm.cost_score(750), bm.cost_score(2000)) == (1.0, 0.5, 0.0)
+
+
+FACTS = {"sources": [{"id": "px", "kind": "page", "title": "P", "url": "https://example.com/p", "type": "price", "year": 2026, "funding": "manufacturer"}],
+         "facts": [{"id": "f_1", "option": "tirzepatide_injection", "dimension": "cost", "kind": "monthly_price_usd",
+                    "value": 1349.02, "source_id": "px", "as_of": "2026-11-24", "quotes": ["WAC Price $1,349.02"],
+                    "review": {"status": "approved"}}]}
+PAGE = "<html><script>var x='$9';</script><p>5-Pen Package <b>WAC Price</b> $1,349.02</p></html>"
+
+
+def test_verify_facts_checks_quote_and_price():
+    assert bm.verify_facts(FACTS, {}, fetch_pg=lambda url: PAGE) == []
+    wrong = copy.deepcopy(FACTS)
+    wrong["facts"][0]["value"] = 1349
+    assert any("not in its quotes" in e for e in bm.verify_facts(wrong, {}, fetch_pg=lambda url: PAGE))
+    assert any("quote not found" in e for e in bm.verify_facts(FACTS, {}, fetch_pg=lambda url: "<p>$1,349.02</p>"))
+    def blocked(url):
+        raise RuntimeError("403")
+    assert any("could not fetch" in e for e in bm.verify_facts(FACTS, {}, fetch_pg=blocked))
+
+
+def test_approved_facts_replace_placeholders_only_where_covered():
+    sample = json.loads((DATA / "sample_matrix.json").read_text())
+    m, log = bm.build({"claims": []}, [], sample, FACTS)
+    tirz_cost = [f for f in m["facts"] if f["option"] == "tirzepatide_injection" and f["dimension"] == "cost"]
+    assert [f["id"] for f in tirz_cost] == ["f_1"] and tirz_cost[0]["normalized"] == bm.cost_score(1349.02)
+    assert any(f["id"].startswith("f_sample") for f in m["facts"]) and m["meta"]["is_sample"] is True
+    pending = copy.deepcopy(FACTS)
+    pending["facts"][0]["review"]["status"] = "pending"
+    m2, _ = bm.build({"claims": []}, [], sample, pending)
+    assert not any(f["id"] == "f_1" for f in m2["facts"])

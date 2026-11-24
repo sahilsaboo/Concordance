@@ -3,8 +3,8 @@
     "schema_version": "0.1",
     "rubric_version": "0.1",
     "generated_at": "2026-11-24",
-    "is_sample": true,
-    "note": "Scores for weight loss come from reviewed trials. Scores for stomach side effects come from FDA labels. Cost and convenience still use placeholder numbers, and other priorities have no reviewed evidence yet. Don't use these results to make health decisions."
+    "is_sample": false,
+    "note": null
   },
   "dimensions": [
     {
@@ -171,20 +171,36 @@
       "funding": "mixed"
     },
     {
-      "id": "s_sample_4",
-      "title": "[SAMPLE] FDA prescribing information",
-      "url": "https://example.org/sample-4",
-      "type": "label",
-      "year": 2025,
-      "funding": "regulator"
-    },
-    {
-      "id": "s_sample_5",
-      "title": "[SAMPLE] Cash-price survey",
-      "url": "https://example.org/sample-5",
+      "id": "px_novocare_wegovy",
+      "title": "NovoCare Pharmacy: Wegovy self-pay pricing",
+      "url": "https://www.novocare.com/delivery/wegovy.html",
       "type": "price",
       "year": 2026,
-      "funding": "independent"
+      "funding": "manufacturer"
+    },
+    {
+      "id": "px_lillydirect_zepbound",
+      "title": "LillyDirect: Zepbound self-pay pricing",
+      "url": "https://lilly.com/lillydirect/medicines/zepbound",
+      "type": "price",
+      "year": 2026,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "px_novopricing_saxenda",
+      "title": "Novo Nordisk pricing: Saxenda list price (WAC)",
+      "url": "https://www.novopricing.com/saxenda.html",
+      "type": "price",
+      "year": 2026,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "px_lillydirect_foundayo",
+      "title": "LillyDirect: Foundayo self-pay pricing",
+      "url": "https://lilly.com/lillydirect/medicines/foundayo",
+      "type": "price",
+      "year": 2026,
+      "funding": "manufacturer"
     }
   ],
   "claims": [
@@ -466,104 +482,104 @@
   ],
   "facts": [
     {
-      "id": "f_sample_01",
+      "id": "f_0001",
       "option": "semaglutide_injection",
       "dimension": "convenience",
       "kind": "dosing",
-      "value": "once weekly",
-      "normalized": 0.8,
-      "source_id": "s_sample_4",
-      "as_of": "2025-01-01"
+      "value": "once weekly injection, any time of day, with or without meals",
+      "normalized": 1.0,
+      "source_id": "lbl_wegovy",
+      "as_of": "2026-06-30"
     },
     {
-      "id": "f_sample_02",
+      "id": "f_0002",
       "option": "semaglutide_oral",
       "dimension": "convenience",
       "kind": "dosing",
-      "value": "once daily pill",
-      "normalized": 0.7,
-      "source_id": "s_sample_4",
-      "as_of": "2025-01-01"
+      "value": "once daily pill on an empty stomach with up to 4 oz water; wait 30 minutes before eating, drinking or other medicines",
+      "normalized": 0.4,
+      "source_id": "lbl_wegovy",
+      "as_of": "2026-06-30"
     },
     {
-      "id": "f_sample_03",
+      "id": "f_0003",
       "option": "tirzepatide_injection",
       "dimension": "convenience",
       "kind": "dosing",
-      "value": "once weekly",
-      "normalized": 0.8,
-      "source_id": "s_sample_4",
-      "as_of": "2025-01-01"
+      "value": "once weekly injection",
+      "normalized": 1.0,
+      "source_id": "lbl_zepbound",
+      "as_of": "2026-11-23"
     },
     {
-      "id": "f_sample_04",
+      "id": "f_0004",
       "option": "liraglutide_injection",
       "dimension": "convenience",
       "kind": "dosing",
-      "value": "once daily",
+      "value": "once daily injection, any time of day, without regard to meals",
       "normalized": 0.4,
-      "source_id": "s_sample_4",
-      "as_of": "2025-01-01"
+      "source_id": "lbl_saxenda",
+      "as_of": "2026-06-15"
     },
     {
-      "id": "f_sample_05",
+      "id": "f_0005",
+      "option": "orforglipron_oral",
+      "dimension": "convenience",
+      "kind": "dosing",
+      "value": "once daily pill, with or without food",
+      "normalized": 0.6,
+      "source_id": "lbl_foundayo",
+      "as_of": "2026-08-13"
+    },
+    {
+      "id": "f_0101",
       "option": "semaglutide_injection",
       "dimension": "cost",
       "kind": "monthly_price_usd",
-      "value": 500,
-      "normalized": 0.5,
-      "source_id": "s_sample_5",
-      "as_of": "2026-11-01"
+      "value": 349,
+      "normalized": 0.7673,
+      "source_id": "px_novocare_wegovy",
+      "as_of": "2026-11-24"
     },
     {
-      "id": "f_sample_06",
+      "id": "f_0102",
       "option": "semaglutide_oral",
       "dimension": "cost",
       "kind": "monthly_price_usd",
-      "value": 450,
-      "normalized": 0.55,
-      "source_id": "s_sample_5",
-      "as_of": "2026-11-01"
+      "value": 299,
+      "normalized": 0.8007,
+      "source_id": "px_novocare_wegovy",
+      "as_of": "2026-11-24"
     },
     {
-      "id": "f_sample_07",
+      "id": "f_0103",
       "option": "tirzepatide_injection",
       "dimension": "cost",
       "kind": "monthly_price_usd",
-      "value": 600,
-      "normalized": 0.4,
-      "source_id": "s_sample_5",
-      "as_of": "2026-11-01"
+      "value": 449,
+      "normalized": 0.7007,
+      "source_id": "px_lillydirect_zepbound",
+      "as_of": "2026-11-24"
     },
     {
-      "id": "f_sample_08",
+      "id": "f_0104",
       "option": "liraglutide_injection",
       "dimension": "cost",
       "kind": "monthly_price_usd",
-      "value": 800,
-      "normalized": 0.2,
-      "source_id": "s_sample_5",
-      "as_of": "2026-11-01"
+      "value": 1349.02,
+      "normalized": 0.1007,
+      "source_id": "px_novopricing_saxenda",
+      "as_of": "2026-11-24"
     },
     {
-      "id": "f_sample_09",
-      "option": "orforglipron_oral",
-      "dimension": "convenience",
-      "kind": "dosing",
-      "value": "once daily pill",
-      "normalized": 0.7,
-      "source_id": "s_sample_4",
-      "as_of": "2026-04-01"
-    },
-    {
-      "id": "f_sample_10",
+      "id": "f_0105",
       "option": "orforglipron_oral",
       "dimension": "cost",
       "kind": "monthly_price_usd",
-      "value": 500,
-      "normalized": 0.5,
-      "source_id": "s_sample_5",
-      "as_of": "2026-11-01"
+      "value": 299,
+      "normalized": 0.8007,
+      "source_id": "px_lillydirect_foundayo",
+      "as_of": "2026-11-24"
     }
   ]
 }

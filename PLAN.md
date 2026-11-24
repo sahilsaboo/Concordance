@@ -157,6 +157,6 @@ Milestones 1 and 2 can run in parallel because the JSON contract separates them.
 - Drug list: approvals checked 2026-11-24 (section 3). Wegovy pill, Foundayo, semaglutide 7.2 mg and MASH now confirmed from DailyMed labels. Still open: recheck CagriSema, and decide whether T2D-only drugs (dulaglutide) belong once the treatment-goal question exists
 - Sprint length / deadline
 - LLM API budget (estimate once claim volume is known)
-- Price sources and how often they refresh
+- Prices: manufacturer self-pay pages (NovoCare, LillyDirect) and Novo's list price for Saxenda, checked 2026-11-24 (`data/facts_draft.json`). Still open: how often to re-check (`build_matrix verify` refetches after the page cache is cleared), and whether to list generic liraglutide once a reliable price source exists
 - Regulatory framing: "educational, discuss with your clinician" (needs a proper review)
 - Recruiting 1–2 test users

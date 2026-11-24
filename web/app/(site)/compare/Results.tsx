@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef } from "react";
-import type { ClaimMatrix, Source } from "@/lib/types";
+import type { ClaimMatrix, Fact, Source } from "@/lib/types";
 import type { Confidence, DimensionResult, RankedOption, Ranking } from "@/lib/scoring";
 
 const CONFIDENCE_LABEL: Record<Confidence, string> = {
@@ -12,6 +12,15 @@ const CONFIDENCE_LABEL: Record<Confidence, string> = {
   high: "Strong evidence",
   verified: "From label or price data, not a study",
 };
+
+const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
+/** One readable line per fact, e.g. "Monthly price: $1,349.02 (as of 2026-11-24)". */
+export function factText(f: Fact): string {
+  if (f.kind === "monthly_price_usd" && typeof f.value === "number") return `Monthly price: ${usd.format(f.value)} (as of ${f.as_of})`;
+  const kind = f.kind.replaceAll("_", " ");
+  return `${kind.charAt(0).toUpperCase()}${kind.slice(1)}: ${f.value} (as of ${f.as_of})`;
+}
 
 const FUNDING_LABEL: Record<Source["funding"], string> = {
   manufacturer: "Manufacturer-funded",
@@ -284,13 +293,7 @@ function Evidence(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel: 
     }),
     ...d.factIds.map((id) => {
       const f = matrix.facts.find((x) => x.id === id)!;
-      const kind = f.kind.replaceAll("_", " ");
-      return {
-        id,
-        dim: d.dimensionId,
-        text: `${kind.charAt(0).toUpperCase()}${kind.slice(1)}: ${f.value} (as of ${f.as_of})`,
-        src: source(f.source_id),
-      };
+      return { id, dim: d.dimensionId, text: factText(f), src: source(f.source_id) };
     }),
   ]);
   if (!rows.length) return null;
