@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef } from "react";
-import type { ClaimMatrix, Fact, Source } from "@/lib/types";
+import type { ClaimMatrix, Fact, Gap, Source } from "@/lib/types";
 import type { Confidence, DimensionResult, RankedOption, Ranking } from "@/lib/scoring";
 
 const CONFIDENCE_LABEL: Record<Confidence, string> = {
@@ -34,6 +34,18 @@ const pct = (x: number) => `${Math.round(x * 100)}%`;
 const optionName = (o: RankedOption["option"]) =>
   `${o.molecule.charAt(0).toUpperCase()}${o.molecule.slice(1)} (${o.route === "oral" ? "pill" : "injection"})`;
 const shortLabel = (label: string) => label.split(" (")[0].toLowerCase();
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/** The documented reason an option has no score for a priority, if there is one. */
+export const gapFor = (m: ClaimMatrix, optionId: string, dimensionId: string): Gap | undefined =>
+  m.gaps?.find((g) => g.option === optionId && g.dimension === dimensionId);
+
+const NEUTRAL_NOTE = "Counted as neutral (50), so it doesn't help or hurt.";
+
+/** Text under a priority with no score: the documented reason when known, otherwise the generic one. */
+export function missingText(gap: Gap | undefined): string {
+  return gap ? `${gap.reason} ${NEUTRAL_NOTE}` : `No reviewed evidence yet. ${NEUTRAL_NOTE}`;
+}
 const joinWords = (xs: string[]) => (xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs.at(-1)}`);
 
 export default function Results(props: {
@@ -86,7 +98,7 @@ export default function Results(props: {
           // Pinned only when the window is tall enough to show all of it; otherwise it scrolls normally.
           className="lg:self-start lg:[@media(min-height:60rem)]:sticky lg:[@media(min-height:60rem)]:top-8"
         >
-          <Summary ranking={ranking} dimLabel={dimLabel} />
+          <Summary ranking={ranking} matrix={matrix} dimLabel={dimLabel} />
 
           <div className="mt-6 flex flex-wrap gap-3 lg:flex-col print:hidden">
             <button type="button" onClick={() => window.print()} className="btn-secondary lg:w-full">
@@ -182,7 +194,7 @@ export default function Results(props: {
   );
 }
 
-function Summary({ ranking, dimLabel }: { ranking: Ranking; dimLabel: (id: string) => string }) {
+function Summary({ ranking, matrix, dimLabel }: { ranking: Ranking; matrix: ClaimMatrix; dimLabel: (id: string) => string }) {
   if (ranking.ranked.length === 0) {
     return (
       <div className="rounded-xl border border-line bg-surface p-6">
@@ -198,7 +210,12 @@ function Summary({ ranking, dimLabel }: { ranking: Ranking; dimLabel: (id: strin
     .sort((a, b) => b.weightShare * b.score - a.weightShare * a.score)
     .slice(0, 2)
     .map((d) => shortLabel(dimLabel(d.dimensionId)));
-  const missing = best.dimensions.filter((d) => d.insufficientEvidence).length;
+  // Priorities with no score split into documented gaps (we know why) and plain missing evidence.
+  const unscored = best.dimensions.filter((d) => d.insufficientEvidence);
+  const known = unscored
+    .map((d) => ({ d, gap: gapFor(matrix, best.option.id, d.dimensionId) }))
+    .filter((x): x is { d: DimensionResult; gap: Gap } => x.gap !== undefined);
+  const missing = unscored.length - known.length;
 
   return (
     <div className="rounded-xl border border-primary bg-surface p-6">
@@ -210,6 +227,12 @@ function Summary({ ranking, dimLabel }: { ranking: Ranking; dimLabel: (id: strin
           {top.length > 1 ? "Their" : "Its"} strongest areas for your priorities: {joinWords(strengths)}.
         </p>
       )}
+      {known.map(({ d, gap }) => (
+        <p key={d.dimensionId} className="mt-2 leading-relaxed text-muted">
+          {capitalize(shortLabel(dimLabel(d.dimensionId)))} counts as neutral (50) for{" "}
+          {top.length > 1 ? "the top option" : "it"}. {gap.reason}
+        </p>
+      ))}
       {missing > 0 && (
         <p className="mt-2 leading-relaxed text-muted">
           We don&apos;t have reviewed evidence yet for {missing} of your {best.dimensions.length} priorities, so treat
@@ -246,7 +269,12 @@ function OptionCard(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel
 
       <ul className="mt-6 space-y-4">
         {r.dimensions.map((d) => (
-          <DimensionRow key={d.dimensionId} d={d} label={dimLabel(d.dimensionId)} />
+          <DimensionRow
+            key={d.dimensionId}
+            d={d}
+            label={dimLabel(d.dimensionId)}
+            gap={gapFor(matrix, r.option.id, d.dimensionId)}
+          />
         ))}
       </ul>
 
@@ -255,7 +283,7 @@ function OptionCard(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel
   );
 }
 
-function DimensionRow({ d, label }: { d: DimensionResult; label: string }) {
+function DimensionRow({ d, label, gap }: { d: DimensionResult; label: string; gap?: Gap }) {
   return (
     <li>
       <div className="flex justify-between gap-3">
@@ -275,9 +303,7 @@ function DimensionRow({ d, label }: { d: DimensionResult; label: string }) {
       </div>
       <Bar value={d.insufficientEvidence ? 0 : d.score} className="bg-score" />
       <div className="mt-1 text-sm text-muted">
-        {d.insufficientEvidence
-          ? "No reviewed evidence yet. Counted as neutral (50), so it doesn't help or hurt."
-          : CONFIDENCE_LABEL[d.confidence]}
+        {d.insufficientEvidence ? missingText(gap) : CONFIDENCE_LABEL[d.confidence]}
       </div>
     </li>
   );
@@ -295,6 +321,17 @@ function Evidence(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel: 
       const f = matrix.facts.find((x) => x.id === id)!;
       return { id, dim: d.dimensionId, text: factText(f), src: source(f.source_id) };
     }),
+    // A documented gap lists the evidence that exists but isn't scored, so readers can check the reason.
+    ...(d.insufficientEvidence ? [gapFor(matrix, r.option.id, d.dimensionId)] : [])
+      .filter((g): g is Gap => g !== undefined)
+      .flatMap((g) =>
+        (g.source_ids.length ? g.source_ids : [""]).map((sid) => ({
+          id: `gap-${d.dimensionId}-${sid}`,
+          dim: d.dimensionId,
+          text: `Not scored: ${g.detail ?? g.reason}`,
+          src: sid ? source(sid) : undefined,
+        })),
+      ),
   ]);
   if (!rows.length) return null;
 

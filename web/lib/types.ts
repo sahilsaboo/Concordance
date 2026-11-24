@@ -65,6 +65,15 @@ export interface Fact {
   as_of: string;
 }
 
+/** A known reason an option has no score for a priority (the score stays neutral). */
+export interface Gap {
+  option: string;
+  dimension: string;
+  reason: string;
+  detail?: string | null;
+  source_ids: string[];
+}
+
 export interface ClaimMatrix {
   meta: Meta;
   dimensions: Dimension[];
@@ -72,4 +81,5 @@ export interface ClaimMatrix {
   sources: Source[];
   claims: Claim[];
   facts: Fact[];
+  gaps?: Gap[];
 }

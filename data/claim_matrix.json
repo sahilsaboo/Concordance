@@ -259,6 +259,22 @@
       "funding": "manufacturer"
     },
     {
+      "id": "st_039",
+      "title": "Cardiovascular Outcomes with Tirzepatide versus Dulaglutide in Type 2 Diabetes.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41406444/",
+      "type": "rct",
+      "year": 2025,
+      "funding": "manufacturer"
+    },
+    {
+      "id": "st_070",
+      "title": "Cardiovascular safety of orforglipron versus insulin glargine in adults with type 2 diabetes at increased cardiovascular risk (ACHIEVE-4): a phase 3, event-driven, randomised, open-label, non-inferiority, active comparator trial.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42815506/",
+      "type": "rct",
+      "year": 2026,
+      "funding": "manufacturer"
+    },
+    {
       "id": "px_novocare_wegovy",
       "title": "NovoCare Pharmacy: Wegovy self-pay pricing",
       "url": "https://www.novocare.com/delivery/wegovy.html",
@@ -1225,6 +1241,26 @@
       "normalized": 0.8007,
       "source_id": "px_lillydirect_foundayo",
       "as_of": "2026-11-24"
+    }
+  ],
+  "gaps": [
+    {
+      "option": "tirzepatide_injection",
+      "dimension": "cardiovascular",
+      "reason": "No placebo-controlled heart trial yet.",
+      "detail": "Its heart trial, SURPASS-CVOT, compared it with dulaglutide (another GLP-1 drug) rather than placebo, so it isn't scored here.",
+      "source_ids": [
+        "st_039"
+      ]
+    },
+    {
+      "option": "orforglipron_oral",
+      "dimension": "cardiovascular",
+      "reason": "No placebo-controlled heart trial yet.",
+      "detail": "Its heart trial, ACHIEVE-4, compared it with insulin glargine and was designed to check heart safety, so it isn't scored here.",
+      "source_ids": [
+        "st_070"
+      ]
     }
   ]
 }

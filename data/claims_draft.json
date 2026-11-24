@@ -1167,5 +1167,25 @@
       "type": "label",
       "funding": "mixed"
     }
+  ],
+  "gaps": [
+    {
+      "option": "tirzepatide_injection",
+      "dimension": "cardiovascular",
+      "study_ids": [
+        "st_039"
+      ],
+      "reason": "No placebo-controlled heart trial yet.",
+      "detail": "Its heart trial, SURPASS-CVOT, compared it with dulaglutide (another GLP-1 drug) rather than placebo, so it isn't scored here."
+    },
+    {
+      "option": "orforglipron_oral",
+      "dimension": "cardiovascular",
+      "study_ids": [
+        "st_070"
+      ],
+      "reason": "No placebo-controlled heart trial yet.",
+      "detail": "Its heart trial, ACHIEVE-4, compared it with insulin glargine and was designed to check heart safety, so it isn't scored here."
+    }
   ]
 }

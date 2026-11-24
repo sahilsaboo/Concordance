@@ -336,6 +336,18 @@ def build(claims_doc: dict, studies: list[dict], sample: dict, facts_doc: dict |
             "severity": SEVERITY.get(c["effect"]["metric"], 1),
             "source_id": source["id"], "ratings": ratings, "review": c["review"],
         })
+    # Documented gaps: kept only while the option still has no approved claim for that priority.
+    scored = {(c["option"], c["dimension"]) for c in claims if c["review"]["status"] in USABLE}
+    gaps = []
+    for g in claims_doc.get("gaps", []):
+        if (g["option"], g["dimension"]) in scored:
+            log.append(f"gap {g['option']}/{g['dimension']} dropped: it now has approved evidence")
+            continue
+        for sid in g.get("study_ids", []):
+            sources[sid] = source_from_study(by_id[sid])
+        gaps.append({"option": g["option"], "dimension": g["dimension"], "reason": g["reason"],
+                     "detail": g.get("detail"), "source_ids": g.get("study_ids", [])})
+
     # Approved real facts first; sample placeholders only for an option and priority with no approved fact.
     facts, fact_sources = real_facts(facts_doc, labels)
     sources.update(fact_sources)
@@ -353,7 +365,7 @@ def build(claims_doc: dict, studies: list[dict], sample: dict, facts_doc: dict |
                      "Don't use these results to make health decisions.") if placeholders else None,
         },
         "dimensions": sample["dimensions"], "options": sample["options"],
-        "sources": list(sources.values()), "claims": claims, "facts": facts,
+        "sources": list(sources.values()), "claims": claims, "facts": facts, "gaps": gaps,
     }
     ClaimMatrix.model_validate(matrix)  # raises on a broken reference or out-of-range score
     return matrix, log

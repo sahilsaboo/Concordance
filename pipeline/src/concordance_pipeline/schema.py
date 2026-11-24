@@ -90,6 +90,17 @@ class Fact(BaseModel):
     as_of: str
 
 
+class Gap(BaseModel):
+    """A known reason an option has no score for a priority, e.g. its only heart trial wasn't placebo-controlled.
+
+    Shown instead of the generic "no reviewed evidence" text. The score stays neutral either way."""
+    option: str
+    dimension: str
+    reason: str  # one short sentence, e.g. "No placebo-controlled heart trial yet."
+    detail: str | None = None  # what evidence exists and why it isn't scored
+    source_ids: list[str] = []
+
+
 class ClaimMatrix(BaseModel):
     meta: Meta
     dimensions: list[Dimension]
@@ -97,6 +108,7 @@ class ClaimMatrix(BaseModel):
     sources: list[Source]
     claims: list[Claim]
     facts: list[Fact]
+    gaps: list[Gap] = []
 
     @model_validator(mode="after")
     def check_references(self) -> "ClaimMatrix":
@@ -111,4 +123,9 @@ class ClaimMatrix(BaseModel):
                 raise ValueError(f"{rec.id}: unknown dimension {rec.dimension!r}")
             if rec.source_id not in source_ids:
                 raise ValueError(f"{rec.id}: unknown source {rec.source_id!r}")
+        for g in self.gaps:
+            if g.option not in option_ids or g.dimension not in dim_ids:
+                raise ValueError(f"gap {g.option}/{g.dimension}: unknown option or dimension")
+            if missing := [s for s in g.source_ids if s not in source_ids]:
+                raise ValueError(f"gap {g.option}/{g.dimension}: unknown sources {missing}")
         return self

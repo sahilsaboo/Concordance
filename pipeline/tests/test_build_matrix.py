@@ -208,3 +208,26 @@ def test_built_claims_carry_severity_and_registry_source():
     out = m["claims"][0]
     assert out["severity"] == 3 and out["source_id"] == "ctgov_NCT1"
     assert out["ratings"]["bias"] == STUDY["source_bias_score"]
+
+
+def test_gaps_carry_reason_and_sources_and_drop_once_scored():
+    sample = json.loads((DATA / "sample_matrix.json").read_text())
+    gap = {"option": "tirzepatide_injection", "dimension": "cardiovascular", "study_ids": ["st_1"],
+           "reason": "No placebo-controlled heart trial yet.", "detail": "Compared with another drug."}
+    m, _ = bm.build({"claims": [], "gaps": [gap]}, [STUDY], sample)
+    assert m["gaps"] == [{"option": "tirzepatide_injection", "dimension": "cardiovascular", "reason": gap["reason"],
+                          "detail": gap["detail"], "source_ids": ["st_1"]}]
+    assert any(s["id"] == "st_1" for s in m["sources"])
+    cv = claim(id="c_cv", dimension="cardiovascular", effect={"metric": "mace_hr_vs_placebo", "value": 0.8},
+               derivation={"kind": "reported"}, quotes=["hazard ratio, 0.80"])
+    m2, log = bm.build({"claims": [cv], "gaps": [gap]}, [STUDY], sample)
+    assert m2["gaps"] == [] and any("dropped" in line for line in log)
+
+
+def test_schema_rejects_gap_with_unknown_source():
+    from pydantic import ValidationError
+    from concordance_pipeline.schema import ClaimMatrix
+    sample = json.loads((DATA / "sample_matrix.json").read_text())
+    bad = {**sample, "gaps": [{"option": "tirzepatide_injection", "dimension": "cardiovascular", "reason": "r", "source_ids": ["nope"]}]}
+    with pytest.raises(ValidationError, match="unknown sources"):
+        ClaimMatrix.model_validate(bad)
