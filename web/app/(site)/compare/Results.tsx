@@ -30,6 +30,12 @@ const FUNDING_LABEL: Record<Source["funding"], string> = {
   unknown: "Funding unknown",
 };
 
+/** Who stands behind a source. A manufacturer's price page isn't "funded"; the manufacturer sets the price. */
+export function sourceLabel(src: Pick<Source, "type" | "funding">): string {
+  if (src.type === "price" && src.funding === "manufacturer") return "Set by the manufacturer";
+  return FUNDING_LABEL[src.funding];
+}
+
 const pct = (x: number) => `${Math.round(x * 100)}%`;
 const optionName = (o: RankedOption["option"]) =>
   `${o.molecule.charAt(0).toUpperCase()}${o.molecule.slice(1)} (${o.route === "oral" ? "pill" : "injection"})`;
@@ -360,7 +366,7 @@ function Evidence(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel: 
                   <span aria-hidden="true"> ↗</span>
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>{" "}
-                · {row.src.year} · {FUNDING_LABEL[row.src.funding]}
+                · {row.src.year} · {sourceLabel(row.src)}
               </div>
             )}
           </li>

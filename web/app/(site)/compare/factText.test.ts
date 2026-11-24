@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { factText } from "./Results";
+import { factText, sourceLabel } from "./Results";
 import type { Fact } from "@/lib/types";
 
 const fact = (over: Partial<Fact>): Fact => ({
@@ -14,5 +14,13 @@ describe("factText", () => {
 
   it("shows dosing text as written", () => {
     expect(factText(fact({ kind: "dosing", value: "once weekly injection" }))).toBe("Dosing: once weekly injection (as of 2026-11-24)");
+  });
+});
+
+describe("sourceLabel", () => {
+  it("says a manufacturer's price is set by the manufacturer, not funded", () => {
+    expect(sourceLabel({ type: "price", funding: "manufacturer" })).toBe("Set by the manufacturer");
+    expect(sourceLabel({ type: "rct", funding: "manufacturer" })).toBe("Manufacturer-funded");
+    expect(sourceLabel({ type: "label", funding: "mixed" })).toBe("Mixed funding");
   });
 });
