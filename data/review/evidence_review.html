@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: summary strip (counts + bias/quality scatter), then a filterable study table beside a sticky editor panel. Concordance earth-tone tokens. */
+/* Layout: header + mode tabs (Browse | Review queue). Browse = summary strip, rubric, table beside sticky editor. Queue = one study card with its rating breakdown beside the decision form. Concordance earth-tone tokens. */
 :root {
   --blanket: #f2e0cf; --fern: #854628; --oak: #b48954; --moss: #7c7458; --mushroom: #d4c7b4; --kimber: #2d2d23; --cream: #fcf8f4;
   --bg: var(--cream); --fg: var(--kimber); --muted: color-mix(in oklab, var(--kimber) 68%, var(--cream));
@@ -34,30 +34,65 @@
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--fg); font: 14px/1.5 var(--font-sans); }
-.wrap { max-width: 1400px; margin: 0 auto; padding-block: 28px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 24px; }
+.wrap { max-width: 1400px; margin: 0 auto; padding-block: 28px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; }
 h1 { font: 600 2.2rem/1.1 var(--font-display); margin: 0; text-wrap: balance; }
-h2 { font: 600 1.35rem/1.2 var(--font-display); margin: 0; }
-.eyebrow { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.lede { color: var(--muted); max-width: 70ch; margin: 6px 0 0; }
+h2 { font: 600 1.4rem/1.2 var(--font-display); margin: 0; text-wrap: balance; }
+h3 { font: 600 1.1rem/1.2 var(--font-display); margin: 0; }
+.eyebrow { font: 500 11px/1.3 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.lede { color: var(--muted); max-width: 72ch; margin: 6px 0 0; }
 .notice { border-left: 3px solid var(--oak); background: var(--track); padding: 8px 12px; border-radius: 4px; max-width: 90ch; font-size: 13px; }
+code { font-family: var(--font-mono); font-size: 12px; }
+a { color: var(--primary); }
+input, select, textarea, button { font: inherit; color: inherit; }
+input[type=search], select, input[type=number], input[type=text], textarea { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 9px; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+button { border: 1px solid var(--line); background: var(--surface); padding: 7px 12px; border-radius: 6px; cursor: pointer; }
+button.primary { background: var(--primary); color: var(--on-primary); border-color: var(--primary); font-weight: 500; }
+button.danger { color: var(--bad); border-color: color-mix(in oklab, var(--bad) 50%, var(--line)); }
+button:disabled { opacity: .5; cursor: default; }
+kbd { font: 500 10px var(--font-mono); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; margin-left: 6px; opacity: .8; }
+.sub { color: var(--muted); font-size: 12px; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.msg { font-size: 12px; color: var(--muted); }
+.msg.err { color: var(--bad); }
+
+/* tabs */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tabs a { text-decoration: none; color: var(--muted); padding: 8px 14px; border-bottom: 2px solid transparent; margin-bottom: -1px; font-weight: 500; }
+.tabs a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--primary); }
+.tabs .badge { font: 500 11px var(--font-mono); background: var(--track); border-radius: 999px; padding: 1px 7px; margin-left: 6px; }
+
+/* summary */
 .summary { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 24px; align-items: start; }
 .counts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
 .count { border-top: 1px solid var(--line); padding-top: 8px; display: grid; gap: 2px; }
 .count b { font: 500 1.6rem/1 var(--font-mono); font-variant-numeric: tabular-nums; }
 .count span { color: var(--muted); font-size: 12px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 14px; font-size: 12px; color: var(--muted); }
-.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
-.chart { min-width: 0; }
+.legend i, .gdot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
+.chart { min-width: 0; margin: 0; }
 .chart svg { width: 100%; height: auto; display: block; }
 .chart text { fill: var(--muted); font: 10px var(--font-mono); }
 .chart .dot { cursor: pointer; stroke: var(--bg); stroke-width: 1.5; }
 .chart .dot.on { stroke: var(--fg); stroke-width: 2.5; }
-.main { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 24px; align-items: start; }
+
+/* rubric */
+details.rubric { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+details.rubric > summary { cursor: pointer; padding: 12px 16px; font-weight: 600; list-style-position: inside; }
+.rubric-body { padding: 0 16px 16px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+.rubric-body p { margin: 4px 0 10px; color: var(--muted); font-size: 13px; max-width: 65ch; }
+.bands { display: grid; gap: 0; }
+.band { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding: 7px 8px; border-top: 1px solid color-mix(in oklab, var(--line) 60%, transparent); font-size: 13px; border-radius: 4px; }
+.band b { font: 500 12px var(--font-mono); font-variant-numeric: tabular-nums; }
+.band.hit { background: var(--sel); }
+.band em { font-style: normal; font-weight: 600; display: block; }
+.factors { margin: 8px 0 0; padding-left: 18px; font-size: 13px; }
+.factors li { margin: 2px 0; }
+
+/* browse */
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 24px; align-items: start; }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; align-items: center; }
-input, select, textarea, button { font: inherit; color: inherit; }
-input[type=search], select, input[type=number], textarea { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 9px; }
 input[type=search] { flex: 1 1 200px; min-width: 0; }
-:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .tablebox { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 th { text-align: left; font: 500 11px var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 9px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; cursor: pointer; user-select: none; }
@@ -67,82 +102,132 @@ tr.row { cursor: pointer; }
 tr.row:hover td { background: color-mix(in oklab, var(--sel) 50%, transparent); }
 tr.row.on td { background: var(--sel); }
 .trial { font-weight: 600; }
-.sub { color: var(--muted); font-size: 12px; }
-.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .bar { display: inline-grid; grid-template-columns: 44px auto; gap: 6px; align-items: center; }
 .bar s { display: block; height: 6px; border-radius: 3px; background: var(--track); position: relative; text-decoration: none; overflow: hidden; }
 .bar s::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: var(--c, var(--primary)); }
 .pill { display: inline-block; font: 500 11px/1 var(--font-mono); padding: 4px 7px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
 .st-pending { color: var(--muted); } .st-approved { color: var(--ok); } .st-edited { color: var(--warn); } .st-rejected { color: var(--bad); }
 .unv { color: var(--bad); font: 500 11px var(--font-mono); }
-.panel { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 16px; display: grid; gap: 12px; max-height: calc(100vh - 24px); overflow: auto; }
-.panel .empty { color: var(--muted); }
-.field { display: grid; gap: 4px; }
-.field label, .ro dt { font: 500 11px var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
-.field textarea { min-height: 64px; resize: vertical; width: 100%; }
-.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.pair input { width: 100%; }
+.panel { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 16px; display: grid; gap: 14px; max-height: calc(100vh - 24px); overflow: auto; }
+.panel .empty { color: var(--muted); margin: 0; }
+
+/* shared study blocks */
 .ro { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: 13px; }
-.ro dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.ro dt, .field label, .why dt { font: 500 11px var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.ro dd, .why dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.why { border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 8px; }
+.why-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.why-head .score { font: 500 1.3rem/1 var(--font-mono); font-variant-numeric: tabular-nums; }
+.why-head .bandname { font-size: 12px; color: var(--muted); }
+.why dl { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 4px 10px; margin: 0; font-size: 13px; }
+.why .rationale { font-size: 13px; margin: 0; padding-top: 6px; border-top: 1px dashed var(--line); }
+.flag { color: var(--warn); font-size: 12px; }
 .rob { display: flex; flex-wrap: wrap; gap: 4px; }
 .rob span { font: 11px var(--font-mono); padding: 2px 6px; border-radius: 4px; background: var(--track); }
 .rob .low { color: var(--ok); } .rob .some { color: var(--warn); } .rob .high { color: var(--bad); }
+.field { display: grid; gap: 4px; }
+.field textarea { min-height: 64px; resize: vertical; width: 100%; }
+.field input { width: 100%; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .status { display: flex; gap: 6px; flex-wrap: wrap; }
 .status label { display: inline-flex; gap: 5px; align-items: center; padding: 5px 9px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; font-size: 13px; }
 .status input:checked + span { font-weight: 600; }
 .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-button { border: 1px solid var(--line); background: var(--surface); padding: 7px 12px; border-radius: 6px; cursor: pointer; }
-button.primary { background: var(--primary); color: var(--on-primary); border-color: var(--primary); font-weight: 500; }
-button:disabled { opacity: .5; cursor: default; }
-.msg { font-size: 12px; color: var(--muted); }
-.msg.err { color: var(--bad); }
-a { color: var(--primary); }
-@media (max-width: 1000px) { .main, .summary { grid-template-columns: minmax(0, 1fr); } .panel { position: static; max-height: none; } }
-@media (max-width: 480px) { .pair { grid-template-columns: 1fr; } h1 { font-size: 1.8rem; } }
-@media (prefers-reduced-motion: no-preference) { tr.row td { transition: background .12s; } }
+
+/* queue */
+.qhead { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; }
+.progress { flex: 1 1 260px; max-width: 520px; display: grid; gap: 6px; }
+.progress .track { height: 8px; border-radius: 4px; background: var(--track); overflow: hidden; }
+.progress .fill { height: 100%; background: var(--ok); width: var(--w); }
+@media (prefers-reduced-motion: no-preference) { .progress .fill { transition: width .25s; } tr.row td { transition: background .12s; } }
+.qfilters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.qcard { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.qleft, .qright { display: grid; gap: 14px; min-width: 0; }
+.qright { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 16px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); }
+.decide { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.decide button { padding: 10px 12px; }
+.decide .primary { grid-column: 1 / -1; }
+.qnav { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.done { border: 1px solid var(--line); border-radius: 8px; padding: 28px; background: var(--surface); text-align: left; display: grid; gap: 8px; }
+.hint { font-size: 12px; color: var(--muted); }
+
+@media (max-width: 1000px) { .main, .summary, .qcard, .rubric-body { grid-template-columns: minmax(0, 1fr); } .panel, .qright { position: static; max-height: none; } }
+@media (max-width: 480px) { .pair, .decide { grid-template-columns: 1fr; } .why dl { grid-template-columns: 1fr; } h1 { font-size: 1.8rem; } }
 </style>
 
 <div class="wrap">
   <header>
     <div class="eyebrow">Concordance · evidence pipeline · rubric v0.1</div>
     <h1>GLP-1 evidence review</h1>
-    <p class="lede">Every study the pipeline pulled on GLP-1 drugs prescribed in the US, rated for source bias and study quality on a 0 to 1 scale, where higher is better on both. Pick a study to check or change its ratings. Saved changes sync to <code>data/glp1_studies_draft.json</code> when Claude pulls them.</p>
+    <p class="lede">Every study the pipeline pulled on GLP-1 drugs prescribed in the US, rated for source bias and study quality on a 0 to 1 scale, where higher is better on both. Each study shows the inputs behind its scores. Saved decisions sync to <code>data/glp1_studies_draft.json</code> when Claude pulls them.</p>
   </header>
   <div class="notice">These are draft ratings written by an LLM that could see drug names, so they have not been masked. Mark each study approved, edited or rejected before it feeds the claim matrix.</div>
 
-  <section class="summary" aria-label="Summary">
-    <div>
-      <div class="counts" id="counts"></div>
-      <div class="legend" id="legend"></div>
-    </div>
-    <figure class="chart" style="margin:0">
-      <div class="eyebrow" style="margin-bottom:6px">Source bias vs study quality (each dot is a study)</div>
-      <svg id="scatter" viewBox="0 0 560 300" role="img" aria-label="Scatter of source bias score against study quality score"></svg>
-    </figure>
-  </section>
+  <nav class="tabs" aria-label="View">
+    <a href="#browse" id="tabBrowse">All studies</a>
+    <a href="#queue" id="tabQueue">Review queue <span class="badge" id="pendingBadge">–</span></a>
+  </nav>
 
-  <section class="main">
-    <div style="min-width:0">
-      <div class="filters">
-        <input type="search" id="q" placeholder="Search trial, author, drug, funder" aria-label="Search studies">
-        <select id="fGroup" aria-label="Filter by evidence group"><option value="">All groups</option></select>
-        <select id="fStatus" aria-label="Filter by review status">
-          <option value="">Any status</option><option value="pending">Pending</option><option value="approved">Approved</option><option value="edited">Edited</option><option value="rejected">Rejected</option>
-        </select>
-        <button id="export" hidden>Download JSON</button>
+  <!-- BROWSE -->
+  <div id="viewBrowse" style="display:grid;gap:22px">
+    <section class="summary" aria-label="Summary">
+      <div>
+        <div class="counts" id="counts"></div>
+        <div class="legend" id="legend"></div>
       </div>
-      <div class="tablebox">
-        <table>
-          <thead><tr>
-            <th data-k="trial">Study</th><th data-k="design">Design</th><th data-k="n">N</th>
-            <th data-k="source_bias_score">Bias</th><th data-k="quality_score">Quality</th><th data-k="status">Review</th>
-          </tr></thead>
-          <tbody id="rows"><tr><td colspan="6" class="sub" id="loading">Loading studies…</td></tr></tbody>
-        </table>
+      <figure class="chart">
+        <div class="eyebrow" style="margin-bottom:6px">Source bias vs study quality (each dot is a study)</div>
+        <svg id="scatter" viewBox="0 0 560 300" role="img" aria-label="Scatter of source bias score against study quality score"></svg>
+      </figure>
+    </section>
+
+    <details class="rubric" id="rubric">
+      <summary>How ratings work</summary>
+      <div class="rubric-body" id="rubricBody"></div>
+    </details>
+
+    <section class="main">
+      <div style="min-width:0">
+        <div class="filters">
+          <input type="search" id="q" placeholder="Search trial, author, drug, funder" aria-label="Search studies">
+          <select id="fGroup" aria-label="Filter by evidence group"><option value="">All groups</option></select>
+          <select id="fStatus" aria-label="Filter by review status">
+            <option value="">Any status</option><option value="pending">Pending</option><option value="approved">Approved</option><option value="edited">Edited</option><option value="rejected">Rejected</option>
+          </select>
+          <button id="export" hidden>Download JSON</button>
+        </div>
+        <div class="tablebox">
+          <table>
+            <thead><tr>
+              <th data-k="trial">Study</th><th data-k="design">Design</th><th data-k="n">N</th>
+              <th data-k="source_bias_score">Bias</th><th data-k="quality_score">Quality</th><th data-k="status">Review</th>
+            </tr></thead>
+            <tbody id="rows"><tr><td colspan="6" class="sub" id="loading">Loading studies…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <aside class="panel" id="panel" aria-live="polite"><p class="empty">Select a study to see its citation, the inputs behind each score, and its ratings.</p></aside>
+    </section>
+  </div>
+
+  <!-- QUEUE -->
+  <div id="viewQueue" hidden style="display:grid;gap:18px">
+    <div class="qhead">
+      <div class="progress">
+        <div class="eyebrow" id="qProgressLabel">Review progress</div>
+        <div class="track"><div class="fill" id="qFill" style="--w:0%"></div></div>
+      </div>
+      <div class="qfilters">
+        <select id="qGroup" aria-label="Limit queue to one evidence group"><option value="">All groups</option></select>
+        <select id="qOrder" aria-label="Queue order">
+          <option value="group">Order: by drug group</option>
+          <option value="weakest">Order: least certain first</option>
+        </select>
       </div>
     </div>
-    <aside class="panel" id="panel" aria-live="polite"><p class="empty">Select a study to see its citation, risk-of-bias detail and ratings.</p></aside>
-  </section>
+    <div id="qBody"></div>
+    <p class="hint">Shortcuts when not typing: <kbd>A</kbd> approve, <kbd>R</kbd> reject, <kbd>→</kbd> skip, <kbd>←</kbd> back.</p>
+  </div>
 </div>
 
 <script>
@@ -154,14 +239,148 @@ const GROUPS = {
   independent_realworld: ["Independent and real-world", "--g5"],
 };
 const DESIGN = { rct_double_blind: "RCT, double-blind", rct_open_label: "RCT, open-label", cvot: "CV outcomes trial", meta_analysis: "Meta-analysis", network_meta_analysis: "Network meta-analysis", observational_cohort: "Cohort", target_trial_emulation: "Target-trial emulation", case_control: "Case-control", pharmacovigilance: "Pharmacovigilance", post_hoc: "Post hoc", hta_report: "HTA report", regulatory_review: "Regulatory review" };
+const RANDOMIZED = new Set(["rct_double_blind", "rct_open_label", "cvot"]);
+
+// Rubric v0.1, the same anchors the research agents rated against (PLAN.md section 5).
+const BIAS_BANDS = [
+  { min: 0.85, range: "0.9–1.0", name: "Independent", text: "Public or academic funding, no manufacturer role, authors without relevant conflicts, preregistered, peer-reviewed." },
+  { min: 0.65, range: "0.7–0.8", name: "Mostly independent", text: "Independent funding but notable author conflicts, or the manufacturer supplied the drug only." },
+  { min: 0.45, range: "0.5–0.6", name: "Industry, with safeguards", text: "Manufacturer-funded, but an academic steering committee had full data access, with preregistration and independent statistical checks." },
+  { min: 0.25, range: "0.3–0.4", name: "Industry-controlled", text: "Manufacturer designed, ran and analyzed the study; employee co-authors; sponsor-paid medical writing." },
+  { min: 0, range: "0.1–0.2", name: "Unreviewed or promotional", text: "Not peer-reviewed, promotional, or abstract and press release only." },
+];
+const QUAL_BANDS = [
+  { min: 0.85, range: "0.9–1.0", name: "Strong", text: "Large (n > 1,000) double-blind RCT with low risk of bias in all domains, adequate duration and a meaningful endpoint; or a high-quality meta-analysis of such trials." },
+  { min: 0.65, range: "0.7–0.8", name: "Good, some concerns", text: "RCT with some concerns (open-label, high dropout, short, surrogate endpoint), or a solid meta-analysis." },
+  { min: 0.45, range: "0.5–0.6", name: "Moderate", text: "Smaller or short RCT, open-label head-to-head, or a rigorous target-trial-emulation study." },
+  { min: 0.25, range: "0.3–0.4", name: "Limited", text: "Observational cohort with leftover confounding, post hoc or subgroup analysis, pharmacovigilance signal." },
+  { min: 0, range: "0.1–0.2", name: "Weak", text: "Single-arm study, case series, or abstract only." },
+];
+const BIAS_FACTORS = ["Who funded the study", "What the funder controlled (design, conduct, analysis, writing)", "Author conflicts of interest", "Venue: peer review and journal", "Preregistration"];
+const QUAL_FACTORS = ["Cochrane RoB 2: randomization, deviations from intended treatment (blinding), missing data, outcome measurement, selective reporting", "Sample size and precision", "Duration relative to the outcome", "Comparator: head-to-head > placebo > single-arm > observational", "Directness: does the population and dose match real use"];
+const ROB_DOMAINS = [["randomization", "Randomization"], ["deviations", "Blinding / deviations"], ["missing_data", "Missing data"], ["measurement", "Outcome measurement"], ["selective_reporting", "Selective reporting"], ["overall", "Overall"]];
+
 const $ = (id) => document.getElementById(id);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const safeUrl = (u) => (typeof u === "string" && u.startsWith("https://") ? u : null);
 const status = (s) => (s.review && s.review.status) || "pending";
 const fmt = (x) => (typeof x === "number" ? x.toFixed(2) : "–");
+const band = (bands, v) => (typeof v === "number" ? bands.find((b) => v >= b.min) : null);
+const label = (s) => s.trial_name || (s.first_author ? s.first_author + " et al." : s.title);
+const unknown = (v) => v == null || v === "" || /unknown|not read/i.test(String(v));
 
-let studies = [], selected = null, sortKey = "group", sortDir = 1, db = null, user = null, canWrite = true, myId = null;
+let studies = [], byId = {}, selected = null, sortKey = "group", sortDir = 1, db = null, canWrite = true, myId = null;
+let queue = [], qPos = 0, qStartPending = null, qDecided = 0;
 
+/* ---------- rubric ---------- */
+function bandList(bands, hit) {
+  return `<div class="bands">${bands.map((b) => `<div class="band${hit && hit === b ? " hit" : ""}"><b>${b.range}</b><div><em>${esc(b.name)}</em>${esc(b.text)}</div></div>`).join("")}</div>`;
+}
+function renderRubric() {
+  $("rubricBody").innerHTML = `
+    <div><h3>Source bias</h3><p>How much the people who paid for or ran the study could have shaped its result. Higher means less risk of sponsor bias. Being funded by the manufacturer doesn't disqualify a study, but it lowers the score.</p>
+      ${bandList(BIAS_BANDS)}<div class="eyebrow" style="margin-top:12px">Inputs</div><ul class="factors">${BIAS_FACTORS.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>
+    <div><h3>Study quality</h3><p>How far the design can be trusted and how directly it answers the question. It combines internal validity (Cochrane RoB 2) with GRADE-style factors.</p>
+      ${bandList(QUAL_BANDS)}<div class="eyebrow" style="margin-top:12px">Inputs</div><ul class="factors">${QUAL_FACTORS.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>`;
+}
+
+/* ---------- per-study breakdown ---------- */
+function whyBias(s) {
+  const b = band(BIAS_BANDS, s.source_bias_score);
+  const gaps = [unknown(s.funder_role) && "funder role", unknown(s.author_coi) && "author conflicts"].filter(Boolean);
+  return `<section class="why" aria-label="Source bias breakdown">
+    <div class="why-head"><div><div class="eyebrow">Source bias</div><span class="bandname">${b ? esc(b.range + " band: " + b.name) : "Not scored"}</span></div><span class="score">${fmt(s.source_bias_score)}</span></div>
+    <dl>
+      <dt>Funder</dt><dd>${esc(s.funder || "Not stated")}</dd>
+      <dt>Funder role</dt><dd>${esc(s.funder_role || "Unknown")}</dd>
+      <dt>Author COI</dt><dd>${esc(s.author_coi || "Not recorded")}</dd>
+      <dt>Venue</dt><dd>${esc(s.journal || "–")}${s.year ? ", " + esc(s.year) : ""}</dd>
+    </dl>
+    ${gaps.length ? `<div class="flag">Not read from the paper: ${esc(gaps.join(" and "))}. Check the funding section before approving.</div>` : ""}
+    <p class="rationale">${esc(s.source_bias_rationale || "No rationale recorded.")}</p>
+  </section>`;
+}
+function whyQuality(s) {
+  const b = band(QUAL_BANDS, s.quality_score), rob = s.rob2 || {};
+  const robHtml = RANDOMIZED.has(s.design) || Object.values(rob).some((v) => v && v !== "na")
+    ? `<div class="rob">${ROB_DOMAINS.map(([k, l]) => `<span class="${esc(rob[k])}">${esc(l)}: ${esc(rob[k] || "–")}</span>`).join("")}</div>`
+    : `<span class="sub">Not randomized, so RoB 2 doesn't apply. Confounding is judged in the rationale.</span>`;
+  return `<section class="why" aria-label="Study quality breakdown">
+    <div class="why-head"><div><div class="eyebrow">Study quality</div><span class="bandname">${b ? esc(b.range + " band: " + b.name) : "Not scored"}</span></div><span class="score">${fmt(s.quality_score)}</span></div>
+    <dl>
+      <dt>Design</dt><dd>${esc(DESIGN[s.design] || s.design || "–")}</dd>
+      <dt>Comparator</dt><dd>${esc(s.comparator || "–")}</dd>
+      <dt>Size</dt><dd>${s.n != null ? "n = " + esc(Number(s.n).toLocaleString()) : "–"}</dd>
+      <dt>Duration</dt><dd>${s.duration_weeks != null ? esc(s.duration_weeks) + " weeks" : "Not stated"}</dd>
+      <dt>Population</dt><dd>${esc(s.indication_population || "–")}</dd>
+      <dt>Risk of bias</dt><dd>${robHtml}</dd>
+    </dl>
+    <p class="rationale">${esc(s.quality_rationale || "No rationale recorded.")}</p>
+  </section>`;
+}
+function citation(s) {
+  const url = safeUrl(s.url);
+  return `<dl class="ro">
+    <dt>Citation</dt><dd>${esc(s.first_author)}, <i>${esc(s.journal)}</i> ${esc(s.year)}${url ? ` · <a href="${esc(url)}" target="_blank" rel="noopener">open source</a>` : ""}</dd>
+    <dt>IDs</dt><dd class="num">${s.pmid ? "PMID " + esc(s.pmid) : ""}${s.doi ? " · " + esc(s.doi) : ""}</dd>
+    <dt>Drug</dt><dd>${esc(s.molecule)}, ${esc(s.route)}${(s.brands || []).length ? " (" + esc(s.brands.join(", ")) + ")" : ""}</dd>
+    <dt>Outcome</dt><dd>${esc(s.primary_outcome || "–")}</dd>
+    <dt>Result</dt><dd>${esc(s.key_result || "–")}</dd>
+    <dt>Safety</dt><dd>${esc(s.safety_notes || "–")}</dd>
+    ${s.notes ? `<dt>Notes</dt><dd>${esc(s.notes)}</dd>` : ""}
+    <dt>Verified</dt><dd>${s.verified ? "Yes, against PubMed or the journal" : '<span class="unv">No, check before approving</span>'}</dd>
+  </dl>`;
+}
+
+/* ---------- editable fields (shared by panel and queue) ---------- */
+function editor(s, p, withStatus) {
+  const dis = canWrite ? "" : "disabled";
+  return `
+    <div class="pair">
+      <div class="field"><label for="${p}bias">Source bias (0 to 1)</label><input type="number" id="${p}bias" min="0" max="1" step="0.05" ${dis} value="${esc(s.source_bias_score)}"></div>
+      <div class="field"><label for="${p}qual">Quality (0 to 1)</label><input type="number" id="${p}qual" min="0" max="1" step="0.05" ${dis} value="${esc(s.quality_score)}"></div>
+    </div>
+    <div class="field"><label for="${p}brat">Bias rationale</label><textarea id="${p}brat" ${dis}>${esc(s.source_bias_rationale)}</textarea></div>
+    <div class="field"><label for="${p}qrat">Quality rationale</label><textarea id="${p}qrat" ${dis}>${esc(s.quality_rationale)}</textarea></div>
+    <div class="pair">
+      <div class="field"><label for="${p}funder">Funder</label><input type="text" id="${p}funder" ${dis} value="${esc(s.funder)}"></div>
+      <div class="field"><label for="${p}frole">Funder role</label><input type="text" id="${p}frole" ${dis} value="${esc(s.funder_role)}"></div>
+    </div>
+    <div class="field"><label for="${p}coi">Author conflicts</label><textarea id="${p}coi" ${dis} style="min-height:44px">${esc(s.author_coi)}</textarea></div>
+    <div class="field"><label for="${p}key">Key result</label><textarea id="${p}key" ${dis} style="min-height:44px">${esc(s.key_result)}</textarea></div>
+    <div class="field"><label for="${p}notes">Notes</label><textarea id="${p}notes" ${dis} style="min-height:44px">${esc(s.notes)}</textarea></div>
+    ${withStatus ? `<div class="field"><label>Review decision</label><div class="status" role="radiogroup">
+      ${["pending", "approved", "edited", "rejected"].map((v) => `<label><input type="radio" name="${p}status" value="${v}" ${status(s) === v ? "checked" : ""} ${dis}><span class="st-${v}">${v}</span></label>`).join("")}
+    </div></div>` : ""}
+    <div class="field"><label for="${p}rnotes">Reviewer notes</label><textarea id="${p}rnotes" ${dis} style="min-height:44px" placeholder="Why you changed or rejected it">${esc(s.review && s.review.notes)}</textarea></div>`;
+}
+function readEditor(p) {
+  const num = (id) => { const v = $(id).value.trim(); if (v === "") return null; const n = Number(v); return n >= 0 && n <= 1 ? Math.round(n * 100) / 100 : NaN; };
+  return { source_bias_score: num(p + "bias"), quality_score: num(p + "qual"), source_bias_rationale: $(p + "brat").value, quality_rationale: $(p + "qrat").value,
+    funder: $(p + "funder").value, funder_role: $(p + "frole").value, author_coi: $(p + "coi").value, key_result: $(p + "key").value, notes: $(p + "notes").value };
+}
+
+// Writes the decision. A study approved with changed fields is recorded as "edited".
+async function saveStudy(s, fields, st, reviewNotes) {
+  if (Number.isNaN(fields.source_bias_score) || Number.isNaN(fields.quality_score)) throw { code: "scores", message: "Scores must be between 0 and 1." };
+  const changed = Object.keys(fields).filter((k) => (fields[k] ?? "") !== (s[k] ?? ""));
+  if (changed.length && (st === "pending" || st === "approved")) st = "edited";
+  const patch = {};
+  changed.forEach((k) => (patch[k] = fields[k]));
+  if (changed.some((k) => ["source_bias_score", "quality_score", "source_bias_rationale", "quality_rationale"].includes(k))) patch.rater = "human";
+  patch.review = { status: st, notes: reviewNotes || null, reviewer: myId, updated_at: new Date().toISOString(),
+    changed_fields: Array.from(new Set([...((s.review && s.review.changed_fields) || []), ...changed])) };
+  await db.collection("studies").doc(s.id).update(patch);
+  return st;
+}
+function saveError(e) {
+  if (e && e.code === "scores") return e.message;
+  if (e && e.code === "invalid_argument") { canWrite = false; return "You can view these studies but not change them."; }
+  if (e && e.code === "unavailable") return "Couldn't reach the database. Try again in a moment.";
+  return "Save failed: " + (e && e.message ? e.message : "unknown error");
+}
+
+/* ---------- browse view ---------- */
 function filtered() {
   const q = $("q").value.trim().toLowerCase(), g = $("fGroup").value, st = $("fStatus").value;
   return studies.filter((s) => (!g || s.group === g) && (!st || status(s) === st) &&
@@ -173,18 +392,19 @@ function sortVal(s, k) {
   if (k === "group") return s.group + (s.id || "");
   return s[k] ?? -1;
 }
+function bar(v, c) { const w = typeof v === "number" ? Math.max(0, Math.min(1, v)) * 100 : 0; return `<span class="bar"><s style="--w:${w}%;${c ? "--c:" + c : ""}"></s><span class="num">${fmt(v)}</span></span>`; }
 
-function render() {
+function renderBrowse() {
   const list = filtered().sort((a, b) => { const x = sortVal(a, sortKey), y = sortVal(b, sortKey); return (x > y ? 1 : x < y ? -1 : 0) * sortDir; });
   document.querySelectorAll("th").forEach((th) => th.toggleAttribute("aria-sort", th.dataset.k === sortKey));
   const tb = $("rows");
-  if (!studies.length) { tb.innerHTML = `<tr><td colspan="6" class="sub">No studies loaded yet. Claude adds them to this page's database after the research run finishes.</td></tr>`; }
-  else if (!list.length) { tb.innerHTML = `<tr><td colspan="6" class="sub">No studies match these filters.</td></tr>`; }
+  if (!studies.length) tb.innerHTML = `<tr><td colspan="6" class="sub">No studies loaded yet. Claude adds them to this page's database after a research run.</td></tr>`;
+  else if (!list.length) tb.innerHTML = `<tr><td colspan="6" class="sub">No studies match these filters.</td></tr>`;
   else tb.innerHTML = list.map((s) => {
     const g = GROUPS[s.group] || [s.group, "--g4"];
     return `<tr class="row${s.id === selected ? " on" : ""}" data-id="${esc(s.id)}" tabindex="0">
-      <td><div class="trial">${esc(s.trial_name || (s.first_author ? s.first_author + " et al." : s.title))}</div>
-        <div class="sub"><i style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(${g[1]});margin-right:5px"></i>${esc(s.molecule)} · ${esc(s.journal)} ${esc(s.year)}${s.verified === false ? ' · <span class="unv">unverified</span>' : ""}</div></td>
+      <td><div class="trial">${esc(label(s))}</div>
+        <div class="sub"><i class="gdot" style="background:var(${g[1]})"></i>${esc(s.molecule)} · ${esc(s.journal)} ${esc(s.year)}${s.verified === false ? ' · <span class="unv">unverified</span>' : ""}</div></td>
       <td class="sub">${esc(DESIGN[s.design] || s.design)}<br>${esc(s.comparator)}</td>
       <td class="num">${s.n != null ? esc(Number(s.n).toLocaleString()) : "–"}</td>
       <td>${bar(s.source_bias_score)}</td><td>${bar(s.quality_score, "var(--moss)")}</td>
@@ -192,19 +412,16 @@ function render() {
   }).join("");
   renderCounts(); renderScatter();
 }
-function bar(v, c) { const w = typeof v === "number" ? Math.max(0, Math.min(1, v)) * 100 : 0; return `<span class="bar"><s style="--w:${w}%;${c ? "--c:" + c : ""}"></s><span class="num">${fmt(v)}</span></span>`; }
-
 function renderCounts() {
   const c = { total: studies.length, pending: 0, approved: 0, edited: 0, rejected: 0 };
   studies.forEach((s) => c[status(s)]++);
-  const ver = studies.filter((s) => s.verified).length;
   const avg = (k) => studies.length ? (studies.reduce((a, s) => a + (s[k] || 0), 0) / studies.length).toFixed(2) : "–";
-  $("counts").innerHTML = [["Studies", c.total], ["Verified", ver], ["Mean bias", avg("source_bias_score")], ["Mean quality", avg("quality_score")], ["Pending review", c.pending], ["Approved", c.approved], ["Edited", c.edited], ["Rejected", c.rejected]]
+  $("counts").innerHTML = [["Studies", c.total], ["Verified", studies.filter((s) => s.verified).length], ["Mean bias", avg("source_bias_score")], ["Mean quality", avg("quality_score")], ["Pending review", c.pending], ["Approved", c.approved], ["Edited", c.edited], ["Rejected", c.rejected]]
     .map(([l, v]) => `<div class="count"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join("");
   const present = new Set(studies.map((s) => s.group));
   $("legend").innerHTML = Object.entries(GROUPS).filter(([k]) => present.has(k)).map(([, [l, v]]) => `<span><i style="background:var(${v})"></i>${esc(l)}</span>`).join("");
+  $("pendingBadge").textContent = studies.length ? c.pending : "–";
 }
-
 function renderScatter() {
   const W = 560, H = 300, L = 40, R = 14, T = 12, B = 34, pw = W - L - R, ph = H - T - B;
   const x = (v) => L + v * pw, y = (v) => T + (1 - v) * ph;
@@ -219,98 +436,155 @@ function renderScatter() {
   const vis = new Set(filtered().map((d) => d.id));
   studies.forEach((d, i) => {
     if (typeof d.source_bias_score !== "number" || typeof d.quality_score !== "number") return;
-    const jx = ((i * 37) % 11 - 5) * 0.9, jy = ((i * 53) % 11 - 5) * 0.9; // small deterministic jitter so ties stay visible
+    const jx = ((i * 37) % 11 - 5) * 0.9, jy = ((i * 53) % 11 - 5) * 0.9; // deterministic jitter so tied scores stay visible
     const g = (GROUPS[d.group] || [0, "--g4"])[1];
-    s += `<circle class="dot${d.id === selected ? " on" : ""}" data-id="${esc(d.id)}" cx="${x(d.source_bias_score) + jx}" cy="${y(d.quality_score) + jy}" r="${d.id === selected ? 7 : 5}" fill="var(${g})" opacity="${vis.has(d.id) ? 0.9 : 0.15}"><title>${esc(d.trial_name || d.title)}: bias ${fmt(d.source_bias_score)}, quality ${fmt(d.quality_score)}</title></circle>`;
+    s += `<circle class="dot${d.id === selected ? " on" : ""}" data-id="${esc(d.id)}" cx="${x(d.source_bias_score) + jx}" cy="${y(d.quality_score) + jy}" r="${d.id === selected ? 7 : 5}" fill="var(${g})" opacity="${vis.has(d.id) ? 0.9 : 0.15}"><title>${esc(label(d))}: bias ${fmt(d.source_bias_score)}, quality ${fmt(d.quality_score)}</title></circle>`;
   });
   $("scatter").innerHTML = s;
 }
-
 function renderPanel() {
-  const s = studies.find((d) => d.id === selected), p = $("panel");
-  if (!s) { p.innerHTML = `<p class="empty">Select a study to see its citation, risk-of-bias detail and ratings.</p>`; return; }
-  const url = safeUrl(s.url), rob = s.rob2 || {}, dis = canWrite ? "" : "disabled";
-  const robHtml = ["randomization", "deviations", "missing_data", "measurement", "selective_reporting", "overall"].map((k) => `<span class="${esc(rob[k])}">${esc(k.replace("_", " "))}: ${esc(rob[k] || "–")}</span>`).join("");
+  const s = byId[selected], p = $("panel");
+  if (!s) { p.innerHTML = `<p class="empty">Select a study to see its citation, the inputs behind each score, and its ratings.</p>`; return; }
   p.innerHTML = `
-    <div><div class="eyebrow">${esc((GROUPS[s.group] || [s.group])[0])} · ${esc(s.id)}</div>
-      <h2>${esc(s.trial_name || s.first_author + " et al.")}</h2>
-      <div class="sub">${esc(s.title)}</div></div>
-    <dl class="ro">
-      <dt>Citation</dt><dd>${esc(s.first_author)}, <i>${esc(s.journal)}</i> ${esc(s.year)}${url ? ` · <a href="${esc(url)}" target="_blank" rel="noopener">source</a>` : ""}</dd>
-      <dt>IDs</dt><dd class="num">${s.pmid ? "PMID " + esc(s.pmid) : ""} ${s.doi ? "· " + esc(s.doi) : ""}</dd>
-      <dt>Drug</dt><dd>${esc(s.molecule)}, ${esc(s.route)} ${(s.brands || []).length ? "(" + esc(s.brands.join(", ")) + ")" : ""}</dd>
-      <dt>Population</dt><dd>${esc(s.indication_population)}</dd>
-      <dt>Design</dt><dd>${esc(DESIGN[s.design] || s.design)} vs ${esc(s.comparator)} · n=${esc(s.n ?? "–")} · ${esc(s.duration_weeks ?? "–")} wk</dd>
-      <dt>Outcome</dt><dd>${esc(s.primary_outcome)}</dd>
-      <dt>Safety</dt><dd>${esc(s.safety_notes || "–")}</dd>
-      <dt>Verified</dt><dd>${s.verified ? "Yes" : '<span class="unv">No, check before approving</span>'}</dd>
-    </dl>
-    <div class="field"><label>RoB 2</label><div class="rob">${robHtml}</div></div>
-    <div class="field"><label for="e_key">Key result</label><textarea id="e_key" ${dis}>${esc(s.key_result)}</textarea></div>
-    <div class="pair">
-      <div class="field"><label for="e_funder">Funder</label><input id="e_funder" ${dis} value="${esc(s.funder)}"></div>
-      <div class="field"><label for="e_frole">Funder role</label><input id="e_frole" ${dis} value="${esc(s.funder_role)}"></div>
-    </div>
-    <div class="field"><label for="e_coi">Author conflicts</label><textarea id="e_coi" ${dis} style="min-height:44px">${esc(s.author_coi)}</textarea></div>
-    <div class="pair">
-      <div class="field"><label for="e_bias">Source bias (0 to 1)</label><input type="number" id="e_bias" min="0" max="1" step="0.05" ${dis} value="${esc(s.source_bias_score)}"></div>
-      <div class="field"><label for="e_qual">Quality (0 to 1)</label><input type="number" id="e_qual" min="0" max="1" step="0.05" ${dis} value="${esc(s.quality_score)}"></div>
-    </div>
-    <div class="field"><label for="e_brat">Bias rationale</label><textarea id="e_brat" ${dis}>${esc(s.source_bias_rationale)}</textarea></div>
-    <div class="field"><label for="e_qrat">Quality rationale</label><textarea id="e_qrat" ${dis}>${esc(s.quality_rationale)}</textarea></div>
-    <div class="field"><label for="e_notes">Notes</label><textarea id="e_notes" ${dis} style="min-height:44px">${esc(s.notes)}</textarea></div>
-    <div class="field"><label>Review decision</label><div class="status" role="radiogroup">
-      ${["pending", "approved", "edited", "rejected"].map((v) => `<label><input type="radio" name="e_status" value="${v}" ${status(s) === v ? "checked" : ""} ${dis}><span class="st-${v}">${v}</span></label>`).join("")}
-    </div></div>
-    <div class="field"><label for="e_rnotes">Reviewer notes</label><textarea id="e_rnotes" ${dis} style="min-height:44px">${esc(s.review && s.review.notes)}</textarea></div>
-    <div class="actions"><button class="primary" id="save" ${dis}>Save changes</button><button id="revert" ${dis}>Discard</button><span class="msg" id="msg">${canWrite ? (s.review && s.review.updated_at ? "Last saved " + esc(new Date(s.review.updated_at).toLocaleString()) : "Not reviewed yet") : "You can view this study but not change it."}</span></div>`;
-  $("save")?.addEventListener("click", () => save(s));
-  $("revert")?.addEventListener("click", renderPanel);
+    <div><div class="eyebrow">${esc((GROUPS[s.group] || [s.group])[0])} · ${esc(s.id)} · <span class="st-${esc(status(s))}">${esc(status(s))}</span></div>
+      <h2>${esc(label(s))}</h2><div class="sub">${esc(s.title)}</div></div>
+    ${citation(s)}${whyBias(s)}${whyQuality(s)}
+    <div class="eyebrow">Edit</div>${editor(s, "p_", true)}
+    <div class="actions"><button class="primary" id="p_save" ${canWrite ? "" : "disabled"}>Save changes</button><button id="p_revert" ${canWrite ? "" : "disabled"}>Discard</button>
+      <span class="msg" id="p_msg">${canWrite ? (s.review && s.review.updated_at ? "Last saved " + esc(new Date(s.review.updated_at).toLocaleString()) : "Not reviewed yet") : "You can view this study but not change it."}</span></div>`;
+  $("p_save")?.addEventListener("click", async () => {
+    $("p_save").disabled = true; $("p_msg").className = "msg"; $("p_msg").textContent = "Saving…";
+    try {
+      const st = document.querySelector('input[name="p_status"]:checked')?.value || "pending";
+      await saveStudy(s, readEditor("p_"), st, $("p_rnotes").value); $("p_msg").textContent = "Saved.";
+    } catch (e) { $("p_msg").className = "msg err"; $("p_msg").textContent = saveError(e); $("p_save").disabled = !canWrite; }
+  });
+  $("p_revert")?.addEventListener("click", renderPanel);
 }
+function select(id) { selected = id; renderBrowse(); renderPanel(); }
 
-async function save(s) {
-  const num = (id) => { const v = $(id).value.trim(); if (v === "") return null; const n = Number(v); return n >= 0 && n <= 1 ? Math.round(n * 100) / 100 : NaN; };
-  const bias = num("e_bias"), qual = num("e_qual");
-  if (Number.isNaN(bias) || Number.isNaN(qual)) { $("msg").textContent = "Scores must be between 0 and 1."; $("msg").className = "msg err"; return; }
-  const fields = { key_result: $("e_key").value, funder: $("e_funder").value, funder_role: $("e_frole").value, author_coi: $("e_coi").value,
-    source_bias_score: bias, quality_score: qual, source_bias_rationale: $("e_brat").value, quality_rationale: $("e_qrat").value, notes: $("e_notes").value };
-  const changed = Object.keys(fields).filter((k) => (fields[k] ?? "") !== (s[k] ?? ""));
-  let st = document.querySelector('input[name="e_status"]:checked')?.value || "pending";
-  if (changed.length && st === "pending") st = "edited";
-  const patch = {};
-  changed.forEach((k) => (patch[k] = fields[k]));
-  if (changed.some((k) => ["source_bias_score", "quality_score", "source_bias_rationale", "quality_rationale"].includes(k))) patch.rater = "human";
-  patch.review = { status: st, notes: $("e_rnotes").value || null, reviewer: myId, updated_at: new Date().toISOString(),
-    changed_fields: Array.from(new Set([...((s.review && s.review.changed_fields) || []), ...changed])) };
-  $("save").disabled = true; $("msg").className = "msg"; $("msg").textContent = "Saving…";
-  try { await db.collection("studies").doc(s.id).update(patch); $("msg").textContent = "Saved."; }
-  catch (e) {
-    if (e && e.code === "invalid_argument") { canWrite = false; renderPanel(); return; }
-    $("msg").className = "msg err"; $("msg").textContent = e && e.code === "unavailable" ? "Couldn't reach the database. Try again in a moment." : "Save failed: " + (e && e.message ? e.message : "unknown error");
-    $("save").disabled = false;
+/* ---------- review queue ---------- */
+function buildQueue() {
+  const g = $("qGroup").value;
+  const list = studies.filter((s) => status(s) === "pending" && (!g || s.group === g));
+  if ($("qOrder").value === "weakest") {
+    // Least certain first: unread funding/COI, then lowest combined score.
+    const gap = (s) => (unknown(s.funder_role) ? 1 : 0) + (unknown(s.author_coi) ? 1 : 0) + (s.verified ? 0 : 2);
+    list.sort((a, b) => gap(b) - gap(a) || ((a.source_bias_score || 0) * (a.quality_score || 0)) - ((b.source_bias_score || 0) * (b.quality_score || 0)));
+  } else list.sort((a, b) => Object.keys(GROUPS).indexOf(a.group) - Object.keys(GROUPS).indexOf(b.group) || a.id.localeCompare(b.id));
+  queue = list.map((s) => s.id);
+  qPos = 0; qDecided = 0; qStartPending = queue.length;
+}
+function renderProgress() {
+  const totalPending = studies.filter((s) => status(s) === "pending").length;
+  const reviewed = studies.length - totalPending;
+  $("qProgressLabel").textContent = `${reviewed} of ${studies.length} reviewed · ${totalPending} pending`;
+  $("qFill").style.setProperty("--w", studies.length ? (reviewed / studies.length) * 100 + "%" : "0%");
+}
+function renderQueue() {
+  renderProgress();
+  const body = $("qBody");
+  if (!studies.length) { body.innerHTML = `<div class="done"><h2>Loading studies…</h2></div>`; return; }
+  if (!queue.length || qPos >= queue.length) {
+    const left = studies.filter((s) => status(s) === "pending").length;
+    body.innerHTML = `<div class="done"><h2>${left ? "End of this queue" : "Every study is reviewed"}</h2>
+      <p class="sub">${qDecided} decided this session.${left ? ` ${left} studies are still pending, including any you skipped.` : " Ask Claude to sync reviews to write them into the data file."}</p>
+      ${left ? `<div class="actions"><button class="primary" id="qRestart">Go through pending studies again</button></div>` : ""}</div>`;
+    $("qRestart")?.addEventListener("click", () => { buildQueue(); renderQueue(); });
+    return;
+  }
+  const s = byId[queue[qPos]];
+  const already = status(s) !== "pending";
+  body.innerHTML = `
+    <div class="qcard">
+      <div class="qleft">
+        <div><div class="eyebrow">Study ${qPos + 1} of ${queue.length} in this queue · ${esc((GROUPS[s.group] || [s.group])[0])} · ${esc(s.id)}</div>
+          <h2>${esc(label(s))}</h2><div class="sub">${esc(s.title)}</div></div>
+        ${citation(s)}${whyBias(s)}${whyQuality(s)}
+      </div>
+      <div class="qright">
+        ${already ? `<div class="flag">Already marked <b>${esc(status(s))}</b>. Saving again replaces that decision.</div>` : ""}
+        <div class="eyebrow">Your decision</div>
+        <p class="sub" style="margin:0">Change any score or rationale you disagree with, then approve. Approving with changes records the study as edited.</p>
+        ${editor(s, "q_", false)}
+        <div class="decide">
+          <button class="primary" id="qApprove" ${canWrite ? "" : "disabled"}>Approve<kbd>A</kbd></button>
+          <button class="danger" id="qReject" ${canWrite ? "" : "disabled"}>Reject<kbd>R</kbd></button>
+          <button id="qSkip">Skip for now<kbd>→</kbd></button>
+        </div>
+        <div class="qnav"><button id="qBack" ${qPos === 0 ? "disabled" : ""}>Back<kbd>←</kbd></button><span class="msg" id="q_msg">${canWrite ? "" : "You can view these studies but not change them."}</span></div>
+      </div>
+    </div>`;
+  $("qApprove").addEventListener("click", () => decide("approved"));
+  $("qReject").addEventListener("click", () => decide("rejected"));
+  $("qSkip").addEventListener("click", () => step(1));
+  $("qBack").addEventListener("click", () => step(-1));
+  body.querySelector(".qleft h2").scrollIntoView({ block: "nearest" });
+}
+async function decide(st) {
+  const s = byId[queue[qPos]];
+  if (!s || !canWrite) return;
+  if (st === "rejected" && !$("q_rnotes").value.trim()) { $("q_msg").className = "msg err"; $("q_msg").textContent = "Add a reviewer note saying why before rejecting."; $("q_rnotes").focus(); return; }
+  ["qApprove", "qReject"].forEach((id) => ($(id).disabled = true));
+  $("q_msg").className = "msg"; $("q_msg").textContent = "Saving…";
+  try {
+    const saved = await saveStudy(s, readEditor("q_"), st, $("q_rnotes").value);
+    qDecided++; step(1, `${label(s)} saved as ${saved}.`);
+  } catch (e) {
+    $("q_msg").className = "msg err"; $("q_msg").textContent = saveError(e);
+    ["qApprove", "qReject"].forEach((id) => ($(id).disabled = !canWrite));
   }
 }
+function step(d, note) {
+  qPos = Math.max(0, Math.min(queue.length, qPos + d));
+  renderQueue();
+  if (note && $("q_msg")) $("q_msg").textContent = note;
+}
 
-function select(id) { selected = id; render(); renderPanel(); }
+/* ---------- routing, events, data ---------- */
+function route() {
+  const q = location.hash === "#queue";
+  $("viewBrowse").hidden = q; $("viewQueue").hidden = !q;
+  if (q) { $("tabBrowse").removeAttribute("aria-current"); $("tabQueue").setAttribute("aria-current", "page"); if (qStartPending === null && studies.length) buildQueue(); renderQueue(); }
+  else { $("tabQueue").removeAttribute("aria-current"); $("tabBrowse").setAttribute("aria-current", "page"); }
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("keydown", (e) => {
+  if ($("viewQueue").hidden || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.target.closest("input, textarea, select")) return;
+  const k = e.key.toLowerCase();
+  if (k === "a") { e.preventDefault(); decide("approved"); }
+  else if (k === "r") { e.preventDefault(); decide("rejected"); }
+  else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+});
 $("rows").addEventListener("click", (e) => { const tr = e.target.closest("tr.row"); if (tr) select(tr.dataset.id); });
 $("rows").addEventListener("keydown", (e) => { const tr = e.target.closest("tr.row"); if (tr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); select(tr.dataset.id); } });
 $("scatter").addEventListener("click", (e) => { const c = e.target.closest(".dot"); if (c) select(c.dataset.id); });
-["q", "fGroup", "fStatus"].forEach((id) => $(id).addEventListener("input", render));
-document.querySelector("thead").addEventListener("click", (e) => { const th = e.target.closest("th"); if (!th) return; if (sortKey === th.dataset.k) sortDir *= -1; else { sortKey = th.dataset.k; sortDir = ["source_bias_score", "quality_score", "n"].includes(sortKey) ? -1 : 1; } render(); });
-Object.entries(GROUPS).forEach(([k, [l]]) => { const o = document.createElement("option"); o.value = k; o.textContent = l; $("fGroup").appendChild(o); });
+["q", "fGroup", "fStatus"].forEach((id) => $(id).addEventListener("input", renderBrowse));
+["qGroup", "qOrder"].forEach((id) => $(id).addEventListener("input", () => { buildQueue(); renderQueue(); }));
+document.querySelector("thead").addEventListener("click", (e) => { const th = e.target.closest("th"); if (!th) return; if (sortKey === th.dataset.k) sortDir *= -1; else { sortKey = th.dataset.k; sortDir = ["source_bias_score", "quality_score", "n"].includes(sortKey) ? -1 : 1; } renderBrowse(); });
+Object.entries(GROUPS).forEach(([k, [l]]) => ["fGroup", "qGroup"].forEach((id) => { const o = document.createElement("option"); o.value = k; o.textContent = l; $(id).appendChild(o); }));
+renderRubric(); route();
 
 (async function start() {
   if (!window.claude || !window.claude.use) { $("loading").textContent = "Open this page on claude.ai to load the studies."; return; }
   db = await window.claude.use("db");
-  user = await window.claude.use("user");
+  const user = await window.claude.use("user");
   if (!db) { $("loading").textContent = "Sign in to claude.ai to see the studies."; return; }
-  if (user) { myId = await user.id(); const w = await user.can("data.write"); if (w === false) canWrite = false; }
+  if (user) { myId = await user.id(); if ((await user.can("data.write")) === false) canWrite = false; }
   const timer = setTimeout(() => { if (!studies.length) $("loading").textContent = "Can't reach the database yet. It will load when the connection returns."; }, 10000);
   db.collection("studies").onSnapshot((snap) => {
     if (!snap.metadata.fromCache) clearTimeout(timer);
+    const first = !studies.length;
     studies = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    render();
+    byId = Object.fromEntries(studies.map((s) => [s.id, s]));
+    renderBrowse();
     if (selected && !document.activeElement?.closest("#panel")) renderPanel();
+    if (!$("viewQueue").hidden) {
+      if (first || qStartPending === null) { buildQueue(); renderQueue(); }
+      else renderProgress(); // keep the open card as is so in-progress edits survive other viewers' saves
+    }
   }, (e) => { clearTimeout(timer); $("rows").innerHTML = `<tr><td colspan="6" class="sub">The database stopped responding (${esc(e.code)}). Reload the page to try again.</td></tr>`; });
 
   const dl = await window.claude.use("downloads");
