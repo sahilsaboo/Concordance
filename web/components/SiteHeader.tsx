@@ -9,7 +9,8 @@ export default function SiteHeader() {
           Concordance
         </Link>
         <div className="flex items-center gap-3">
-          <nav aria-label="Main">
+          {/* Hidden on phones to make room for the theme switch; the same link is in the footer on every page. */}
+          <nav aria-label="Main" className="hidden sm:block">
             <Link href="/methodology" className="nav-link">
               How it works
             </Link>

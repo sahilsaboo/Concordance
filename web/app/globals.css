@@ -285,25 +285,6 @@ html {
   color: var(--foreground);
 }
 
-/* Theme toggle: show a moon in light mode (switch to dark) and a sun in dark mode (switch to light). */
-.theme-icon-sun {
-  display: none;
-}
-:root[data-theme="dark"] .theme-icon-sun {
-  display: block;
-}
-:root[data-theme="dark"] .theme-icon-moon {
-  display: none;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-icon-sun {
-    display: block;
-  }
-  :root:not([data-theme="light"]) .theme-icon-moon {
-    display: none;
-  }
-}
-
 /* Page width: uses wide screens (1152px max) while text blocks cap their own line length (max-w-prose). */
 @utility page-container {
   margin-inline: auto;
