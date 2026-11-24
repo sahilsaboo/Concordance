@@ -1,0 +1,747 @@
+[
+ {
+  "synthesis_id": "st_034",
+  "inclusion_list_read": false,
+  "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/40752805/references (reference list); abstract via Europe PMC search API",
+  "search_end": "2025-05",
+  "n_included_studies": 5,
+  "links": [
+   {
+    "primary_id": "st_029",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] PIONEER 6 is in the reference list; arm sizes reconcile exactly with stated totals (6935 oral sema / 6940 placebo = PIONEER 6 + SOUL + 14 mg arms of PIONEER 1, PIONEER 5, PIONEER 8)"
+   },
+   {
+    "primary_id": "st_022",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] SOUL is in the reference list; arm sizes reconcile exactly with stated totals (6935 oral sema / 6940 placebo = PIONEER 6 + SOUL + 14 mg arms of PIONEER 1, PIONEER 5, PIONEER 8)"
+   },
+   {
+    "primary_id": "st_027",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] PIONEER 1 is in the reference list; arm sizes reconcile exactly with stated totals (6935 oral sema / 6940 placebo = PIONEER 6 + SOUL + 14 mg arms of PIONEER 1, PIONEER 5, PIONEER 8)"
+   },
+   {
+    "primary_id": "st_035",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] PIONEER 5 is in the reference list; arm sizes reconcile exactly with stated totals (6935 oral sema / 6940 placebo = PIONEER 6 + SOUL + 14 mg arms of PIONEER 1, PIONEER 5, PIONEER 8)"
+   }
+  ],
+  "notes": "Full text paywalled (Elsevier), inclusion table not seen. The 5 included studies are inferred as PIONEER 6, SOUL, PIONEER 1, PIONEER 5, PIONEER 8 (PIONEER 8 not in primaries) because their 14 mg vs placebo arm sizes sum exactly to the abstract's 6935/6940. SUSTAIN-6 and SELECT are in the reference list but are injectable semaglutide, cited as background; not linked. 'Confirmed' here rests on reference list plus exact n reconciliation, not on seeing the inclusion table."
+ },
+ {
+  "synthesis_id": "st_078",
+  "inclusion_list_read": false,
+  "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:42419792 (abstract) and https://www.ebi.ac.uk/europepmc/webservices/rest/MED/42419792/references; bmj.com blocked by Cloudflare challenge",
+  "search_end": "2025-11-12",
+  "n_included_studies": 262,
+  "links": [
+   {
+    "primary_id": "st_001",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end; SELECT is also in the article's reference list (ref 40) and abstract says semaglutide mortality/MI estimates come from CV outcome trials"
+   },
+   {
+    "primary_id": "st_002",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_004",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end; T2D-with-obesity population, assumed in scope"
+   },
+   {
+    "primary_id": "st_005",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_007",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_008",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_009",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_011",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_013",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_014",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end; T2D-with-obesity population, assumed in scope"
+   },
+   {
+    "primary_id": "st_016",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_019",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_026",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_030",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_033",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_038",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_040",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end; T2D-with-obesity population, assumed in scope"
+   },
+   {
+    "primary_id": "st_041",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_042",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_043",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end; abstract reports tirzepatide reduced heart failure risk, which needs an HF outcome trial such as SUMMIT"
+   },
+   {
+    "primary_id": "st_044",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_049",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_057",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_061",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end; abstract gives orforglipron one-year estimates at moderate-high certainty"
+   },
+   {
+    "primary_id": "st_063",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end"
+   },
+   {
+    "primary_id": "st_064",
+    "basis": "likely",
+    "evidence": "Scope: RCTs >=12 wk of obesity drugs vs lifestyle/placebo/drug in adults with overweight/obesity, search to 2025-11-12; trial enrolled adults selected for overweight/obesity and was published before search end; T2D-with-obesity population, assumed in scope"
+   }
+  ],
+  "notes": "Included-trial list is in the BMJ supplement; bmj.com returned a Cloudflare challenge and there is no PMC copy, so not read. Main reference list (49 refs) cites no trials except SELECT. Excluded from 'likely': adolescent trials (STEP TEENS, SCALE Teens), T2D glycemic trials not selected for obesity (SUSTAIN, PIONEER, SURPASS, AWARD, ACHIEVE), MASH/CKD/PAD trials (ESSENCE, SYNERGY-NASH, FLOW, STRIDE), ATTAIN-2 (epub 2025-11-20, after search end), and everything published in 2026. Disease-specific obesity trials (STEP-HFpEF, STEP-HFpEF DM, SUMMIT, STEP 9, SURMOUNT-OSA) require BMI>=30 and are listed as likely, but are the least certain. SURMOUNT-1 3-year paper (st_048) not listed separately; it shares participants with st_038."
+ },
+ {
+  "synthesis_id": "st_079",
+  "inclusion_list_read": false,
+  "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8961394/ (main text); supplement eTable blocked by reCAPTCHA",
+  "search_end": "2021-06-30",
+  "n_included_studies": 76,
+  "links": [
+   {
+    "primary_id": "st_002",
+    "basis": "likely",
+    "evidence": "Scope: RCTs of albiglutide/dulaglutide/exenatide/liraglutide/lixisenatide/semaglutide vs placebo or non-GLP-1 drug in adults reporting gallbladder/biliary events, search to 2021-06-30; trial published before then and reported gallbladder events; main text says prior reviews 'did not include several important studies published recently' citing STEP 1 (ref 6)"
+   },
+   {
+    "primary_id": "st_004",
+    "basis": "likely",
+    "evidence": "Scope: RCTs of albiglutide/dulaglutide/exenatide/liraglutide/lixisenatide/semaglutide vs placebo or non-GLP-1 drug in adults reporting gallbladder/biliary events, search to 2021-06-30; trial published before then and reported gallbladder events; main text cites STEP 2 (ref 20) among recent studies prior reviews missed"
+   },
+   {
+    "primary_id": "st_007",
+    "basis": "likely",
+    "evidence": "Scope: RCTs of albiglutide/dulaglutide/exenatide/liraglutide/lixisenatide/semaglutide vs placebo or non-GLP-1 drug in adults reporting gallbladder/biliary events, search to 2021-06-30; trial published before then and reported gallbladder events"
+   },
+   {
+    "primary_id": "st_011",
+    "basis": "likely",
+    "evidence": "Scope: RCTs of albiglutide/dulaglutide/exenatide/liraglutide/lixisenatide/semaglutide vs placebo or non-GLP-1 drug in adults reporting gallbladder/biliary events, search to 2021-06-30; trial published before then and reported gallbladder events"
+   },
+   {
+    "primary_id": "st_063",
+    "basis": "likely",
+    "evidence": "Scope: RCTs of albiglutide/dulaglutide/exenatide/liraglutide/lixisenatide/semaglutide vs placebo or non-GLP-1 drug in adults reporting gallbladder/biliary events, search to 2021-06-30; trial published before then and reported gallbladder events"
+   },
+   {
+    "primary_id": "st_064",
+    "basis": "likely",
+    "evidence": "Scope: RCTs of albiglutide/dulaglutide/exenatide/liraglutide/lixisenatide/semaglutide vs placebo or non-GLP-1 drug in adults reporting gallbladder/biliary events, search to 2021-06-30; trial published before then and reported gallbladder events"
+   },
+   {
+    "primary_id": "st_058",
+    "basis": "likely",
+    "evidence": "Scope: RCTs of albiglutide/dulaglutide/exenatide/liraglutide/lixisenatide/semaglutide vs placebo or non-GLP-1 drug in adults reporting gallbladder/biliary events, search to 2021-06-30; trial published before then and reported gallbladder events; text cites LEADER gallbladder reports (refs 8, 27)"
+   }
+  ],
+  "notes": "The 76 included RCTs are listed only in the supplement PDF, which PMC served behind a reCAPTCHA; Europe PMC supplementary API says not open access. Main text names no included-trial list. Only trials known to report gallbladder events and clearly in scope are listed; many other pre-2021 placebo-controlled trials (SUSTAIN-6, REWIND, ELIXA, PIONEER 1/5/6, SUSTAIN 1, DeFronzo 2005, AWARD-7, PIONEER 2/3/7) are plausible but not listed. Trials with a GLP-1 RA comparator (SUSTAIN 7, AWARD-6, AWARD-11) are out of scope; tirzepatide not in scope; pediatric trials excluded (adults only)."
+ },
+ {
+  "synthesis_id": "st_080",
+  "inclusion_list_read": false,
+  "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/40499738/references (92-ref list); gastrojournal.org blocked by Cloudflare challenge",
+  "search_end": null,
+  "n_included_studies": 55,
+  "links": [
+   {
+    "primary_id": "st_060",
+    "basis": "likely",
+    "evidence": "ELIXA sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_003",
+    "basis": "likely",
+    "evidence": "FLOW sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_058",
+    "basis": "likely",
+    "evidence": "LEADER sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_027",
+    "basis": "likely",
+    "evidence": "PIONEER 1 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_028",
+    "basis": "likely",
+    "evidence": "PIONEER 4 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_029",
+    "basis": "likely",
+    "evidence": "PIONEER 6 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_059",
+    "basis": "likely",
+    "evidence": "REWIND sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_022",
+    "basis": "likely",
+    "evidence": "SOUL sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_045",
+    "basis": "likely",
+    "evidence": "SURPASS-1 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_017",
+    "basis": "likely",
+    "evidence": "SUSTAIN 1 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_006",
+    "basis": "likely",
+    "evidence": "SUSTAIN-6 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_064",
+    "basis": "likely",
+    "evidence": "SCALE Diabetes sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_063",
+    "basis": "likely",
+    "evidence": "SCALE Obesity and Prediabetes sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_001",
+    "basis": "likely",
+    "evidence": "SELECT sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_002",
+    "basis": "likely",
+    "evidence": "STEP 1 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_004",
+    "basis": "likely",
+    "evidence": "STEP 2 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_007",
+    "basis": "likely",
+    "evidence": "STEP 3 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_011",
+    "basis": "likely",
+    "evidence": "STEP 4 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_013",
+    "basis": "likely",
+    "evidence": "STEP 5 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_008",
+    "basis": "likely",
+    "evidence": "STEP-HFpEF sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_038",
+    "basis": "likely",
+    "evidence": "SURMOUNT-1 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_040",
+    "basis": "likely",
+    "evidence": "SURMOUNT-2 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_041",
+    "basis": "likely",
+    "evidence": "SURMOUNT-3 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_044",
+    "basis": "likely",
+    "evidence": "SURMOUNT-4 sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_057",
+    "basis": "likely",
+    "evidence": "SURMOUNT-J sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   },
+   {
+    "primary_id": "st_054",
+    "basis": "likely",
+    "evidence": "SYNERGY-NASH sits in the contiguous block of refs 22-75 (54 placebo-controlled GLP-1RA RCTs, between background refs and methods refs such as RoB 2), matching the 55 included RCTs"
+   }
+  ],
+  "notes": "Full text not readable; classification uses reference-list structure. Block 22-75 contains only placebo-controlled GLP-1RA trials and none of the active-comparator primaries (SUSTAIN 7, PIONEER 2/3/7, SURPASS-2/3/4), consistent with the stated placebo-controlled design. This is stronger than scope-only 'likely' but the text tying the block to inclusion was not seen. ESSENCE (ref 3) and Sodhi 2023 (ref 7) are background citations only; not linked. Search end date not in abstract."
+ },
+ {
+  "synthesis_id": "st_081",
+  "inclusion_list_read": true,
+  "source": "https://icer.org/wp-content/uploads/2025/12/ICER_Obesity_Final-Report_For-Publication_121625.pdf (Evidence Base, Supplement D1 tables, references)",
+  "search_end": "2025-09",
+  "n_included_studies": null,
+  "links": [
+   {
+    "primary_id": "st_002",
+    "basis": "confirmed",
+    "evidence": "STEP 1: named in evidence base (ref 23), RoB Table D1.4, weight-loss meta-analysis"
+   },
+   {
+    "primary_id": "st_007",
+    "basis": "confirmed",
+    "evidence": "STEP 3: evidence base (ref 24), RoB Table D1.4, meta-analysis"
+   },
+   {
+    "primary_id": "st_011",
+    "basis": "confirmed",
+    "evidence": "STEP 4: RoB Table D1.4 key trial; pooled in model inputs ('Pooled from STEP 1, STEP 3, STEP 4, STEP 8, OASIS 4, and SURMOUNT 1')"
+   },
+   {
+    "primary_id": "st_013",
+    "basis": "confirmed",
+    "evidence": "STEP 5: evidence base (STEP 1,3,5,8,10 refs 23-27), RoB Table D1.4"
+   },
+   {
+    "primary_id": "st_019",
+    "basis": "confirmed",
+    "evidence": "STEP 8: evidence base (ref 27), semaglutide vs placebo arms only"
+   },
+   {
+    "primary_id": "st_016",
+    "basis": "confirmed",
+    "evidence": "STEP 9: evidence base (ref 28), RoB Table D1.5, WOMAC outcome"
+   },
+   {
+    "primary_id": "st_010",
+    "basis": "confirmed",
+    "evidence": "ESSENCE: evidence base (ref 29), diversity Table D1.9"
+   },
+   {
+    "primary_id": "st_008",
+    "basis": "confirmed",
+    "evidence": "STEP-HFpEF: evidence base (ref 30), diversity Table D1.9"
+   },
+   {
+    "primary_id": "st_001",
+    "basis": "confirmed",
+    "evidence": "SELECT: CV outcomes section (ref 19), model CV input (ref 79)"
+   },
+   {
+    "primary_id": "st_030",
+    "basis": "confirmed",
+    "evidence": "OASIS 4: sole oral semaglutide 25 mg efficacy source (ref 43)"
+   },
+   {
+    "primary_id": "st_029",
+    "basis": "confirmed",
+    "evidence": "PIONEER 6: ICER meta-analysis of PIONEER 6 + SOUL for oral semaglutide MACE (ref 44)"
+   },
+   {
+    "primary_id": "st_022",
+    "basis": "confirmed",
+    "evidence": "SOUL: ICER meta-analysis of PIONEER 6 + SOUL (ref 45)"
+   },
+   {
+    "primary_id": "st_038",
+    "basis": "confirmed",
+    "evidence": "SURMOUNT-1: tirzepatide efficacy evidence (ref 46), RoB Table D1.4"
+   },
+   {
+    "primary_id": "st_041",
+    "basis": "confirmed",
+    "evidence": "SURMOUNT-3: tirzepatide efficacy evidence (ref 47)"
+   },
+   {
+    "primary_id": "st_044",
+    "basis": "confirmed",
+    "evidence": "SURMOUNT-4: RoB Table D1.4 and diversity Table D1.9 key trial (ref 165)"
+   },
+   {
+    "primary_id": "st_049",
+    "basis": "confirmed",
+    "evidence": "SURMOUNT-5: head-to-head evidence (ref 48)"
+   },
+   {
+    "primary_id": "st_043",
+    "basis": "confirmed",
+    "evidence": "SUMMIT: evidence base (ref 51), diversity Table D1.9"
+   },
+   {
+    "primary_id": "st_042",
+    "basis": "confirmed",
+    "evidence": "SURMOUNT-OSA: evidence base (ref 21), results section"
+   },
+   {
+    "primary_id": "st_048",
+    "basis": "confirmed",
+    "evidence": "SURMOUNT-1 176-week prediabetes follow-up reported in results (ref 64); shares participants with st_038"
+   },
+   {
+    "primary_id": "st_039",
+    "basis": "confirmed",
+    "evidence": "SURPASS-CVOT: results used from conference presentation (refs 49-50), not the later NEJM paper; same trial participants"
+   },
+   {
+    "primary_id": "st_092",
+    "basis": "confirmed",
+    "evidence": "Rodriguez 2024: one of six RWE studies comparing semaglutide vs tirzepatide (refs 31-35, this is ref 33)"
+   },
+   {
+    "primary_id": "st_098",
+    "basis": "confirmed",
+    "evidence": "Wang 2024: one of two RWE publications comparing semaglutide with other obesity medications (refs 40-41, this is ref 40)"
+   }
+  ],
+  "notes": "Search run June 2025, updated September 2025, with later data added as available. No single included-study count; diversity Table D1.9 rates 18 trials. Not linked (cited only in economic-model or background text): SUSTAIN-6 (ref 100), SYNERGY-NASH (ref 75), Rodriguez 2025 discontinuation (ref 84, model input on discontinuation, not efficacy pooling). STEP 10 is included but is not in the primaries list. Adults with diabetes were excluded from the efficacy scope, but PIONEER 6, SOUL and SURPASS-CVOT (T2D) were used for CV outcomes."
+ },
+ {
+  "synthesis_id": "st_082",
+  "inclusion_list_read": true,
+  "source": "PMC12776922 via https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=12776922 (Tables 1-2, characteristics of included studies)",
+  "search_end": "2025-02",
+  "n_included_studies": 37,
+  "links": [
+   {
+    "primary_id": "st_011",
+    "basis": "confirmed",
+    "evidence": "Rubino 2021 (ref 5) in Table 2 of included studies"
+   },
+   {
+    "primary_id": "st_044",
+    "basis": "confirmed",
+    "evidence": "Aronne 2023 (ref 7) in Table 1 of included studies"
+   },
+   {
+    "primary_id": "st_048",
+    "basis": "confirmed",
+    "evidence": "Jastreboff 2024 (ref 30) in Table 1, three tirzepatide arms"
+   },
+   {
+    "primary_id": "st_063",
+    "basis": "confirmed",
+    "evidence": "Pi-Sunyer 2015 (ref 52) in Table 2; the same trial's 3-year report (le Roux 2017, ref 45) is also in Table 1"
+   },
+   {
+    "primary_id": "st_064",
+    "basis": "confirmed",
+    "evidence": "Davies 2015 (ref 25) in Table 1, liraglutide 3.0 and 1.8 mg arms"
+   },
+   {
+    "primary_id": "st_002",
+    "basis": "confirmed",
+    "evidence": "Included as Wilding 2022 (ref 6, STEP 1 off-treatment extension) in Table 2, a subset of STEP 1 participants; the 2021 STEP 1 paper itself is not in the table"
+   }
+  ],
+  "notes": "SELECT (ref 9), STEP 9 (ref 39) and Rodriguez 2025 (ref 15) are cited only in introduction/discussion; not linked. st_048 and st_038 (SURMOUNT-1) share participants. st_002 link is via the STEP 1 extension paper, so overlap is a subset of STEP 1."
+ },
+ {
+  "synthesis_id": "st_083",
+  "inclusion_list_read": false,
+  "source": "https://www.fda.gov/drugs/drug-safety-communications/fda-requests-removal-suicidal-behavior-and-ideation-warning-glucagon-peptide-1-receptor-agonist-glp",
+  "search_end": null,
+  "n_included_studies": 91,
+  "links": [
+   {
+    "primary_id": "st_002",
+    "basis": "likely",
+    "evidence": "STEP 1: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_004",
+    "basis": "likely",
+    "evidence": "STEP 2: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_007",
+    "basis": "likely",
+    "evidence": "STEP 3: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_011",
+    "basis": "likely",
+    "evidence": "STEP 4: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_013",
+    "basis": "likely",
+    "evidence": "STEP 5: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_019",
+    "basis": "likely",
+    "evidence": "STEP 8: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_006",
+    "basis": "likely",
+    "evidence": "SUSTAIN-6: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_017",
+    "basis": "likely",
+    "evidence": "SUSTAIN 1: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_027",
+    "basis": "likely",
+    "evidence": "PIONEER 1: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_028",
+    "basis": "likely",
+    "evidence": "PIONEER 4: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_035",
+    "basis": "likely",
+    "evidence": "PIONEER 5: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_029",
+    "basis": "likely",
+    "evidence": "PIONEER 6: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_038",
+    "basis": "likely",
+    "evidence": "SURMOUNT-1: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_040",
+    "basis": "likely",
+    "evidence": "SURMOUNT-2: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_045",
+    "basis": "likely",
+    "evidence": "SURPASS-1: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_051",
+    "basis": "likely",
+    "evidence": "SURPASS-5: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_058",
+    "basis": "likely",
+    "evidence": "LEADER: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_059",
+    "basis": "likely",
+    "evidence": "REWIND: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_060",
+    "basis": "likely",
+    "evidence": "ELIXA: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_063",
+    "basis": "likely",
+    "evidence": "SCALE Obesity and Prediabetes: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_064",
+    "basis": "likely",
+    "evidence": "SCALE Diabetes: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   },
+   {
+    "primary_id": "st_077",
+    "basis": "likely",
+    "evidence": "DeFronzo RA 2005: placebo-controlled adult trial of an FDA-approved GLP-1 RA (or tirzepatide, which FDA groups with GLP-1 RAs) published before FDA began this review in July 2023; FDA pooled 91 placebo-controlled trials 'across GLP-1 RA drug development programs' (107,910 patients)"
+   }
+  ],
+  "notes": "Low confidence. FDA did not publish the trial list or a data cutoff; I used July 2023 (start of the investigation) as a conservative cutoff. The 107,910-patient total implies most large CV outcome trials were included, but which ones is not stated. Not listed: trials after July 2023 (SELECT, FLOW, SOUL, SURMOUNT-3/4, STEP-HFpEF etc., which may well be included), pediatric trials (STEP TEENS, SCALE Teens, ELLIPSE, AWARD-PEDS), OASIS 1 (unapproved 50 mg dose), active-comparator-only trials. The FDA Sentinel cohort (2.24M users) is FDA's own study, not a primary in this list. FDA also reviewed published observational studies (e.g. Wang 2024, Kerem 2024, Shapiro 2025 are plausible) but did not name them; not linked."
+ },
+ {
+  "synthesis_id": "st_084",
+  "inclusion_list_read": false,
+  "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/41475544/references (45-ref list) and abstract; full text paywalled",
+  "search_end": "2025-03",
+  "n_included_studies": 16,
+  "links": [
+   {
+    "primary_id": "st_001",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] SELECT (ref 21) in a block of exactly 8 RCT refs (20-27) after the methods refs, matching the 8 included RCTs"
+   },
+   {
+    "primary_id": "st_006",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] SUSTAIN-6 (ref 22) in the 8-RCT block"
+   },
+   {
+    "primary_id": "st_002",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] STEP 1, Wilding 2021 (ref 23) in the 8-RCT block"
+   },
+   {
+    "primary_id": "st_029",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] PIONEER 6 (ref 24) in the 8-RCT block"
+   },
+   {
+    "primary_id": "st_024",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] PIONEER 3 (ref 26) in the 8-RCT block"
+   },
+   {
+    "primary_id": "st_088",
+    "basis": "likely",
+    "evidence": "[downgraded: inclusion list not read] Cai 2025 (ref 29) in the post-methods observational block (refs 28-31)"
+   },
+   {
+    "primary_id": "st_100",
+    "basis": "likely",
+    "evidence": "Hathaway 2024 (ref 6) is the index semaglutide-NAION cohort, cited first in the intro; scope (observational studies of semaglutide and NAION, search to 2025-03) clearly covers it, and refs 6-9 plus 28-31 give exactly the 8 stated observational studies"
+   }
+  ],
+  "notes": "8 RCTs + 8 observational studies. RCT block refs 20-27: Kellerer 2022, SELECT, SUSTAIN-6, STEP 1, PIONEER 6, SUSTAIN 8, PIONEER 3, PIONEER 8; count matches exactly. 'Confirmed' here rests on reference order plus exact count, not on reading the inclusion table."
+ },
+ {
+  "synthesis_id": "st_085",
+  "inclusion_list_read": false,
+  "source": "https://www.ema.europa.eu/en/news/prac-concludes-eye-condition-naion-very-rare-side-effect-semaglutide-medicines-ozempic-rybelsus-wegovy",
+  "search_end": "2025-06",
+  "n_included_studies": null,
+  "links": [
+   {
+    "primary_id": "st_100",
+    "basis": "likely",
+    "evidence": "PRAC reviewed 'all available data ... and the medical literature' and cites several large epidemiological studies; Hathaway 2024 is the index semaglutide-NAION cohort, published before the June 2025 conclusion"
+   },
+   {
+    "primary_id": "st_088",
+    "basis": "likely",
+    "evidence": "Large semaglutide-NAION cohort published Feb-Apr 2025, before the June 2025 PRAC conclusion; within the 'epidemiological studies' scope"
+   }
+  ],
+  "notes": "Low confidence. News release names no studies; the PRAC assessment report was not found or read. Clinical-trial data from the semaglutide programs were reviewed but no trials are named, so none are linked. search_end is the PRAC conclusion date (6 June 2025), not a literature search date."
+ },
+ {
+  "synthesis_id": "st_086",
+  "inclusion_list_read": false,
+  "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/41996180/references (141-ref list) and abstract; acpjournals.org full text not read",
+  "search_end": "2026-02",
+  "n_included_studies": 35,
+  "links": [
+   {
+    "primary_id": "st_005",
+    "basis": "likely",
+    "evidence": "STEP UP sits in the post-methods block of incretin trial refs (38-96) and is an RCT of an in-scope agent in adults with obesity that reported body composition"
+   },
+   {
+    "primary_id": "st_038",
+    "basis": "likely",
+    "evidence": "SURMOUNT-1 sits in the post-methods block of incretin trial refs (38-96) and is an RCT of an in-scope agent in adults with obesity that reported body composition"
+   },
+   {
+    "primary_id": "st_057",
+    "basis": "likely",
+    "evidence": "SURMOUNT-J sits in the post-methods block of incretin trial refs (38-96) and is an RCT of an in-scope agent in adults with obesity that reported body composition"
+   }
+  ],
+  "notes": "Block 38-96 has 59 refs for 35 stated studies, so it may include companion reports or excluded studies; hence 'likely'. STEP 1, STEP 4 and SELECT appear only in the introduction (refs 15-18); not linked. The review did not pool (no meta-analysis)."
+ },
+ {
+  "synthesis_id": "st_091",
+  "inclusion_list_read": false,
+  "source": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/39719170/references (74-ref list) and abstract; full text paywalled",
+  "search_end": "2024-11-12",
+  "n_included_studies": 22,
+  "links": [
+   {
+    "primary_id": "st_002",
+    "basis": "likely",
+    "evidence": "STEP 1 sits in the 20-ref block (refs 23-42) right after the methods refs, matching the 22 included RCTs; the trial had a DXA body-composition substudy"
+   },
+   {
+    "primary_id": "st_038",
+    "basis": "likely",
+    "evidence": "SURMOUNT-1 sits in the 20-ref block (refs 23-42) right after the methods refs, matching the 22 included RCTs; the trial had a DXA body-composition substudy"
+   }
+  ],
+  "notes": "Only 2,258 participants total, so only the body-composition substudies of STEP 1 and SURMOUNT-1 [inference] were pooled, not the full trials. Overlap with st_002/st_038 is a small subset."
+ }
+]

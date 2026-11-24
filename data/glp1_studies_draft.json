@@ -4,7 +4,7 @@
     "rubric_version": "0.1",
     "note": "LLM-drafted ratings with drug names visible (not masked). Human review required before use in claim_matrix.json.",
     "last_synced": "2026-11-24",
-    "dedup_note": "No duplicate publications (PMID/DOI/title checked). Records with same_trial_as share participants: count only one per outcome when scoring."
+    "dedup_note": "No duplicate publications (PMID/DOI/title checked). same_trial_as = separate papers from one trial. includes/included_in = synthesis pooled that study; 'confirmed' only if seen in the synthesis's inclusion list, else 'likely' (scope, reference order or counts). Records linked either way share participants: count one per outcome when scoring."
   },
   "studies": [
     {
@@ -60,7 +60,25 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:26:02.900Z"
       },
-      "id": "st_001"
+      "id": "st_001",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_084",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -114,7 +132,41 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:26:12.882Z"
       },
-      "id": "st_002"
+      "id": "st_002",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_079",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_082",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        },
+        {
+          "id": "st_084",
+          "basis": "likely"
+        },
+        {
+          "id": "st_091",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -169,7 +221,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:26:28.316Z"
       },
-      "id": "st_003"
+      "id": "st_003",
+      "included_in": [
+        {
+          "id": "st_080",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -225,7 +283,25 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:26:47.215Z"
       },
-      "id": "st_004"
+      "id": "st_004",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_079",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -280,7 +356,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:26:54.464Z"
       },
-      "id": "st_005"
+      "id": "st_005",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_086",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -336,7 +422,21 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:27:09.314Z"
       },
-      "id": "st_006"
+      "id": "st_006",
+      "included_in": [
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        },
+        {
+          "id": "st_084",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -390,7 +490,29 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:27:34.114Z"
       },
-      "id": "st_007"
+      "id": "st_007",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_079",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -447,7 +569,21 @@
         "status": "edited",
         "updated_at": "2026-11-24T16:34:10.688Z"
       },
-      "id": "st_008"
+      "id": "st_008",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -502,7 +638,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:36:55.197Z"
       },
-      "id": "st_009"
+      "id": "st_009",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -557,7 +699,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:37:22.577Z"
       },
-      "id": "st_010"
+      "id": "st_010",
+      "included_in": [
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -611,7 +759,33 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:37:35.993Z"
       },
-      "id": "st_011"
+      "id": "st_011",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_079",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_082",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -719,7 +893,25 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:11.306Z"
       },
-      "id": "st_013"
+      "id": "st_013",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -774,7 +966,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:13.553Z"
       },
-      "id": "st_014"
+      "id": "st_014",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -884,7 +1082,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:17.671Z"
       },
-      "id": "st_016"
+      "id": "st_016",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -939,7 +1147,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:21.350Z"
       },
-      "id": "st_017"
+      "id": "st_017",
+      "included_in": [
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "multiple",
@@ -1048,7 +1266,21 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:24.742Z"
       },
-      "id": "st_019"
+      "id": "st_019",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1213,6 +1445,20 @@
       "id": "st_022",
       "same_trial_as": [
         "st_031"
+      ],
+      "included_in": [
+        {
+          "id": "st_034",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
       ]
     },
     {
@@ -1322,7 +1568,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:33.552Z"
       },
-      "id": "st_024"
+      "id": "st_024",
+      "included_in": [
+        {
+          "id": "st_084",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1429,7 +1681,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:36.120Z"
       },
-      "id": "st_026"
+      "id": "st_026",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1484,7 +1742,21 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:37.342Z"
       },
-      "id": "st_027"
+      "id": "st_027",
+      "included_in": [
+        {
+          "id": "st_034",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1539,7 +1811,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:39.175Z"
       },
-      "id": "st_028"
+      "id": "st_028",
+      "included_in": [
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1594,7 +1876,29 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:40.485Z"
       },
-      "id": "st_029"
+      "id": "st_029",
+      "included_in": [
+        {
+          "id": "st_034",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        },
+        {
+          "id": "st_084",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1648,7 +1952,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:41.884Z"
       },
-      "id": "st_030"
+      "id": "st_030",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1811,7 +2125,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:43:45.680Z"
       },
-      "id": "st_033"
+      "id": "st_033",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1866,7 +2186,25 @@
         "status": "edited",
         "updated_at": "2026-11-24T16:44:34.213Z"
       },
-      "id": "st_034"
+      "id": "st_034",
+      "includes": [
+        {
+          "id": "st_029",
+          "basis": "likely"
+        },
+        {
+          "id": "st_022",
+          "basis": "likely"
+        },
+        {
+          "id": "st_027",
+          "basis": "likely"
+        },
+        {
+          "id": "st_035",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -1922,7 +2260,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:44:39.256Z"
       },
-      "id": "st_035"
+      "id": "st_035",
+      "included_in": [
+        {
+          "id": "st_034",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "molecule": "semaglutide",
@@ -2087,6 +2435,32 @@
       "id": "st_038",
       "same_trial_as": [
         "st_048"
+      ],
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        },
+        {
+          "id": "st_086",
+          "basis": "likely"
+        },
+        {
+          "id": "st_091",
+          "basis": "likely"
+        }
       ]
     },
     {
@@ -2142,7 +2516,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:45:36.966Z"
       },
-      "id": "st_039"
+      "id": "st_039",
+      "included_in": [
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": "SURMOUNT-2",
@@ -2197,7 +2577,21 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:45:39.283Z"
       },
-      "id": "st_040"
+      "id": "st_040",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "SURMOUNT-3",
@@ -2251,7 +2645,21 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:45:44.014Z"
       },
-      "id": "st_041"
+      "id": "st_041",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": "SURMOUNT-OSA",
@@ -2300,11 +2708,23 @@
       "group": "tirzepatide",
       "rater": "llm",
       "review": {
-        "status": "pending",
-        "notes": null,
-        "reviewer": null
+        "changed_fields": [],
+        "notes": "Reviewed with Claude in session. Author-employee COI is inferred from acknowledgments, not read directly.",
+        "reviewer": null,
+        "status": "approved",
+        "updated_at": "2026-11-24T00:00:00Z"
       },
-      "id": "st_042"
+      "id": "st_042",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": "SUMMIT",
@@ -2359,7 +2779,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:45:45.613Z"
       },
-      "id": "st_043"
+      "id": "st_043",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": "SURMOUNT-4",
@@ -2413,7 +2843,25 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:45:47.434Z"
       },
-      "id": "st_044"
+      "id": "st_044",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_082",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": "SURPASS-1",
@@ -2468,7 +2916,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:46:22.213Z"
       },
-      "id": "st_045"
+      "id": "st_045",
+      "included_in": [
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "SURPASS-2",
@@ -2637,6 +3095,16 @@
       "id": "st_048",
       "same_trial_as": [
         "st_038"
+      ],
+      "included_in": [
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_082",
+          "basis": "confirmed"
+        }
       ]
     },
     {
@@ -2691,7 +3159,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:46:31.810Z"
       },
-      "id": "st_049"
+      "id": "st_049",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": "SURPASS-3",
@@ -2801,7 +3279,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:46:34.773Z"
       },
-      "id": "st_051"
+      "id": "st_051",
+      "included_in": [
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "SURMOUNT-MAINTAIN",
@@ -2962,7 +3446,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:46:40.493Z"
       },
-      "id": "st_054"
+      "id": "st_054",
+      "included_in": [
+        {
+          "id": "st_080",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "SURPASS-EARLY",
@@ -3126,7 +3616,21 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:46:45.511Z"
       },
-      "id": "st_057"
+      "id": "st_057",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_086",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "LEADER",
@@ -3182,7 +3686,21 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:46:59.413Z"
       },
-      "id": "st_058"
+      "id": "st_058",
+      "included_in": [
+        {
+          "id": "st_079",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "REWIND",
@@ -3237,7 +3755,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:47:02.195Z"
       },
-      "id": "st_059"
+      "id": "st_059",
+      "included_in": [
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "ELIXA",
@@ -3292,7 +3820,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:47:04.165Z"
       },
-      "id": "st_060"
+      "id": "st_060",
+      "included_in": [
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "ATTAIN-1",
@@ -3347,7 +3885,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:47:05.768Z"
       },
-      "id": "st_061"
+      "id": "st_061",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "ATTAIN-2",
@@ -3458,7 +4002,29 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:47:08.830Z"
       },
-      "id": "st_063"
+      "id": "st_063",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_079",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_082",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "SCALE Diabetes",
@@ -3515,7 +4081,29 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:47:10.448Z"
       },
-      "id": "st_064"
+      "id": "st_064",
+      "included_in": [
+        {
+          "id": "st_078",
+          "basis": "likely"
+        },
+        {
+          "id": "st_079",
+          "basis": "likely"
+        },
+        {
+          "id": "st_080",
+          "basis": "likely"
+        },
+        {
+          "id": "st_082",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": "AWARD-11",
@@ -4221,11 +4809,19 @@
       "group": "other_agents",
       "rater": "llm",
       "review": {
-        "status": "pending",
-        "notes": null,
-        "reviewer": null
+        "changed_fields": [],
+        "notes": "Out of scope: exenatide is not in Concordance's option list and HbA1c is not a questionnaire dimension. Funder also unverified. Revisit if exenatide is added.",
+        "reviewer": null,
+        "status": "rejected",
+        "updated_at": "2026-11-24T00:00:00Z"
       },
-      "id": "st_077"
+      "id": "st_077",
+      "included_in": [
+        {
+          "id": "st_083",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4286,7 +4882,113 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:48:02.886Z"
       },
-      "id": "st_078"
+      "id": "st_078",
+      "includes": [
+        {
+          "id": "st_001",
+          "basis": "likely"
+        },
+        {
+          "id": "st_002",
+          "basis": "likely"
+        },
+        {
+          "id": "st_004",
+          "basis": "likely"
+        },
+        {
+          "id": "st_005",
+          "basis": "likely"
+        },
+        {
+          "id": "st_007",
+          "basis": "likely"
+        },
+        {
+          "id": "st_008",
+          "basis": "likely"
+        },
+        {
+          "id": "st_009",
+          "basis": "likely"
+        },
+        {
+          "id": "st_011",
+          "basis": "likely"
+        },
+        {
+          "id": "st_013",
+          "basis": "likely"
+        },
+        {
+          "id": "st_014",
+          "basis": "likely"
+        },
+        {
+          "id": "st_016",
+          "basis": "likely"
+        },
+        {
+          "id": "st_019",
+          "basis": "likely"
+        },
+        {
+          "id": "st_026",
+          "basis": "likely"
+        },
+        {
+          "id": "st_030",
+          "basis": "likely"
+        },
+        {
+          "id": "st_033",
+          "basis": "likely"
+        },
+        {
+          "id": "st_038",
+          "basis": "likely"
+        },
+        {
+          "id": "st_040",
+          "basis": "likely"
+        },
+        {
+          "id": "st_041",
+          "basis": "likely"
+        },
+        {
+          "id": "st_042",
+          "basis": "likely"
+        },
+        {
+          "id": "st_043",
+          "basis": "likely"
+        },
+        {
+          "id": "st_044",
+          "basis": "likely"
+        },
+        {
+          "id": "st_049",
+          "basis": "likely"
+        },
+        {
+          "id": "st_057",
+          "basis": "likely"
+        },
+        {
+          "id": "st_061",
+          "basis": "likely"
+        },
+        {
+          "id": "st_063",
+          "basis": "likely"
+        },
+        {
+          "id": "st_064",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4338,7 +5040,37 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:48:14.850Z"
       },
-      "id": "st_079"
+      "id": "st_079",
+      "includes": [
+        {
+          "id": "st_002",
+          "basis": "likely"
+        },
+        {
+          "id": "st_004",
+          "basis": "likely"
+        },
+        {
+          "id": "st_007",
+          "basis": "likely"
+        },
+        {
+          "id": "st_011",
+          "basis": "likely"
+        },
+        {
+          "id": "st_063",
+          "basis": "likely"
+        },
+        {
+          "id": "st_064",
+          "basis": "likely"
+        },
+        {
+          "id": "st_058",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4384,11 +5116,119 @@
       "group": "independent_realworld",
       "rater": "llm",
       "review": {
-        "status": "pending",
-        "notes": null,
-        "reviewer": null
+        "changed_fields": [],
+        "notes": "Approved; funding and COI statements unverified (journal page blocked). Key RCT counterweight to Sodhi 2023 GI signal.",
+        "reviewer": null,
+        "status": "approved",
+        "updated_at": "2026-11-24T00:00:00Z"
       },
-      "id": "st_080"
+      "id": "st_080",
+      "includes": [
+        {
+          "id": "st_060",
+          "basis": "likely"
+        },
+        {
+          "id": "st_003",
+          "basis": "likely"
+        },
+        {
+          "id": "st_058",
+          "basis": "likely"
+        },
+        {
+          "id": "st_027",
+          "basis": "likely"
+        },
+        {
+          "id": "st_028",
+          "basis": "likely"
+        },
+        {
+          "id": "st_029",
+          "basis": "likely"
+        },
+        {
+          "id": "st_059",
+          "basis": "likely"
+        },
+        {
+          "id": "st_022",
+          "basis": "likely"
+        },
+        {
+          "id": "st_045",
+          "basis": "likely"
+        },
+        {
+          "id": "st_017",
+          "basis": "likely"
+        },
+        {
+          "id": "st_006",
+          "basis": "likely"
+        },
+        {
+          "id": "st_064",
+          "basis": "likely"
+        },
+        {
+          "id": "st_063",
+          "basis": "likely"
+        },
+        {
+          "id": "st_001",
+          "basis": "likely"
+        },
+        {
+          "id": "st_002",
+          "basis": "likely"
+        },
+        {
+          "id": "st_004",
+          "basis": "likely"
+        },
+        {
+          "id": "st_007",
+          "basis": "likely"
+        },
+        {
+          "id": "st_011",
+          "basis": "likely"
+        },
+        {
+          "id": "st_013",
+          "basis": "likely"
+        },
+        {
+          "id": "st_008",
+          "basis": "likely"
+        },
+        {
+          "id": "st_038",
+          "basis": "likely"
+        },
+        {
+          "id": "st_040",
+          "basis": "likely"
+        },
+        {
+          "id": "st_041",
+          "basis": "likely"
+        },
+        {
+          "id": "st_044",
+          "basis": "likely"
+        },
+        {
+          "id": "st_057",
+          "basis": "likely"
+        },
+        {
+          "id": "st_054",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4444,7 +5284,97 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:48:34.960Z"
       },
-      "id": "st_081"
+      "id": "st_081",
+      "includes": [
+        {
+          "id": "st_002",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_007",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_011",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_013",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_019",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_016",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_010",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_008",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_001",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_030",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_029",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_022",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_038",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_041",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_044",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_049",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_043",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_042",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_048",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_039",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_092",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_098",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4497,7 +5427,33 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:48:37.865Z"
       },
-      "id": "st_082"
+      "id": "st_082",
+      "includes": [
+        {
+          "id": "st_011",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_044",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_048",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_063",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_064",
+          "basis": "confirmed"
+        },
+        {
+          "id": "st_002",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4553,7 +5509,97 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:48:42.185Z"
       },
-      "id": "st_083"
+      "id": "st_083",
+      "includes": [
+        {
+          "id": "st_002",
+          "basis": "likely"
+        },
+        {
+          "id": "st_004",
+          "basis": "likely"
+        },
+        {
+          "id": "st_007",
+          "basis": "likely"
+        },
+        {
+          "id": "st_011",
+          "basis": "likely"
+        },
+        {
+          "id": "st_013",
+          "basis": "likely"
+        },
+        {
+          "id": "st_019",
+          "basis": "likely"
+        },
+        {
+          "id": "st_006",
+          "basis": "likely"
+        },
+        {
+          "id": "st_017",
+          "basis": "likely"
+        },
+        {
+          "id": "st_027",
+          "basis": "likely"
+        },
+        {
+          "id": "st_028",
+          "basis": "likely"
+        },
+        {
+          "id": "st_035",
+          "basis": "likely"
+        },
+        {
+          "id": "st_029",
+          "basis": "likely"
+        },
+        {
+          "id": "st_038",
+          "basis": "likely"
+        },
+        {
+          "id": "st_040",
+          "basis": "likely"
+        },
+        {
+          "id": "st_045",
+          "basis": "likely"
+        },
+        {
+          "id": "st_051",
+          "basis": "likely"
+        },
+        {
+          "id": "st_058",
+          "basis": "likely"
+        },
+        {
+          "id": "st_059",
+          "basis": "likely"
+        },
+        {
+          "id": "st_060",
+          "basis": "likely"
+        },
+        {
+          "id": "st_063",
+          "basis": "likely"
+        },
+        {
+          "id": "st_064",
+          "basis": "likely"
+        },
+        {
+          "id": "st_077",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4603,11 +5649,43 @@
       "group": "independent_realworld",
       "rater": "llm",
       "review": {
-        "status": "pending",
-        "notes": null,
-        "reviewer": null
+        "changed_fields": [],
+        "notes": "Approved; funding and COI statements unverified. RCT estimates very imprecise; signal is from observational diabetes data.",
+        "reviewer": null,
+        "status": "approved",
+        "updated_at": "2026-11-24T00:00:00Z"
       },
-      "id": "st_084"
+      "id": "st_084",
+      "includes": [
+        {
+          "id": "st_001",
+          "basis": "likely"
+        },
+        {
+          "id": "st_006",
+          "basis": "likely"
+        },
+        {
+          "id": "st_002",
+          "basis": "likely"
+        },
+        {
+          "id": "st_029",
+          "basis": "likely"
+        },
+        {
+          "id": "st_024",
+          "basis": "likely"
+        },
+        {
+          "id": "st_088",
+          "basis": "likely"
+        },
+        {
+          "id": "st_100",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4663,7 +5741,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:48:52.286Z"
       },
-      "id": "st_085"
+      "id": "st_085",
+      "includes": [
+        {
+          "id": "st_100",
+          "basis": "likely"
+        },
+        {
+          "id": "st_088",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4715,7 +5803,21 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:48:57.597Z"
       },
-      "id": "st_086"
+      "id": "st_086",
+      "includes": [
+        {
+          "id": "st_005",
+          "basis": "likely"
+        },
+        {
+          "id": "st_038",
+          "basis": "likely"
+        },
+        {
+          "id": "st_057",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4825,7 +5927,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:49:13.700Z"
       },
-      "id": "st_088"
+      "id": "st_088",
+      "included_in": [
+        {
+          "id": "st_084",
+          "basis": "likely"
+        },
+        {
+          "id": "st_085",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -4979,11 +6091,23 @@
       "group": "independent_realworld",
       "rater": "llm",
       "review": {
-        "status": "pending",
-        "notes": null,
-        "reviewer": null
+        "changed_fields": [],
+        "notes": "Approved; 0.70 bias reflects senior-author Novo Nordisk consulting. Lean mass is context, not a current questionnaire dimension.",
+        "reviewer": null,
+        "status": "approved",
+        "updated_at": "2026-11-24T00:00:00Z"
       },
-      "id": "st_091"
+      "id": "st_091",
+      "includes": [
+        {
+          "id": "st_002",
+          "basis": "likely"
+        },
+        {
+          "id": "st_038",
+          "basis": "likely"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -5038,7 +6162,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:49:42.838Z"
       },
-      "id": "st_092"
+      "id": "st_092",
+      "included_in": [
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -5378,7 +6508,13 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:51:33.658Z"
       },
-      "id": "st_098"
+      "id": "st_098",
+      "included_in": [
+        {
+          "id": "st_081",
+          "basis": "confirmed"
+        }
+      ]
     },
     {
       "trial_name": null,
@@ -5490,7 +6626,17 @@
         "status": "approved",
         "updated_at": "2026-11-24T16:52:47.822Z"
       },
-      "id": "st_100"
+      "id": "st_100",
+      "included_in": [
+        {
+          "id": "st_084",
+          "basis": "likely"
+        },
+        {
+          "id": "st_085",
+          "basis": "likely"
+        }
+      ]
     }
   ]
 }

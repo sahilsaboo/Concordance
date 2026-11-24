@@ -30,7 +30,7 @@ CSV_COLS = [
     "id", "group", "trial_name", "molecule", "route", "brands", "design", "comparator", "n", "duration_weeks",
     "key_result", "funder", "funder_role", "source_bias_score", "source_bias_rationale", "rob2_overall",
     "quality_score", "quality_rationale", "dimensions", "first_author", "journal", "year", "pmid", "doi", "url",
-    "verified", "rater", "review_status", "review_notes", "notes",
+    "verified", "rater", "review_status", "review_notes", "overlaps", "notes",
 ]
 
 
@@ -139,7 +139,41 @@ def write(meta: dict, studies: list[dict]) -> None:
                 "rob2_overall": (s.get("rob2") or {}).get("overall"),
                 "review_status": review.get("status"),
                 "review_notes": review.get("notes"),
+                "overlaps": _overlap_summary(s),
             })
+
+
+def link_syntheses(studies: list[dict], mapping: list[dict]) -> list[str]:
+    """Record which primary studies each synthesis (meta-analysis, HTA, regulatory review) pooled.
+
+    `mapping` items: {"synthesis_id", "links": [{"primary_id", "basis": "confirmed"|"likely"}]}.
+    Writes `includes` on the synthesis and `included_in` on each primary, replacing earlier links.
+    """
+    by_id = {s["id"]: s for s in studies}
+    for s in studies:
+        s.pop("includes", None)
+        s.pop("included_in", None)
+    log = []
+    for m in mapping:
+        syn = by_id.get(m["synthesis_id"])
+        if syn is None:
+            log.append(f"unknown synthesis skipped: {m['synthesis_id']}")
+            continue
+        for link in m.get("links", []):
+            prim = by_id.get(link["primary_id"])
+            if prim is None or link.get("basis") not in ("confirmed", "likely"):
+                log.append(f"bad link skipped: {m['synthesis_id']} -> {link}")
+                continue
+            syn.setdefault("includes", []).append({"id": prim["id"], "basis": link["basis"]})
+            prim.setdefault("included_in", []).append({"id": syn["id"], "basis": link["basis"]})
+    return log
+
+
+def _overlap_summary(s: dict) -> str:
+    parts = [f"same trial: {i}" for i in s.get("same_trial_as") or []]
+    parts += [f"pooled in {r['id']} ({r['basis']})" for r in s.get("included_in") or []]
+    parts += [f"pools {r['id']} ({r['basis']})" for r in s.get("includes") or []]
+    return "; ".join(parts)
 
 
 def load_export(path: Path) -> list[dict]:

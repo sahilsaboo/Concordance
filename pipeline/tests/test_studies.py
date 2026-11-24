@@ -47,6 +47,19 @@ def test_audit_flags_same_trial_not_lookalike_titles():
     assert pairs == {("st_001", "st_002"), ("st_003", "st_005")}
 
 
+def test_link_syntheses_writes_both_directions_and_replaces():
+    rows = [{"id": "st_001"}, {"id": "st_002"}, {"id": "st_090", "includes": [{"id": "st_002", "basis": "likely"}]}]
+    rows[1]["included_in"] = [{"id": "st_090", "basis": "likely"}]  # stale link from an earlier run
+    log = studies.link_syntheses(rows, [{"synthesis_id": "st_090", "links": [
+        {"primary_id": "st_001", "basis": "confirmed"}, {"primary_id": "st_404", "basis": "confirmed"},
+        {"primary_id": "st_002", "basis": "maybe"}]}])
+    assert rows[2]["includes"] == [{"id": "st_001", "basis": "confirmed"}]
+    assert rows[0]["included_in"] == [{"id": "st_090", "basis": "confirmed"}]
+    assert "included_in" not in rows[1]
+    assert len(log) == 2
+    assert studies._overlap_summary(rows[0]) == "pooled in st_090 (confirmed)"
+
+
 def test_sync_changes_only_editable_fields(tmp_data):
     studies.build(tmp_data)
     edit = {"id": "st_001", "source_bias_score": 0.3, "title": "tampered", "review": {"status": "edited"}}

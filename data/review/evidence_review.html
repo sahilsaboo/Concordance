@@ -122,6 +122,10 @@ tr.row.on td { background: var(--sel); }
 .why dl { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 4px 10px; margin: 0; font-size: 13px; }
 .why .rationale { font-size: 13px; margin: 0; padding-top: 6px; border-top: 1px dashed var(--line); }
 .flag { color: var(--warn); font-size: 12px; }
+.ovl { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.golink { border: 0; background: none; padding: 0; color: var(--primary); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; font-size: 13px; }
+.ov-confirmed, .ov-likely { font: 500 10px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; margin-left: 3px; }
+.ov-confirmed { color: var(--ok); } .ov-likely { color: var(--warn); }
 .rob { display: flex; flex-wrap: wrap; gap: 4px; }
 .rob span { font: 11px var(--font-mono); padding: 2px 6px; border-radius: 4px; background: var(--track); }
 .rob .low { color: var(--ok); } .rob .some { color: var(--warn); } .rob .high { color: var(--bad); }
@@ -328,8 +332,25 @@ function citation(s) {
     <dt>Result</dt><dd>${esc(s.key_result || "–")}</dd>
     <dt>Safety</dt><dd>${esc(s.safety_notes || "–")}</dd>
     ${s.notes ? `<dt>Notes</dt><dd>${esc(s.notes)}</dd>` : ""}
+    ${overlaps(s)}
     <dt>Verified</dt><dd>${s.verified ? "Yes, against PubMed or the journal" : '<span class="unv">No, check before approving</span>'}</dd>
   </dl>`;
+}
+
+// Records that share participants with this one. Scoring counts one per outcome.
+function overlaps(s) {
+  const link = (r) => {
+    const o = byId[r.id || r];
+    const tag = r.basis ? ` <span class="ov-${esc(r.basis)}">${esc(r.basis)}</span>` : "";
+    return `<button type="button" class="golink" data-goto="${esc(r.id || r)}">${esc(o ? label(o) : r.id || r)}</button>${tag}`;
+  };
+  const rows = [];
+  if ((s.same_trial_as || []).length) rows.push(["Same trial as", s.same_trial_as]);
+  if ((s.included_in || []).length) rows.push(["Pooled in", s.included_in]);
+  if ((s.includes || []).length) rows.push(["Pools", s.includes]);
+  if (!rows.length) return "";
+  return rows.map(([t, list]) => `<dt>${t}</dt><dd class="ovl">${list.map(link).join("")}</dd>`).join("") +
+    `<dt></dt><dd class="sub">These share participants. Count only one per outcome when scoring.</dd>`;
 }
 
 /* ---------- editable fields (shared by panel and queue) ---------- */
@@ -549,6 +570,14 @@ function route() {
   else { $("tabQueue").removeAttribute("aria-current"); $("tabBrowse").setAttribute("aria-current", "page"); }
 }
 window.addEventListener("hashchange", route);
+// Overlap links open the linked study in the All studies view.
+document.addEventListener("click", (e) => {
+  const g = e.target.closest(".golink");
+  if (!g || !byId[g.dataset.goto]) return;
+  if (location.hash === "#queue") location.hash = "#browse";
+  select(g.dataset.goto);
+  $("panel").scrollIntoView({ block: "nearest" });
+});
 document.addEventListener("keydown", (e) => {
   if ($("viewQueue").hidden || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.target.closest("input, textarea, select")) return;
