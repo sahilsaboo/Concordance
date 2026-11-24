@@ -14,3 +14,6 @@ __pycache__/
 
 # Private docs
 SahilSaboo_ProjectBrief.pdf
+
+# Vercel CLI project link
+.vercel
