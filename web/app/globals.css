@@ -29,6 +29,8 @@
   --notice-bg: var(--blanket);
   --notice-line: var(--oak);
   --notice-text: color-mix(in oklab, var(--autumn-fern) 80%, black);
+  --error: #9b2c1c; /* warmer red than fern so errors don't read as buttons; 7.2:1 on cream */
+  --focus: var(--autumn-fern);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -50,6 +52,8 @@
     --notice-bg: color-mix(in oklab, var(--kimber) 82%, var(--oak));
     --notice-line: var(--oak);
     --notice-text: var(--blanket);
+    --error: #f0a48f;
+    --focus: var(--blanket);
   }
 }
 
@@ -69,12 +73,165 @@
   --color-notice-bg: var(--notice-bg);
   --color-notice-line: var(--notice-line);
   --color-notice-text: var(--notice-text);
+  --color-error: var(--error);
+  --color-blanket: var(--blanket);
+  --color-oak: var(--oak);
+  --color-moss: var(--khaki-moss);
+  --color-mushroom: var(--mushroom);
+  --color-focus: var(--focus);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-cormorant);
+  /* Cormorant's default old-style "1" reads as "I" (e.g. "GLP-1"); use lining figures. */
+  --font-display--font-feature-settings: "lnum" 1;
+}
+
+/*
+ * Typography (matches the reference):
+ *  - font-display: thin serif for headings and big numbers
+ *  - label-caps:   wide, letter-spaced uppercase sans for labels, eyebrows, buttons
+ *  - body copy stays in Geist for readability at small sizes
+ */
+@utility label-caps {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+html {
+  /* Respect the user's browser font size; body copy is 16px by default (HHS Health Literacy Online). */
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* One visible keyboard focus style everywhere (WCAG 2.4.7). Mouse clicks don't show it. */
+:where(a, button, summary, input, [tabindex]):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 50;
+  padding: 0.75rem 1rem;
+  background: var(--primary);
+  color: var(--on-primary);
+  border-radius: 0.5rem;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.nav-link:hover {
+  color: var(--accent-text);
+  text-decoration-thickness: 2px;
+}
+
+/* Long-form text pages (methodology, privacy). */
+.prose-page h2 {
+  margin-top: 2.5rem;
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.prose-page p,
+.prose-page ul {
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+.prose-page ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-page li + li {
+  margin-top: 0.5rem;
+}
+.prose-page a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  :root {
+    --background: #ffffff;
+    --surface: #ffffff;
+    --foreground: #000000;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+}
+
+/* Buttons: 48px tall (above the 44px touch-target norm), never disabled; validate on submit instead. */
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0 1.5rem;
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-stretch: 125%;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms, color 150ms;
+}
+.btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+.btn-secondary {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--foreground);
+}
+.btn-secondary:hover {
+  border-color: var(--primary);
+}
+.btn-ghost {
+  padding: 0 0.75rem;
+  color: var(--muted);
+}
+.btn-ghost:hover {
+  color: var(--foreground);
 }
