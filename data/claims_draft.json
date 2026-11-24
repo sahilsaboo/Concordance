@@ -1,6 +1,6 @@
 {
   "meta": {
-    "note": "Claims extracted from reviewed studies in glp1_studies_draft.json. Every number is checked against the quoted PubMed abstract by `concordance_pipeline.build_matrix verify`. Weight loss v1 scope: placebo-controlled trials in adults with obesity and without type 2 diabetes, at the highest approved obesity dose.",
+    "note": "Claims extracted from reviewed studies in glp1_studies_draft.json. Every number is checked against the quoted PubMed abstract by `concordance_pipeline.build_matrix verify`. Weight loss v1 scope: placebo-controlled trials in adults with obesity and without type 2 diabetes, at the highest approved obesity dose. Stomach side effects (v1): FDA label adverse-reaction tables at the highest approved obesity dose; value = average excess incidence of nausea, diarrhea and vomiting vs placebo, checked against the DailyMed label XML.",
     "extracted_at": "2026-11-24"
   },
   "claims": [
@@ -157,6 +157,275 @@
         "reviewer": null,
         "notes": "Approved in Claude session 2026-11-24."
       }
+    },
+    {
+      "id": "c_0101",
+      "option": "semaglutide_injection",
+      "dimension": "gi_tolerability",
+      "source_id": "lbl_wegovy",
+      "statement": "FDA label (Table 3, adults with obesity or overweight): on Wegovy 2.4 mg injection, nausea 44% vs 16% on placebo, diarrhea 30% vs 16%, vomiting 24% vs 6%. On average 20.0 percentage points more often than placebo.",
+      "effect": {
+        "metric": "gi_excess_pp_vs_placebo",
+        "value": 20.0,
+        "timepoint_weeks": null
+      },
+      "derivation": {
+        "kind": "label_rows",
+        "table": "Table 3",
+        "placebo_col": "Placebo N=1,261 %",
+        "drug_col": "WEGOVY Injection (2.4 mg Once Weekly) N=2,116 %",
+        "rows": {
+          "Nausea": [
+            16,
+            44
+          ],
+          "Diarrhea": [
+            16,
+            30
+          ],
+          "Vomiting": [
+            6,
+            24
+          ]
+        }
+      },
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled placebo-controlled weight-reduction trials, N=3,377.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including the proposed label ratings."
+      }
+    },
+    {
+      "id": "c_0102",
+      "option": "semaglutide_oral",
+      "dimension": "gi_tolerability",
+      "source_id": "lbl_wegovy",
+      "statement": "FDA label: for Wegovy 25 mg tablets, the label gives no separate table and says common side effects were similar in type and frequency to the injection (Table 3: on average 20.0 percentage points more nausea, diarrhea and vomiting than placebo).",
+      "effect": {
+        "metric": "gi_excess_pp_vs_placebo",
+        "value": 20.0,
+        "timepoint_weeks": null
+      },
+      "derivation": {
+        "kind": "label_rows",
+        "table": "Table 3",
+        "placebo_col": "Placebo N=1,261 %",
+        "drug_col": "WEGOVY Injection (2.4 mg Once Weekly) N=2,116 %",
+        "rows": {
+          "Nausea": [
+            16,
+            44
+          ],
+          "Diarrhea": [
+            16,
+            30
+          ],
+          "Vomiting": [
+            6,
+            24
+          ]
+        }
+      },
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.4,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Indirect: the label states the tablet's rates were similar to the injection's but shows no tablet numbers.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including the proposed label ratings."
+      },
+      "quotes": [
+        "In the clinical trial with WEGOVY 25 mg tablets, the types and frequency of common adverse reactions were similar to those listed in Table 3."
+      ]
+    },
+    {
+      "id": "c_0103",
+      "option": "tirzepatide_injection",
+      "dimension": "gi_tolerability",
+      "source_id": "lbl_zepbound",
+      "statement": "FDA label (Table 1, adults with obesity or overweight, Studies 1 and 2): on Zepbound 15 mg, nausea 28% vs 8% on placebo, diarrhea 23% vs 8%, vomiting 13% vs 2%. On average 15.3 percentage points more often than placebo.",
+      "effect": {
+        "metric": "gi_excess_pp_vs_placebo",
+        "value": 15.3,
+        "timepoint_weeks": null
+      },
+      "derivation": {
+        "kind": "label_rows",
+        "table": "Table 1",
+        "placebo_col": "Placebo(N=958)%",
+        "drug_col": "ZEPBOUND15 mg(N=941)%",
+        "rows": {
+          "Nausea": [
+            8,
+            28
+          ],
+          "Diarrhea": [
+            8,
+            23
+          ],
+          "Vomiting": [
+            2,
+            13
+          ]
+        }
+      },
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Two placebo-controlled weight trials; 15 mg arm N=941.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including the proposed label ratings."
+      }
+    },
+    {
+      "id": "c_0104",
+      "option": "liraglutide_injection",
+      "dimension": "gi_tolerability",
+      "source_id": "lbl_saxenda",
+      "statement": "FDA label (adults with obesity or overweight, pooled trials): on Saxenda 3.0 mg, nausea 39.3% vs 13.8% on placebo, diarrhea 20.9% vs 9.9%, vomiting 15.7% vs 3.9%. On average 16.1 percentage points more often than placebo.",
+      "effect": {
+        "metric": "gi_excess_pp_vs_placebo",
+        "value": 16.1,
+        "timepoint_weeks": null
+      },
+      "derivation": {
+        "kind": "label_rows",
+        "table": "adult adverse reactions table",
+        "placebo_col": "Placebo N=1941 %",
+        "drug_col": "SAXENDA N=3384 %",
+        "rows": {
+          "Nausea": [
+            13.8,
+            39.3
+          ],
+          "Diarrhea": [
+            9.9,
+            20.9
+          ],
+          "Vomiting": [
+            3.9,
+            15.7
+          ]
+        }
+      },
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled placebo-controlled weight-management trials, N=5,325.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including the proposed label ratings."
+      }
+    },
+    {
+      "id": "c_0105",
+      "option": "orforglipron_oral",
+      "dimension": "gi_tolerability",
+      "source_id": "lbl_foundayo",
+      "statement": "FDA label (Table 1, adults with obesity or overweight with or without type 2 diabetes): on Foundayo 17.2 mg, nausea 35% vs 10% on placebo, diarrhea 25% vs 11%, vomiting 24% vs 4%. On average 19.7 percentage points more often than placebo.",
+      "effect": {
+        "metric": "gi_excess_pp_vs_placebo",
+        "value": 19.7,
+        "timepoint_weeks": null
+      },
+      "derivation": {
+        "kind": "label_rows",
+        "table": "Table 1",
+        "placebo_col": "Placebo (N=1,576) %",
+        "drug_col": "FOUNDAYO 17.2 mg once daily (N=1,049) %",
+        "rows": {
+          "Nausea": [
+            10,
+            35
+          ],
+          "Diarrhea": [
+            11,
+            25
+          ],
+          "Vomiting": [
+            4,
+            24
+          ]
+        }
+      },
+      "ratings": {
+        "bias": 0.5,
+        "thoroughness": 0.75,
+        "rationale": "FDA-approved label summarizing the manufacturer's placebo-controlled trials. Data are sponsor-generated but FDA-reviewed and reported in a standard format. Pooled placebo-controlled trials 1 and 2, including patients with type 2 diabetes. Whether the other labels' pooled tables include diabetes trials was not checked.",
+        "rater": "human",
+        "rubric_version": "0.1"
+      },
+      "review": {
+        "status": "approved",
+        "reviewer": null,
+        "notes": "Approved in Claude session 2026-11-24, including the proposed label ratings."
+      }
+    }
+  ],
+  "label_sources": [
+    {
+      "id": "lbl_wegovy",
+      "setid": "ee06186f-2aa3-4990-a760-757579d8f77b",
+      "spl_version": 19,
+      "published": "2026-06-30",
+      "year": 2026,
+      "title": "WEGOVY (semaglutide) injection and tablets: US prescribing information",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ee06186f-2aa3-4990-a760-757579d8f77b",
+      "type": "label",
+      "funding": "mixed"
+    },
+    {
+      "id": "lbl_zepbound",
+      "setid": "487cd7e7-434c-4925-99fa-aa80b1cc776b",
+      "spl_version": 42,
+      "published": "2026-11-23",
+      "year": 2026,
+      "title": "ZEPBOUND (tirzepatide) injection: US prescribing information",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=487cd7e7-434c-4925-99fa-aa80b1cc776b",
+      "type": "label",
+      "funding": "mixed"
+    },
+    {
+      "id": "lbl_saxenda",
+      "setid": "3946d389-0926-4f77-a708-0acb8153b143",
+      "spl_version": 22,
+      "published": "2026-06-15",
+      "year": 2026,
+      "title": "SAXENDA (liraglutide) injection: US prescribing information",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3946d389-0926-4f77-a708-0acb8153b143",
+      "type": "label",
+      "funding": "mixed"
+    },
+    {
+      "id": "lbl_foundayo",
+      "setid": "8ac446c5-feba-474f-a103-23facb9b5c62",
+      "spl_version": 10,
+      "published": "2026-08-13",
+      "year": 2026,
+      "title": "FOUNDAYO (orforglipron) tablets: US prescribing information",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8ac446c5-feba-474f-a103-23facb9b5c62",
+      "type": "label",
+      "funding": "mixed"
     }
   ]
 }

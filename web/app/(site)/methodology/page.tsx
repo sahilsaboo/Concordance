@@ -82,8 +82,11 @@ export default function MethodologyPage() {
             </li>
             <li>
               <strong>Effect scale:</strong> each claim&apos;s result is put on a fixed 0 to 100 scale. For weight loss, 0
-              means no more weight lost than with placebo and 100 means 20 or more percentage points more. The scale is
-              fixed, so an option&apos;s score doesn&apos;t change just because another option is added.
+              means no more weight lost than with placebo and 100 means 20 or more percentage points more. For stomach
+              side effects, we average how much more often nausea, diarrhea, and vomiting happened than with placebo,
+              using the FDA label at the highest approved dose: 100 means no more often, 0 means 30 or more percentage
+              points more often. The scales are fixed, so an option&apos;s score doesn&apos;t change just because another
+              option is added.
             </li>
             <li>
               <strong>Score for each priority (0 to 100):</strong> the weighted average of the claims for that option.

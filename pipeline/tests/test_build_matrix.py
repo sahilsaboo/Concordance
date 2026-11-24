@@ -65,3 +65,57 @@ def test_weight_scale_is_fixed_and_clamped():
 def test_real_claims_draft_derivations_are_consistent():
     doc = json.loads((DATA / "claims_draft.json").read_text())
     assert [e for c in doc["claims"] for e in bm.check_derivation(c)] == []
+
+
+LABEL = """<document xmlns="urn:hl7-org:v3"><component><section><text>
+In the trial with tablets, frequency was similar to those listed in Table 3.
+<table><thead><tr><th></th><th>Placebo (N=10) %</th><th>DRUG 15 mg (N=12) %</th></tr></thead>
+<tbody><tr><td>Nausea</td><td>8</td><td>28</td></tr><tr><td>Diarrheaa</td><td>8</td><td>23</td></tr>
+<tr><td>Vomiting</td><td>2</td><td>13</td></tr></tbody></table></text></section></component></document>"""
+
+
+def label_claim(**over):
+    c = {"id": "c_9", "source_id": "lbl_x", "effect": {"metric": "gi_excess_pp_vs_placebo", "value": 15.3},
+         "derivation": {"kind": "label_rows", "table": "Table 1", "placebo_col": "Placebo(N=10)%",
+                        "drug_col": "DRUG 15 mg (N=12) %", "rows": {"Nausea": [8, 28], "Diarrhea": [8, 23], "Vomiting": [2, 13]}}}
+    c.update(over)
+    return c
+
+
+def run_label(c):
+    return bm.verify([c], {"lbl_x": {"setid": "s"}}, fetch_lbl=lambda setid: LABEL)
+
+
+def test_label_rows_match_cells_headers_and_footnote_markers():
+    assert run_label(label_claim()) == []
+
+
+def test_label_rows_catch_wrong_cell_wrong_column_and_bad_mean():
+    wrong_cell = label_claim(derivation={**label_claim()["derivation"], "rows": {"Nausea": [8, 29], "Diarrhea": [8, 23], "Vomiting": [2, 13]}},
+                             effect={"metric": "gi_excess_pp_vs_placebo", "value": 15.7})
+    assert any("Nausea" in e for e in run_label(wrong_cell))
+    assert any("no label table" in e for e in run_label(label_claim(derivation={**label_claim()["derivation"], "drug_col": "DRUG 10 mg"})))
+    assert any("does not match" in e for e in run_label(label_claim(effect={"metric": "gi_excess_pp_vs_placebo", "value": 16.0})))
+
+
+def test_label_quote_must_be_in_label_text():
+    assert run_label(label_claim(quotes=["frequency was similar to those listed in Table 3."])) == []
+    assert run_label(label_claim(quotes=["rates were identical"]))
+
+
+def test_gi_scale_is_fixed_and_inverted():
+    f = bm.SCALES["gi_excess_pp_vs_placebo"]
+    assert (f(0), f(15), f(30), f(40)) == (1, 0.5, 0, 0)
+
+
+def test_label_claims_use_their_own_ratings_and_label_source():
+    sample = json.loads((DATA / "sample_matrix.json").read_text())
+    doc = {"label_sources": [{"id": "lbl_x", "setid": "s", "title": "X label", "url": "https://dailymed.nlm.nih.gov/x",
+                              "type": "label", "year": 2026, "funding": "mixed"}],
+           "claims": [{**label_claim(), "option": "tirzepatide_injection", "dimension": "gi_tolerability", "statement": "s",
+                       "ratings": {"bias": 0.5, "thoroughness": 0.75, "rationale": "r", "rater": "llm", "rubric_version": "0.1"},
+                       "review": {"status": "approved"}}]}
+    m, _ = bm.build(doc, [], sample)
+    c = m["claims"][0]
+    assert c["ratings"]["thoroughness"] == 0.75 and c["source_id"] == "lbl_x"
+    assert c["effect"]["normalized"] == pytest.approx(1 - 15.3 / 30)

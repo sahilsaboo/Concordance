@@ -53,7 +53,7 @@ Option list (US approval status as of 2026-11-24):
 
 | Option | Brands | Approved for | Notes |
 |---|---|---|---|
-| semaglutide, injection | Wegovy, Ozempic | Obesity (Wegovy), T2D (Ozempic) | 7.2 mg dose and MASH indication: status not yet verified |
+| semaglutide, injection | Wegovy, Ozempic | Obesity (Wegovy), T2D (Ozempic) | Wegovy label (DailyMed, Jun 2026) includes the 7.2 mg dose and a MASH indication |
 | semaglutide, oral | Wegovy pill, Rybelsus | Obesity (Wegovy pill, approved 2025-12-22), T2D (Rybelsus) | Wegovy pill is 25 mg; launched Jan 2026 |
 | tirzepatide, injection | Zepbound, Mounjaro | Obesity (Zepbound), T2D (Mounjaro) | |
 | liraglutide, injection | Saxenda, Victoza, generics | Obesity (Saxenda), T2D (Victoza) | Generic Victoza (2024) and generic Saxenda (2025-08-28) from Teva |
@@ -123,7 +123,7 @@ Based on established frameworks so the ratings rest on accepted standards, not o
 For option *d*, dimension *k*:
 
 - Claim weight: `w_i = bias_i × thoroughness_i`
-- Dimension score: `S(d,k) = Σ w_i · e_i / Σ w_i`, where `e_i` is the effect normalized to 0–1 on a fixed scale per metric (weight loss: 0 to 20+ percentage points vs placebo), not min-max across options, so scores stay stable as evidence is added
+- Dimension score: `S(d,k) = Σ w_i · e_i / Σ w_i`, where `e_i` is the effect normalized to 0–1 on a fixed scale per metric (weight loss: 0 to 20+ percentage points vs placebo; stomach side effects: average excess nausea, diarrhea and vomiting vs placebo from FDA labels, 0 to 30+ points, inverted), not min-max across options, so scores stay stable as evidence is added
   - **Weighted mean, not sum**, so more studies do not mean a higher score
 - Evidence confidence: `C(d,k) = f(Σ w_i)`, shown to the user **separately** and never mixed into the score
 - Missing evidence: neutral score (0.5) with an "insufficient evidence" flag. Dropping the dimension and renormalizing would reward drugs with less data.
@@ -154,7 +154,7 @@ Milestones 1 and 2 can run in parallel because the JSON contract separates them.
 
 ## 9. Open decisions
 
-- Drug list: approvals checked 2026-11-24 (section 3). Still open: confirm Wegovy pill and Foundayo from FDA labels, verify semaglutide 7.2 mg and MASH status, recheck CagriSema, and decide whether T2D-only drugs (dulaglutide) belong once the treatment-goal question exists
+- Drug list: approvals checked 2026-11-24 (section 3). Wegovy pill, Foundayo, semaglutide 7.2 mg and MASH now confirmed from DailyMed labels. Still open: recheck CagriSema, and decide whether T2D-only drugs (dulaglutide) belong once the treatment-goal question exists
 - Sprint length / deadline
 - LLM API budget (estimate once claim volume is known)
 - Price sources and how often they refresh
