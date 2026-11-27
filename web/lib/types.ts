@@ -74,6 +74,14 @@ export interface Gap {
   source_ids: string[];
 }
 
+/** Something to know about an option that isn't a score, e.g. it's being discontinued. */
+export interface Notice {
+  option: string;
+  text: string;
+  source_ids: string[];
+  as_of: string;
+}
+
 export interface ClaimMatrix {
   meta: Meta;
   dimensions: Dimension[];
@@ -82,4 +90,5 @@ export interface ClaimMatrix {
   claims: Claim[];
   facts: Fact[];
   gaps?: Gap[];
+  notices?: Notice[];
 }

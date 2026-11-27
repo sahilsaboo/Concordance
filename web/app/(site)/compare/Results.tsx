@@ -261,6 +261,7 @@ function OptionCard(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel
             {optionName(r.option)}
           </h3>
           <div className="mt-1 text-muted">Sold as {r.option.brands.join(", ")}</div>
+          <OptionNotices optionId={r.option.id} matrix={matrix} />
         </div>
         <div className="shrink-0 text-right">
           <div className="font-display text-5xl leading-none font-light lining-nums tabular-nums">
@@ -286,6 +287,35 @@ function OptionCard(props: { result: RankedOption; matrix: ClaimMatrix; dimLabel
 
       <Evidence result={r} matrix={matrix} dimLabel={dimLabel} />
     </li>
+  );
+}
+
+/** Warnings about an option that aren't scores, such as being discontinued, with their source. */
+function OptionNotices({ optionId, matrix }: { optionId: string; matrix: ClaimMatrix }) {
+  const notices = (matrix.notices ?? []).filter((n) => n.option === optionId);
+  if (!notices.length) return null;
+  return (
+    <>
+      {notices.map((n) => {
+        const src = matrix.sources.find((s) => s.id === n.source_ids[0]);
+        return (
+          <div
+            key={n.text}
+            role="note"
+            className="mt-3 rounded-lg border border-notice-line bg-notice-bg p-3 text-sm leading-relaxed text-notice-text"
+          >
+            {n.text}{" "}
+            {src && (
+              <a href={src.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+                {src.title}
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            )}{" "}
+            (as of {n.as_of})
+          </div>
+        );
+      })}
+    </>
   );
 }
 

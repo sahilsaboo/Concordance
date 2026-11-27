@@ -101,6 +101,14 @@ class Gap(BaseModel):
     source_ids: list[str] = []
 
 
+class Notice(BaseModel):
+    """Something a person should know about an option that isn't a score, e.g. it's being discontinued."""
+    option: str
+    text: str
+    source_ids: list[str]
+    as_of: str
+
+
 class ClaimMatrix(BaseModel):
     meta: Meta
     dimensions: list[Dimension]
@@ -109,6 +117,7 @@ class ClaimMatrix(BaseModel):
     claims: list[Claim]
     facts: list[Fact]
     gaps: list[Gap] = []
+    notices: list[Notice] = []
 
     @model_validator(mode="after")
     def check_references(self) -> "ClaimMatrix":
@@ -128,4 +137,9 @@ class ClaimMatrix(BaseModel):
                 raise ValueError(f"gap {g.option}/{g.dimension}: unknown option or dimension")
             if missing := [s for s in g.source_ids if s not in source_ids]:
                 raise ValueError(f"gap {g.option}/{g.dimension}: unknown sources {missing}")
+        for n in self.notices:
+            if n.option not in option_ids:
+                raise ValueError(f"notice: unknown option {n.option!r}")
+            if missing := [s for s in n.source_ids if s not in source_ids]:
+                raise ValueError(f"notice {n.option}: unknown sources {missing}")
         return self

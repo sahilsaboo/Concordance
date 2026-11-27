@@ -248,9 +248,40 @@ def cost_score(monthly_usd: float) -> float:
     return round(max(0.0, min(1.0, 1 - monthly_usd / 1500)), 4)
 
 
-def verify_facts(facts_doc: dict, label_sources: dict[str, dict], fetch_lbl=fetch_label, fetch_pg=fetch_page) -> list[str]:
-    """Every quote must appear in its label or price page, and each price must appear in its own quotes."""
+SHORTAGE_CACHE = CACHE.parent / "openfda"
+
+
+def fetch_shortages(ingredient: str) -> list[dict]:
+    """FDA drug shortage records for an ingredient, from the openFDA API (cached)."""
+    SHORTAGE_CACHE.mkdir(parents=True, exist_ok=True)
+    path = SHORTAGE_CACHE / f"{ingredient}.json"
+    if not path.exists():
+        url = f"https://api.fda.gov/drug/shortages.json?search=generic_name:{ingredient}&limit=100"
+        with urllib.request.urlopen(url, timeout=30) as r:
+            path.write_bytes(r.read())
+    return json.loads(path.read_text()).get("results", [])
+
+
+def check_notice(n: dict, records: list[dict]) -> list[str]:
+    """Each package the notice names must carry the stated status in FDA's shortage records."""
+    errs = []
+    for chk in n["checks"]:
+        statuses = {r.get("status") for r in records if f"(NDC {chk['ndc']})" in r.get("presentation", "")}
+        if chk["status"] not in statuses:
+            errs.append(f"{n['id']}: NDC {chk['ndc']} is {sorted(statuses) or 'not listed'}, not {chk['status']!r}")
+    return errs
+
+
+def verify_facts(facts_doc: dict, label_sources: dict[str, dict], fetch_lbl=fetch_label, fetch_pg=fetch_page,
+                 fetch_short=fetch_shortages) -> list[str]:
+    """Every quote must appear in its label or price page, each price must appear in its own quotes,
+    and every notice's FDA status checks must hold."""
     errs, srcs = [], {s["id"]: s for s in facts_doc["sources"]}
+    for n in facts_doc.get("notices", []):
+        try:
+            errs += check_notice(n, fetch_short(srcs[n["source_id"]]["ingredient"]))
+        except Exception as e:
+            errs.append(f"{n['id']}: could not fetch FDA shortage data: {e}")
     for f in facts_doc["facts"]:
         s = srcs[f["source_id"]]
         try:
@@ -287,6 +318,21 @@ def _evidence_note(claims: list[dict], sources: dict[str, dict]) -> str:
         return "No priority uses reviewed evidence yet."
     ordered = sorted(kinds.items(), key=lambda kv: kv[0] != "reviewed trials")
     return " ".join(f"Scores for {' and '.join(sorted(dims))} come from {kind}." for kind, dims in ordered)
+
+
+def notices_from(facts_doc: dict | None) -> tuple[list[dict], dict[str, dict]]:
+    """Approved option notices (e.g. being discontinued) in matrix shape, plus their sources."""
+    if not facts_doc:
+        return [], {}
+    srcs = {s["id"]: s for s in facts_doc["sources"]}
+    out, sources = [], {}
+    for n in facts_doc.get("notices", []):
+        if (n.get("review") or {}).get("status") not in USABLE:
+            continue
+        s = srcs[n["source_id"]]
+        sources[s["id"]] = {k: s[k] for k in ("id", "title", "url", "type", "year", "funding")}
+        out.append({"option": n["option"], "text": n["text"], "source_ids": [s["id"]], "as_of": n["as_of"]})
+    return out, sources
 
 
 def real_facts(facts_doc: dict | None, label_sources: dict[str, dict]) -> tuple[list[dict], dict[str, dict]]:
@@ -351,6 +397,8 @@ def build(claims_doc: dict, studies: list[dict], sample: dict, facts_doc: dict |
     # Approved real facts first; sample placeholders only for an option and priority with no approved fact.
     facts, fact_sources = real_facts(facts_doc, labels)
     sources.update(fact_sources)
+    notices, notice_sources = notices_from(facts_doc)
+    sources.update(notice_sources)
     covered = {(f["option"], f["dimension"]) for f in facts}
     placeholders = [f for f in sample["facts"] if (f["option"], f["dimension"]) not in covered]
     facts += placeholders
@@ -365,7 +413,7 @@ def build(claims_doc: dict, studies: list[dict], sample: dict, facts_doc: dict |
                      "Don't use these results to make health decisions.") if placeholders else None,
         },
         "dimensions": sample["dimensions"], "options": sample["options"],
-        "sources": list(sources.values()), "claims": claims, "facts": facts, "gaps": gaps,
+        "sources": list(sources.values()), "claims": claims, "facts": facts, "gaps": gaps, "notices": notices,
     }
     ClaimMatrix.model_validate(matrix)  # raises on a broken reference or out-of-range score
     return matrix, log
@@ -383,7 +431,9 @@ if __name__ == "__main__":
     if cmd == "verify":
         errs = verify(claims_doc["claims"], labels) + (verify_facts(facts_doc, labels) if facts_doc else [])
         n_facts = len(facts_doc["facts"]) if facts_doc else 0
-        print("\n".join(errs) or f"all {len(claims_doc['claims'])} claims and {n_facts} facts verified at their sources")
+        n_notices = len(facts_doc.get("notices", [])) if facts_doc else 0
+        print("\n".join(errs) or f"all {len(claims_doc['claims'])} claims, {n_facts} facts and {n_notices} notices "
+                                 "verified at their sources")
         sys.exit(1 if errs else 0)
     errs = [e for c in claims_doc["claims"] for e in check_derivation(c)]
     if errs:

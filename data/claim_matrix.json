@@ -2,7 +2,7 @@
   "meta": {
     "schema_version": "0.1",
     "rubric_version": "0.1",
-    "generated_at": "2026-11-24",
+    "generated_at": "2026-11-26",
     "is_sample": false,
     "note": null
   },
@@ -305,6 +305,14 @@
       "type": "price",
       "year": 2026,
       "funding": "manufacturer"
+    },
+    {
+      "id": "fda_shortage_liraglutide",
+      "title": "FDA Drug Shortages: liraglutide injection",
+      "url": "https://www.accessdata.fda.gov/scripts/drugshortages/dsp_ActiveIngredientDetails.cfm?AI=Liraglutide%20Injection&st=c",
+      "type": "other",
+      "year": 2026,
+      "funding": "regulator"
     }
   ],
   "claims": [
@@ -1261,6 +1269,16 @@
       "source_ids": [
         "st_070"
       ]
+    }
+  ],
+  "notices": [
+    {
+      "option": "liraglutide_injection",
+      "text": "Being discontinued: FDA lists brand Saxenda and the only generic weight-loss version (Teva's 3 mg pen) as \"To Be Discontinued.\" Other generic liraglutide pens are for diabetes and go up to 1.8 mg. Check with your pharmacy before choosing this option.",
+      "source_ids": [
+        "fda_shortage_liraglutide"
+      ],
+      "as_of": "2026-11-26"
     }
   ]
 }

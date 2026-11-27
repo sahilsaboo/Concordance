@@ -231,3 +231,31 @@ def test_schema_rejects_gap_with_unknown_source():
     bad = {**sample, "gaps": [{"option": "tirzepatide_injection", "dimension": "cardiovascular", "reason": "r", "source_ids": ["nope"]}]}
     with pytest.raises(ValidationError, match="unknown sources"):
         ClaimMatrix.model_validate(bad)
+
+
+SHORT = [{"presentation": "Saxenda, Injection, 6 mg/1 mL (NDC 0169-2800-15)", "status": "To Be Discontinued"},
+         {"presentation": "Saxenda, Injection, 6 mg/1 mL (NDC 0169-2800-15)", "status": "Current"},
+         {"presentation": "Liraglutide, Injection, 6 mg/1 mL (NDC 0143-9144-03)", "status": "Current"}]
+
+
+def test_notice_checks_fda_status_per_package():
+    n = {"id": "n_1", "checks": [{"ndc": "0169-2800-15", "status": "To Be Discontinued"}]}
+    assert bm.check_notice(n, SHORT) == []
+    wrong = {"id": "n_1", "checks": [{"ndc": "0143-9144-03", "status": "To Be Discontinued"}]}
+    assert any("not 'To Be Discontinued'" in e for e in bm.check_notice(wrong, SHORT))
+    missing = {"id": "n_1", "checks": [{"ndc": "9999-9999-99", "status": "To Be Discontinued"}]}
+    assert any("not listed" in e for e in bm.check_notice(missing, SHORT))
+
+
+def test_approved_notices_reach_the_matrix_with_their_source():
+    sample = json.loads((DATA / "sample_matrix.json").read_text())
+    doc = {"sources": [{"id": "fda", "kind": "openfda_shortage", "ingredient": "liraglutide", "title": "FDA",
+                        "url": "https://www.accessdata.fda.gov/x", "type": "other", "year": 2026, "funding": "regulator"}],
+           "facts": [],
+           "notices": [{"id": "n_1", "option": "liraglutide_injection", "source_id": "fda", "as_of": "2026-11-26",
+                        "text": "Being discontinued.", "checks": [], "review": {"status": "approved"}},
+                       {"id": "n_2", "option": "liraglutide_injection", "source_id": "fda", "as_of": "2026-11-26",
+                        "text": "Draft.", "checks": [], "review": {"status": "pending"}}]}
+    m, _ = bm.build({"claims": []}, [], sample, doc)
+    assert [n["text"] for n in m["notices"]] == ["Being discontinued."]
+    assert any(s["id"] == "fda" and s["funding"] == "regulator" for s in m["sources"])

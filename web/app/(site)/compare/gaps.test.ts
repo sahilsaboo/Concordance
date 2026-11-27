@@ -24,3 +24,12 @@ describe("documented gaps", () => {
     expect(gapFor(m, "semaglutide_injection", "cardiovascular")).toBeUndefined();
   });
 });
+
+describe("notices", () => {
+  it("warns that liraglutide's weight-loss pens are being discontinued, citing FDA", () => {
+    const n = m.notices?.filter((x) => x.option === "liraglutide_injection") ?? [];
+    expect(n).toHaveLength(1);
+    expect(n[0].text).toMatch(/^Being discontinued/);
+    expect(m.sources.find((s) => s.id === n[0].source_ids[0])?.funding).toBe("regulator");
+  });
+});

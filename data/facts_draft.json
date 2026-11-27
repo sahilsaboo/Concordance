@@ -60,6 +60,16 @@
       "type": "price",
       "year": 2026,
       "funding": "manufacturer"
+    },
+    {
+      "id": "fda_shortage_liraglutide",
+      "kind": "openfda_shortage",
+      "ingredient": "liraglutide",
+      "title": "FDA Drug Shortages: liraglutide injection",
+      "url": "https://www.accessdata.fda.gov/scripts/drugshortages/dsp_ActiveIngredientDetails.cfm?AI=Liraglutide%20Injection&st=c",
+      "type": "other",
+      "year": 2026,
+      "funding": "regulator"
     }
   ],
   "facts": [
@@ -236,7 +246,7 @@
       "quotes": [
         "3 mg 5-Pen Package (5x3mL) WAC Price $1,349.02"
       ],
-      "price_note": "Brand Saxenda list price; 5 pens is 30 days at 3 mg. Novo has no Saxenda self-pay program. Generic liraglutide may cost less, but its price and availability could not be verified.",
+      "price_note": "Brand Saxenda list price; 5 pens is 30 days at 3 mg. Novo has no Saxenda self-pay program. The only generic 3 mg pen (Teva) is listed by FDA as To Be Discontinued, so no generic price is used.",
       "review": {
         "status": "approved",
         "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
@@ -258,6 +268,29 @@
       "review": {
         "status": "approved",
         "notes": "Approved in Claude session 2026-11-24, including the convenience and cost rules."
+      }
+    }
+  ],
+  "notices": [
+    {
+      "id": "n_0001",
+      "option": "liraglutide_injection",
+      "source_id": "fda_shortage_liraglutide",
+      "as_of": "2026-11-26",
+      "text": "Being discontinued: FDA lists brand Saxenda and the only generic weight-loss version (Teva's 3 mg pen) as \"To Be Discontinued.\" Other generic liraglutide pens are for diabetes and go up to 1.8 mg. Check with your pharmacy before choosing this option.",
+      "checks": [
+        {
+          "ndc": "0169-2800-15",
+          "status": "To Be Discontinued"
+        },
+        {
+          "ndc": "0480-7250-46",
+          "status": "To Be Discontinued"
+        }
+      ],
+      "review": {
+        "status": "approved",
+        "notes": "Approved in Claude session 2026-11-26 (keep brand price, add warning)."
       }
     }
   ]
